@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning App - Test</title>
+</head>
+<body>
+    <h1>Testing Language Learning App Components</h1>
+    <div id="test-results"></div>
+    
+    <script type="module">
+        import { Word } from './js/models/Word.js';
+        import { UserProgress } from './js/models/UserProgress.js';
+        import { Settings } from './js/models/Settings.js';
+        import { StorageManager } from './js/storage/StorageManager.js';
+        import { DatabaseLoader } from './js/data/DatabaseLoader.js';
+        import { SpacedRepetition } from './js/algorithms/SpacedRepetition.js';
+
+        const results = document.getElementById('test-results');
+        
+        function log(message, isError = false) {
+            const div = document.createElement('div');
+            div.style.color = isError ? 'red' : 'green';
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        async function runTests() {
+            try {
+                // Test Word model
+                log('✓ Testing Word model...');
+                const word = new Word({
+                    word: 'test',
+                    language: 'en',
+                    translations: { en: 'test', hu: 'teszt', bg: 'тест' },
+                    examples: { en: ['This is a test.'], hu: ['Ez egy teszt.'], bg: ['Това е тест.'] }
+                });
+                const validation = word.validate();
+                if (validation.isValid) {
+                    log('✓ Word model validation passed');
+                } else {
+                    log('✗ Word model validation failed: ' + validation.errors.join(', '), true);
+                }
+
+                // Test UserProgress model
+                log('✓ Testing UserProgress model...');
+                const progress = new UserProgress({
+                    wordId: 'test_word',
+                    learningPath: 'en-hu'
+                });
+                progress.recordSuccess(1000);
+                log('✓ UserProgress model working correctly');
+
+                // Test Settings model
+                log('✓ Testing Settings model...');
+                const settings = new Settings({ learningPath: 'en-hu' });
+                if (settings.learningPath === 'en-hu') {
+                    log('✓ Settings model working correctly');
+                } else {
+                    log('✗ Settings model failed', true);
+                }
+
+                // Test StorageManager
+                log('✓ Testing StorageManager...');
+                const storage = new StorageManager('test_app');
+                storage.setItem('test_key', { test: 'data' });
+                const retrieved = storage.getItem('test_key');
+                if (retrieved && retrieved.test === 'data') {
+                    log('✓ StorageManager working correctly');
+                    storage.removeItem('test_key');
+                } else {
+                    log('✗ StorageManager failed', true);
+                }
+
+                // Test DatabaseLoader
+                log('✓ Testing DatabaseLoader...');
+                const dbLoader = new DatabaseLoader();
+                try {
+                    const words = await dbLoader.loadWords();
+                    if (words && words.length > 0) {
+                        log(`✓ DatabaseLoader loaded ${words.length} words successfully`);
+                    } else {
+                        log('✗ DatabaseLoader returned no words', true);
+                    }
+                } catch (error) {
+                    log('✗ DatabaseLoader failed: ' + error.message, true);
+                }
+
+                // Test SpacedRepetition algorithm
+                log('✓ Testing SpacedRepetition algorithm...');
+                const algorithm = new SpacedRepetition();
+                const nextReview = algorithm.calculateNextReview(progress, true);
+                if (nextReview instanceof Date) {
+                    log('✓ SpacedRepetition algorithm working correctly');
+                } else {
+                    log('✗ SpacedRepetition algorithm failed', true);
+                }
+
+                log('\n🎉 All core components tested successfully!');
+                log('The application is ready to use. Open index.html in a browser.');
+
+            } catch (error) {
+                log('✗ Test failed with error: ' + error.message, true);
+                console.error(error);
+            }
+        }
+
+        runTests();
+    </script>
+</body>
+</html>

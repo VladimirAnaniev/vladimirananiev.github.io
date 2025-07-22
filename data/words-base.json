@@ -1,0 +1,802 @@
+[
+  {
+    "id": "word_001",
+    "word": "hello",
+    "language": "en",
+    "frequencyRank": 1,
+    "translations": {
+      "en": "hello",
+      "hu": "szia",
+      "bg": "здравей"
+    },
+    "examples": {
+      "en": ["Hello, how are you?", "She said hello to everyone."],
+      "hu": ["Szia, hogy vagy?", "Sziát mondott mindenkinek."],
+      "bg": ["Здравей, как си?", "Тя каза здравей на всички."]
+    }
+  },
+  {
+    "id": "word_002",
+    "word": "goodbye",
+    "language": "en",
+    "frequencyRank": 2,
+    "translations": {
+      "en": "goodbye",
+      "hu": "viszlát",
+      "bg": "довиждане"
+    },
+    "examples": {
+      "en": ["Goodbye, see you tomorrow.", "They waved goodbye."],
+      "hu": ["Viszlát, holnap találkozunk.", "Búcsúzóul integettek."],
+      "bg": ["Довиждане, до утре.", "Те помахаха за довиждане."]
+    }
+  },
+  {
+    "id": "word_003",
+    "word": "yes",
+    "language": "en",
+    "frequencyRank": 3,
+    "translations": {
+      "en": "yes",
+      "hu": "igen",
+      "bg": "да"
+    },
+    "examples": {
+      "en": ["Yes, I agree.", "Yes, that's correct."],
+      "hu": ["Igen, egyetértek.", "Igen, ez helyes."],
+      "bg": ["Да, съгласен съм.", "Да, това е правилно."]
+    }
+  },
+  {
+    "id": "word_004",
+    "word": "no",
+    "language": "en",
+    "frequencyRank": 4,
+    "translations": {
+      "en": "no",
+      "hu": "nem",
+      "bg": "не"
+    },
+    "examples": {
+      "en": ["No, I don't think so.", "No, thank you."],
+      "hu": ["Nem, nem hiszem.", "Nem, köszönöm."],
+      "bg": ["Не, не мисля.", "Не, благодаря."]
+    }
+  },
+  {
+    "id": "word_005",
+    "word": "thank",
+    "language": "en",
+    "frequencyRank": 5,
+    "translations": {
+      "en": "thank",
+      "hu": "köszön",
+      "bg": "благодаря"
+    },
+    "examples": {
+      "en": ["Thank you very much.", "I want to thank you."],
+      "hu": ["Nagyon köszönöm.", "Köszönetet szeretnék mondani."],
+      "bg": ["Много ви благодаря.", "Искам да ви благодаря."]
+    }
+  },
+  {
+    "id": "word_006",
+    "word": "please",
+    "language": "en",
+    "frequencyRank": 6,
+    "translations": {
+      "en": "please",
+      "hu": "kérem",
+      "bg": "моля"
+    },
+    "examples": {
+      "en": ["Please help me.", "Could you please wait?"],
+      "hu": ["Kérem, segítsen.", "Tudna várni, kérem?"],
+      "bg": ["Моля, помогнете ми.", "Можете ли да изчакате, моля?"]
+    }
+  },
+  {
+    "id": "word_007",
+    "word": "sorry",
+    "language": "en",
+    "frequencyRank": 7,
+    "translations": {
+      "en": "sorry",
+      "hu": "sajnálom",
+      "bg": "съжалявам"
+    },
+    "examples": {
+      "en": ["I'm sorry for being late.", "Sorry, I didn't understand."],
+      "hu": ["Sajnálom, hogy késtem.", "Sajnálom, nem értettem."],
+      "bg": ["Съжалявам, че закъснях.", "Съжалявам, не разбрах."]
+    }
+  },
+  {
+    "id": "word_008",
+    "word": "excuse",
+    "language": "en",
+    "frequencyRank": 8,
+    "translations": {
+      "en": "excuse",
+      "hu": "elnézést",
+      "bg": "извинете"
+    },
+    "examples": {
+      "en": ["Excuse me, where is the bathroom?", "Excuse the interruption."],
+      "hu": ["Elnézést, hol a fürdőszoba?", "Elnézést a zavarásért."],
+      "bg": ["Извинете, къде е тоалетната?", "Извинете за прекъсването."]
+    }
+  },
+  {
+    "id": "word_009",
+    "word": "water",
+    "language": "en",
+    "frequencyRank": 9,
+    "translations": {
+      "en": "water",
+      "hu": "víz",
+      "bg": "вода"
+    },
+    "examples": {
+      "en": ["I need a glass of water.", "The water is very cold."],
+      "hu": ["Egy pohár vizet kérek.", "A víz nagyon hideg."],
+      "bg": ["Трябва ми чаша вода.", "Водата е много студена."]
+    }
+  },
+  {
+    "id": "word_010",
+    "word": "food",
+    "language": "en",
+    "frequencyRank": 10,
+    "translations": {
+      "en": "food",
+      "hu": "étel",
+      "bg": "храна"
+    },
+    "examples": {
+      "en": ["The food is delicious.", "We need to buy food."],
+      "hu": ["Az étel finom.", "Ételt kell vásárolnunk."],
+      "bg": ["Храната е вкусна.", "Трябва да купим храна."]
+    }
+  },
+  {
+    "id": "word_011",
+    "word": "house",
+    "language": "en",
+    "frequencyRank": 11,
+    "translations": {
+      "en": "house",
+      "hu": "ház",
+      "bg": "къща"
+    },
+    "examples": {
+      "en": ["This is my house.", "The house is very big."],
+      "hu": ["Ez az én házam.", "A ház nagyon nagy."],
+      "bg": ["Това е моята къща.", "Къщата е много голяма."]
+    }
+  },
+  {
+    "id": "word_012",
+    "word": "car",
+    "language": "en",
+    "frequencyRank": 12,
+    "translations": {
+      "en": "car",
+      "hu": "autó",
+      "bg": "кола"
+    },
+    "examples": {
+      "en": ["My car is red.", "The car is fast."],
+      "hu": ["Az autóm piros.", "Az autó gyors."],
+      "bg": ["Колата ми е червена.", "Колата е бърза."]
+    }
+  },
+  {
+    "id": "word_013",
+    "word": "time",
+    "language": "en",
+    "frequencyRank": 13,
+    "translations": {
+      "en": "time",
+      "hu": "idő",
+      "bg": "време"
+    },
+    "examples": {
+      "en": ["What time is it?", "We don't have much time."],
+      "hu": ["Hány óra van?", "Nincs sok időnk."],
+      "bg": ["Колко е часът?", "Нямаме много време."]
+    }
+  },
+  {
+    "id": "word_014",
+    "word": "day",
+    "language": "en",
+    "frequencyRank": 14,
+    "translations": {
+      "en": "day",
+      "hu": "nap",
+      "bg": "ден"
+    },
+    "examples": {
+      "en": ["Have a nice day!", "It's a beautiful day."],
+      "hu": ["Szép napot!", "Gyönyörű nap van."],
+      "bg": ["Приятен ден!", "Днес е красив ден."]
+    }
+  },
+  {
+    "id": "word_015",
+    "word": "night",
+    "language": "en",
+    "frequencyRank": 15,
+    "translations": {
+      "en": "night",
+      "hu": "éjszaka",
+      "bg": "нощ"
+    },
+    "examples": {
+      "en": ["Good night!", "The night is dark."],
+      "hu": ["Jó éjszakát!", "Az éjszaka sötét."],
+      "bg": ["Лека нощ!", "Нощта е тъмна."]
+    }
+  },
+  {
+    "id": "word_016",
+    "word": "morning",
+    "language": "en",
+    "frequencyRank": 16,
+    "translations": {
+      "en": "morning",
+      "hu": "reggel",
+      "bg": "сутрин"
+    },
+    "examples": {
+      "en": ["Good morning!", "I wake up in the morning."],
+      "hu": ["Jó reggelt!", "Reggel kelek fel."],
+      "bg": ["Добро утро!", "Ставам сутрин."]
+    }
+  },
+  {
+    "id": "word_017",
+    "word": "afternoon",
+    "language": "en",
+    "frequencyRank": 17,
+    "translations": {
+      "en": "afternoon",
+      "hu": "délután",
+      "bg": "следобед"
+    },
+    "examples": {
+      "en": ["Good afternoon!", "I work in the afternoon."],
+      "hu": ["Jó napot!", "Délután dolgozom."],
+      "bg": ["Добър ден!", "Работя следобед."]
+    }
+  },
+  {
+    "id": "word_018",
+    "word": "evening",
+    "language": "en",
+    "frequencyRank": 18,
+    "translations": {
+      "en": "evening",
+      "hu": "este",
+      "bg": "вечер"
+    },
+    "examples": {
+      "en": ["Good evening!", "We meet in the evening."],
+      "hu": ["Jó estét!", "Este találkozunk."],
+      "bg": ["Добър вечер!", "Срещаме се вечер."]
+    }
+  },
+  {
+    "id": "word_019",
+    "word": "man",
+    "language": "en",
+    "frequencyRank": 19,
+    "translations": {
+      "en": "man",
+      "hu": "férfi",
+      "bg": "мъж"
+    },
+    "examples": {
+      "en": ["The man is tall.", "That man is my father."],
+      "hu": ["A férfi magas.", "Az a férfi az apám."],
+      "bg": ["Мъжът е висок.", "Този мъж е моят баща."]
+    }
+  },
+  {
+    "id": "word_020",
+    "word": "woman",
+    "language": "en",
+    "frequencyRank": 20,
+    "translations": {
+      "en": "woman",
+      "hu": "nő",
+      "bg": "жена"
+    },
+    "examples": {
+      "en": ["The woman is beautiful.", "That woman is my mother."],
+      "hu": ["A nő szép.", "Az a nő az anyám."],
+      "bg": ["Жената е красива.", "Тази жена е моята майка."]
+    }
+  },
+  {
+    "id": "word_021",
+    "word": "child",
+    "language": "en",
+    "frequencyRank": 21,
+    "translations": {
+      "en": "child",
+      "hu": "gyerek",
+      "bg": "дете"
+    },
+    "examples": {
+      "en": ["The child is playing.", "Every child needs love."],
+      "hu": ["A gyerek játszik.", "Minden gyereknek szüksége van szeretetre."],
+      "bg": ["Детето си играе.", "Всяко дете се нуждае от любов."]
+    }
+  },
+  {
+    "id": "word_022",
+    "word": "mother",
+    "language": "en",
+    "frequencyRank": 22,
+    "translations": {
+      "en": "mother",
+      "hu": "anya",
+      "bg": "майка"
+    },
+    "examples": {
+      "en": ["My mother is kind.", "Mother cooks dinner."],
+      "hu": ["Az anyám kedves.", "Anya főzi a vacsorát."],
+      "bg": ["Майка ми е добра.", "Майката готви вечеря."]
+    }
+  },
+  {
+    "id": "word_023",
+    "word": "father",
+    "language": "en",
+    "frequencyRank": 23,
+    "translations": {
+      "en": "father",
+      "hu": "apa",
+      "bg": "баща"
+    },
+    "examples": {
+      "en": ["My father works hard.", "Father reads the newspaper."],
+      "hu": ["Az apám keményen dolgozik.", "Apa újságot olvas."],
+      "bg": ["Баща ми работи усилено.", "Бащата чете вестника."]
+    }
+  },
+  {
+    "id": "word_024",
+    "word": "family",
+    "language": "en",
+    "frequencyRank": 24,
+    "translations": {
+      "en": "family",
+      "hu": "család",
+      "bg": "семейство"
+    },
+    "examples": {
+      "en": ["I love my family.", "Family is important."],
+      "hu": ["Szeretem a családomat.", "A család fontos."],
+      "bg": ["Обичам семейството си.", "Семейството е важно."]
+    }
+  },
+  {
+    "id": "word_025",
+    "word": "friend",
+    "language": "en",
+    "frequencyRank": 25,
+    "translations": {
+      "en": "friend",
+      "hu": "barát",
+      "bg": "приятел"
+    },
+    "examples": {
+      "en": ["He is my best friend.", "Friends help each other."],
+      "hu": ["Ő a legjobb barátom.", "A barátok segítenek egymásnak."],
+      "bg": ["Той е най-добрият ми приятел.", "Приятелите си помагат."]
+    }
+  },
+  {
+    "id": "word_026",
+    "word": "love",
+    "language": "en",
+    "frequencyRank": 26,
+    "translations": {
+      "en": "love",
+      "hu": "szerelem",
+      "bg": "обич"
+    },
+    "examples": {
+      "en": ["I love you.", "Love is beautiful."],
+      "hu": ["Szeretlek.", "A szerelem gyönyörű."],
+      "bg": ["Обичам те.", "Любовта е красива."]
+    }
+  },
+  {
+    "id": "word_027",
+    "word": "happy",
+    "language": "en",
+    "frequencyRank": 27,
+    "translations": {
+      "en": "happy",
+      "hu": "boldog",
+      "bg": "щастлив"
+    },
+    "examples": {
+      "en": ["I am happy.", "She looks happy."],
+      "hu": ["Boldog vagyok.", "Boldognak tűnik."],
+      "bg": ["Аз съм щастлив.", "Тя изглежда щастлива."]
+    }
+  },
+  {
+    "id": "word_028",
+    "word": "sad",
+    "language": "en",
+    "frequencyRank": 28,
+    "translations": {
+      "en": "sad",
+      "hu": "szomorú",
+      "bg": "тъжен"
+    },
+    "examples": {
+      "en": ["I am sad.", "Don't be sad."],
+      "hu": ["Szomorú vagyok.", "Ne légy szomorú."],
+      "bg": ["Аз съм тъжен.", "Не бъди тъжен."]
+    }
+  },
+  {
+    "id": "word_029",
+    "word": "good",
+    "language": "en",
+    "frequencyRank": 29,
+    "translations": {
+      "en": "good",
+      "hu": "jó",
+      "bg": "добър"
+    },
+    "examples": {
+      "en": ["This is good.", "You are a good person."],
+      "hu": ["Ez jó.", "Jó ember vagy."],
+      "bg": ["Това е добро.", "Ти си добър човек."]
+    }
+  },
+  {
+    "id": "word_030",
+    "word": "bad",
+    "language": "en",
+    "frequencyRank": 30,
+    "translations": {
+      "en": "bad",
+      "hu": "rossz",
+      "bg": "лош"
+    },
+    "examples": {
+      "en": ["This is bad.", "Bad weather today."],
+      "hu": ["Ez rossz.", "Rossz idő van ma."],
+      "bg": ["Това е лошо.", "Днес е лошо време."]
+    }
+  },
+  {
+    "id": "word_031",
+    "word": "big",
+    "language": "en",
+    "frequencyRank": 31,
+    "translations": {
+      "en": "big",
+      "hu": "nagy",
+      "bg": "голям"
+    },
+    "examples": {
+      "en": ["The house is big.", "I have a big problem."],
+      "hu": ["A ház nagy.", "Nagy problémám van."],
+      "bg": ["Къщата е голяма.", "Имам голям проблем."]
+    }
+  },
+  {
+    "id": "word_032",
+    "word": "small",
+    "language": "en",
+    "frequencyRank": 32,
+    "translations": {
+      "en": "small",
+      "hu": "kicsi",
+      "bg": "малък"
+    },
+    "examples": {
+      "en": ["The cat is small.", "I have a small request."],
+      "hu": ["A macska kicsi.", "Van egy kis kérésem."],
+      "bg": ["Котката е малка.", "Имам малка молба."]
+    }
+  },
+  {
+    "id": "word_033",
+    "word": "hot",
+    "language": "en",
+    "frequencyRank": 33,
+    "translations": {
+      "en": "hot",
+      "hu": "forró",
+      "bg": "горещ"
+    },
+    "examples": {
+      "en": ["The coffee is hot.", "It's very hot today."],
+      "hu": ["A kávé forró.", "Nagyon meleg van ma."],
+      "bg": ["Кафето е горещо.", "Днес е много горещо."]
+    }
+  },
+  {
+    "id": "word_034",
+    "word": "cold",
+    "language": "en",
+    "frequencyRank": 34,
+    "translations": {
+      "en": "cold",
+      "hu": "hideg",
+      "bg": "студен"
+    },
+    "examples": {
+      "en": ["The water is cold.", "I'm feeling cold."],
+      "hu": ["A víz hideg.", "Fázom."],
+      "bg": ["Водата е студена.", "Студено ми е."]
+    }
+  },
+  {
+    "id": "word_035",
+    "word": "new",
+    "language": "en",
+    "frequencyRank": 35,
+    "translations": {
+      "en": "new",
+      "hu": "új",
+      "bg": "нов"
+    },
+    "examples": {
+      "en": ["I have a new car.", "This is new information."],
+      "hu": ["Van egy új autóm.", "Ez új információ."],
+      "bg": ["Имам нова кола.", "Това е нова информация."]
+    }
+  },
+  {
+    "id": "word_036",
+    "word": "old",
+    "language": "en",
+    "frequencyRank": 36,
+    "translations": {
+      "en": "old",
+      "hu": "öreg",
+      "bg": "стар"
+    },
+    "examples": {
+      "en": ["My grandfather is old.", "This is an old book."],
+      "hu": ["A nagyapám öreg.", "Ez egy régi könyv."],
+      "bg": ["Дядо ми е стар.", "Това е стара книга."]
+    }
+  },
+  {
+    "id": "word_037",
+    "word": "young",
+    "language": "en",
+    "frequencyRank": 37,
+    "translations": {
+      "en": "young",
+      "hu": "fiatal",
+      "bg": "млад"
+    },
+    "examples": {
+      "en": ["She is very young.", "Young people are energetic."],
+      "hu": ["Nagyon fiatal.", "A fiatalok energikusak."],
+      "bg": ["Тя е много млада.", "Младите хора са енергични."]
+    }
+  },
+  {
+    "id": "word_038",
+    "word": "fast",
+    "language": "en",
+    "frequencyRank": 38,
+    "translations": {
+      "en": "fast",
+      "hu": "gyors",
+      "bg": "бърз"
+    },
+    "examples": {
+      "en": ["The car is fast.", "Please speak more slowly, not so fast."],
+      "hu": ["Az autó gyors.", "Kérem, beszéljen lassabban, ne ilyen gyorsan."],
+      "bg": ["Колата е бърза.", "Моля, говорете по-бавно, не толкова бързо."]
+    }
+  },
+  {
+    "id": "word_039",
+    "word": "slow",
+    "language": "en",
+    "frequencyRank": 39,
+    "translations": {
+      "en": "slow",
+      "hu": "lassú",
+      "bg": "бавен"
+    },
+    "examples": {
+      "en": ["The turtle is slow.", "Traffic is very slow today."],
+      "hu": ["A teknős lassú.", "A forgalom nagyon lassú ma."],
+      "bg": ["Костенурката е бавна.", "Движението е много бавно днес."]
+    }
+  },
+  {
+    "id": "word_040",
+    "word": "eat",
+    "language": "en",
+    "frequencyRank": 40,
+    "translations": {
+      "en": "eat",
+      "hu": "eszik",
+      "bg": "ям"
+    },
+    "examples": {
+      "en": ["I eat breakfast every morning.", "Let's eat together."],
+      "hu": ["Minden reggel reggelizem.", "Együnk együtt."],
+      "bg": ["Закусвам всяка сутрин.", "Да ядем заедно."]
+    }
+  },
+  {
+    "id": "word_041",
+    "word": "drink",
+    "language": "en",
+    "frequencyRank": 41,
+    "translations": {
+      "en": "drink",
+      "hu": "iszik",
+      "bg": "пия"
+    },
+    "examples": {
+      "en": ["I drink coffee every day.", "Would you like something to drink?"],
+      "hu": ["Minden nap iszom kávét.", "Szeretnél valamit inni?"],
+      "bg": ["Пия кафе всеки ден.", "Искаш ли нещо за пиене?"]
+    }
+  },
+  {
+    "id": "word_042",
+    "word": "sleep",
+    "language": "en",
+    "frequencyRank": 42,
+    "translations": {
+      "en": "sleep",
+      "hu": "alszik",
+      "bg": "спя"
+    },
+    "examples": {
+      "en": ["I sleep eight hours every night.", "The baby is sleeping."],
+      "hu": ["Minden éjjel nyolc órát alszom.", "A baba alszik."],
+      "bg": ["Спя осем часа всяка нощ.", "Бебето спи."]
+    }
+  },
+  {
+    "id": "word_043",
+    "word": "work",
+    "language": "en",
+    "frequencyRank": 43,
+    "translations": {
+      "en": "work",
+      "hu": "dolgozik",
+      "bg": "работя"
+    },
+    "examples": {
+      "en": ["I work in an office.", "Hard work pays off."],
+      "hu": ["Irodában dolgozom.", "A kemény munka megtérül."],
+      "bg": ["Работя в офис.", "Тежката работа си струва."]
+    }
+  },
+  {
+    "id": "word_044",
+    "word": "play",
+    "language": "en",
+    "frequencyRank": 44,
+    "translations": {
+      "en": "play",
+      "hu": "játszik",
+      "bg": "играя"
+    },
+    "examples": {
+      "en": ["Children love to play.", "Do you want to play football?"],
+      "hu": ["A gyerekek szeretnek játszani.", "Szeretnél focizni?"],
+      "bg": ["Децата обичат да си играят.", "Искаш ли да играем футбол?"]
+    }
+  },
+  {
+    "id": "word_045",
+    "word": "read",
+    "language": "en",
+    "frequencyRank": 45,
+    "translations": {
+      "en": "read",
+      "hu": "olvas",
+      "bg": "чета"
+    },
+    "examples": {
+      "en": ["I like to read books.", "Can you read this?"],
+      "hu": ["Szeretek könyveket olvasni.", "El tudod olvasni ezt?"],
+      "bg": ["Обичам да чета книги.", "Можеш ли да прочетеш това?"]
+    }
+  },
+  {
+    "id": "word_046",
+    "word": "write",
+    "language": "en",
+    "frequencyRank": 46,
+    "translations": {
+      "en": "write",
+      "hu": "ír",
+      "bg": "пиша"
+    },
+    "examples": {
+      "en": ["I write in my diary.", "Please write your name here."],
+      "hu": ["Írok a naplómba.", "Kérem, írja ide a nevét."],
+      "bg": ["Пиша в дневника си.", "Моля, напишете името си тук."]
+    }
+  },
+  {
+    "id": "word_047",
+    "word": "speak",
+    "language": "en",
+    "frequencyRank": 47,
+    "translations": {
+      "en": "speak",
+      "hu": "beszél",
+      "bg": "говоря"
+    },
+    "examples": {
+      "en": ["Do you speak English?", "Please speak slowly."],
+      "hu": ["Beszélsz angolul?", "Kérem, beszéljen lassan."],
+      "bg": ["Говориш ли английски?", "Моля, говорете бавно."]
+    }
+  },
+  {
+    "id": "word_048",
+    "word": "listen",
+    "language": "en",
+    "frequencyRank": 48,
+    "translations": {
+      "en": "listen",
+      "hu": "hallgat",
+      "bg": "слушам"
+    },
+    "examples": {
+      "en": ["I listen to music.", "Please listen carefully."],
+      "hu": ["Zenét hallgatok.", "Kérem, figyeljen figyelmesen."],
+      "bg": ["Слушам музика.", "Моля, слушайте внимателно."]
+    }
+  },
+  {
+    "id": "word_049",
+    "word": "see",
+    "language": "en",
+    "frequencyRank": 49,
+    "translations": {
+      "en": "see",
+      "hu": "lát",
+      "bg": "виждам"
+    },
+    "examples": {
+      "en": ["I can see the mountain.", "Do you see what I mean?"],
+      "hu": ["Látom a hegyet.", "Érted, mire gondolok?"],
+      "bg": ["Мога да видя планината.", "Разбираш ли какво имам предвид?"]
+    }
+  },
+  {
+    "id": "word_050",
+    "word": "look",
+    "language": "en",
+    "frequencyRank": 50,
+    "translations": {
+      "en": "look",
+      "hu": "néz",
+      "bg": "гледам"
+    },
+    "examples": {
+      "en": ["Look at this beautiful flower!", "Don't look back."],
+      "hu": ["Nézd ezt a gyönyörű virágot!", "Ne nézz vissza."],
+      "bg": ["Погледни това красиво цвете!", "Не се обръщай."]
+    }
+  }
+]

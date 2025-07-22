@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Language learning app with spaced repetition flashcards">
+    <title>Language Learning Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="min-h-screen hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-4xl mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-xl font-bold text-gray-900">Language Learning</h1>
+                    
+                    <!-- Navigation -->
+                    <nav class="flex items-center space-x-4">
+                        <div id="progress-indicator" class="hidden">
+                            <span class="text-sm text-gray-600">Progress: <span id="session-progress">0/50</span></span>
+                        </div>
+                        
+                        <button id="settings-btn" class="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100" aria-label="Settings">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome to Language Learning</h2>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Learn languages through spaced repetition flashcards. Practice 50 words daily and build your vocabulary effectively.
+                </p>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Select Learning Path</h3>
+                    <select id="language-selector" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Choose language pair...</option>
+                        <option value="en-hu">English → Hungarian</option>
+                        <option value="en-bg">English → Bulgarian</option>
+                        <option value="hu-en">Hungarian → English</option>
+                        <option value="hu-bg">Hungarian → Bulgarian</option>
+                    </select>
+                </div>
+
+                <button id="start-learning-btn" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Start Learning
+                </button>
+            </div>
+
+            <!-- Flashcard Session -->
+            <div id="flashcard-session" class="hidden">
+                <!-- Session Header -->
+                <div class="text-center mb-8">
+                    <div class="flex items-center justify-center space-x-4 mb-4">
+                        <div class="bg-blue-100 px-3 py-1 rounded-full text-sm text-blue-800" id="current-language-pair">
+                            English → Hungarian
+                        </div>
+                        <div id="couples-mode-indicator" class="bg-purple-100 px-3 py-1 rounded-full text-sm text-purple-800 hidden">
+                            Couples Mode
+                        </div>
+                    </div>
+                    
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                        <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    
+                    <p class="text-gray-600">
+                        <span id="cards-completed">0</span> of <span id="total-cards">50</span> cards completed
+                    </p>
+                </div>
+
+                <!-- Flashcard Container -->
+                <div id="flashcard-container" class="max-w-lg mx-auto">
+                    <div id="flashcard" class="bg-white rounded-xl shadow-lg p-8 text-center min-h-[300px] flex flex-col justify-center cursor-pointer transition-transform hover:scale-105">
+                        <div id="card-front">
+                            <div class="text-3xl font-bold text-gray-900 mb-4" id="word-text">
+                                Loading...
+                            </div>
+                            <div class="text-sm text-gray-600 mb-4" id="source-examples">
+                                <!-- Source language examples will appear here -->
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Click to flip card
+                            </div>
+                        </div>
+                        
+                        <div id="card-back" class="hidden">
+                            <div class="text-2xl font-semibold text-blue-600 mb-4" id="translation-text">
+                                Translation
+                            </div>
+                            <div id="couples-translations" class="space-y-2 mb-4 hidden">
+                                <div class="text-lg text-green-600" id="translation-1"></div>
+                                <div class="text-lg text-purple-600" id="translation-2"></div>
+                            </div>
+                            <div class="text-sm text-gray-600 mb-4" id="target-examples">
+                                <!-- Target language examples will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div id="action-buttons" class="flex justify-center space-x-4 mt-6 hidden">
+                        <button id="dont-know-btn" class="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
+                            Don't Know
+                        </button>
+                        <button id="know-btn" class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                            I Know It
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Session Complete -->
+            <div id="session-complete" class="hidden text-center">
+                <div class="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Session Complete!</h2>
+                    <p class="text-gray-600 mb-6">
+                        Great job! You've completed today's learning session.
+                    </p>
+                    <div id="session-stats" class="text-left space-y-2 mb-6">
+                        <div>Cards completed: <span class="font-semibold" id="stats-completed">50</span></div>
+                        <div>Success rate: <span class="font-semibold" id="stats-success-rate">85%</span></div>
+                        <div>Time spent: <span class="font-semibold" id="stats-time">12 minutes</span></div>
+                    </div>
+                    <button id="new-session-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Start New Session
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Panel -->
+        <div id="settings-panel" class="fixed inset-y-0 right-0 w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-40">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold">Settings</h3>
+                    <button id="close-settings-btn" class="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Language Pair</label>
+                        <select id="settings-language-selector" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="en-hu">English → Hungarian</option>
+                            <option value="en-bg">English → Bulgarian</option>
+                            <option value="hu-en">Hungarian → English</option>
+                            <option value="hu-bg">Hungarian → Bulgarian</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" id="couples-mode-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                            <span class="text-sm font-medium text-gray-700">Couples Mode</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mt-1">Show both Hungarian and Bulgarian translations</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Daily Cards</label>
+                        <input type="number" id="daily-cards-input" min="10" max="100" value="50" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div class="pt-4 border-t">
+                        <button id="export-data-btn" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors mb-2">
+                            Export Data
+                        </button>
+                        <button id="import-data-btn" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors">
+                            Import Data
+                        </button>
+                        <input type="file" id="import-file-input" accept=".json" class="hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Overlay -->
+        <div id="settings-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app/App.js"></script>
+</body>
+</html>
