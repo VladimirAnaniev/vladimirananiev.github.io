@@ -112,6 +112,21 @@ export class App {
             couplesModeToggle.checked = this.settings.couplesMode;
         }
         
+        // Update phonetics toggle
+        const phoneticsToggle = document.getElementById('show-phonetics-toggle');
+        if (phoneticsToggle) {
+            phoneticsToggle.checked = this.settings.display.showPhonetics;
+        }
+        
+        // Update transliterations toggle
+        const transliterationsToggle = document.getElementById('show-transliterations-toggle');
+        if (transliterationsToggle) {
+            transliterationsToggle.checked = this.settings.display.showTransliterations;
+        }
+        
+        // Apply CSS classes to body based on settings
+        this.applyDisplaySettings();
+        
         // Update daily cards count
         const dailyCardsInput = document.getElementById('daily-cards-input');
         if (dailyCardsInput) {
@@ -120,6 +135,27 @@ export class App {
         
         // Show/hide couples mode indicator
         this.updateCouplesModeDisplay();
+    }
+
+    /**
+     * Apply display settings as CSS classes to body
+     */
+    applyDisplaySettings() {
+        const body = document.body;
+        
+        // Apply phonetics visibility
+        if (this.settings.display.showPhonetics) {
+            body.classList.remove('hide-phonetics');
+        } else {
+            body.classList.add('hide-phonetics');
+        }
+        
+        // Apply transliterations visibility
+        if (this.settings.display.showTransliterations) {
+            body.classList.remove('hide-transliterations');
+        } else {
+            body.classList.add('hide-transliterations');
+        }
     }
 
     /**
@@ -271,6 +307,22 @@ export class App {
         if (couplesModeToggle) {
             couplesModeToggle.addEventListener('change', (e) => {
                 this.settings.setCouplesMode(e.target.checked);
+                this.saveSettings();
+            });
+        }
+        
+        const phoneticsToggle = document.getElementById('show-phonetics-toggle');
+        if (phoneticsToggle) {
+            phoneticsToggle.addEventListener('change', (e) => {
+                this.settings.setShowPhonetics(e.target.checked);
+                this.saveSettings();
+            });
+        }
+        
+        const transliterationsToggle = document.getElementById('show-transliterations-toggle');
+        if (transliterationsToggle) {
+            transliterationsToggle.addEventListener('change', (e) => {
+                this.settings.setShowTransliterations(e.target.checked);
                 this.saveSettings();
             });
         }
@@ -445,17 +497,24 @@ export class App {
         if (sourceExamples) {
             const sourceExamplesList = this.currentCard.word.getExamples(sourceLang);
             if (sourceExamplesList.length > 0) {
+                const sourceTransliterations = sourceLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg') : [];
                 sourceExamples.innerHTML = sourceExamplesList
-                    .map((example, index) => `
+                    .map((example, index) => {
+                        const transliteration = sourceTransliterations[index] || '';
+                        return `
                         <div class="flex items-center justify-between mb-2 group">
-                            <div class="italic text-gray-600 flex-1 pr-2">"${example}"</div>
+                            <div class="flex-1 pr-2">
+                                <div class="italic text-gray-600">"${example}"</div>
+                                ${transliteration ? `<div class="text-sm text-gray-500 mt-1 example-transliteration">${transliteration}</div>` : ''}
+                            </div>
                             <button class="example-speaker-btn ml-2 p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
                                     data-text="${example}" data-lang="${sourceLang}" title="Play example">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
                                 </svg>
                             </button>
-                        </div>`)
+                        </div>`;
+                    })
                     .join('');
                 sourceExamples.style.display = 'block';
             } else {
@@ -524,17 +583,24 @@ export class App {
         if (targetExamples) {
             const targetExamplesList = this.currentCard.word.getExamples(targetLang);
             if (targetExamplesList.length > 0) {
+                const targetTransliterations = targetLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg') : [];
                 targetExamples.innerHTML = targetExamplesList
-                    .map((example, index) => `
+                    .map((example, index) => {
+                        const transliteration = targetTransliterations[index] || '';
+                        return `
                         <div class="flex items-center justify-between mb-2 group">
-                            <div class="italic text-gray-600 flex-1 pr-2">"${example}"</div>
+                            <div class="flex-1 pr-2">
+                                <div class="italic text-gray-600">"${example}"</div>
+                                ${transliteration ? `<div class="text-sm text-gray-500 mt-1 example-transliteration">${transliteration}</div>` : ''}
+                            </div>
                             <button class="example-speaker-btn ml-2 p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
                                     data-text="${example}" data-lang="${targetLang}" title="Play example">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
                                 </svg>
                             </button>
-                        </div>`)
+                        </div>`;
+                    })
                     .join('');
                 targetExamples.style.display = 'block';
             } else {

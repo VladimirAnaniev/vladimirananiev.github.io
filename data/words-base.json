@@ -21,6 +21,9 @@
     },
     "transliteration": {
       "bg": "zdravey"
+    },
+    "exampleTransliterations": {
+      "bg": ["Zdravey, kak si?", "Tya kaza zdravey na vsichki."]
     }
   },
   {
@@ -45,6 +48,9 @@
     },
     "transliteration": {
       "bg": "dowiždane"
+    },
+    "exampleTransliterations": {
+      "bg": ["Dowiždane, do utre.", "Te pomahaha za dowiždane."]
     }
   },
   {
@@ -69,6 +75,9 @@
     },
     "transliteration": {
       "bg": "da"
+    },
+    "exampleTransliterations": {
+      "bg": ["Da, saglasen sam.", "Da, tova e pravilno."]
     }
   },
   {
@@ -93,6 +102,9 @@
     },
     "transliteration": {
       "bg": "ne"
+    },
+    "exampleTransliterations": {
+      "bg": ["Ne, ne mislya.", "Ne, blagodarya."]
     }
   },
   {
@@ -117,6 +129,9 @@
     },
     "transliteration": {
       "bg": "blagodarya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Mnogo vi blagodarya.", "Iskam da vi blagodarya."]
     }
   },
   {
@@ -141,6 +156,9 @@
     },
     "transliteration": {
       "bg": "molya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Molya, pomognete mi.", "Mozhete li da izchakate, molya?"]
     }
   },
   {
@@ -165,6 +183,9 @@
     },
     "transliteration": {
       "bg": "sǎžalyavam"
+    },
+    "exampleTransliterations": {
+      "bg": ["Sazhalyavam, che zakasnyah.", "Sazhalyavam, ne razbrah."]
     }
   },
   {
@@ -189,6 +210,9 @@
     },
     "transliteration": {
       "bg": "izvinete"
+    },
+    "exampleTransliterations": {
+      "bg": ["Izvinete, kade e toaletnata?", "Izvinete za prekasvaneto."]
     }
   },
   {
@@ -213,6 +237,9 @@
     },
     "transliteration": {
       "bg": "voda"
+    },
+    "exampleTransliterations": {
+      "bg": ["Tryabva mi chasha voda.", "Vodata e mnogo studena."]
     }
   },
   {
@@ -237,6 +264,9 @@
     },
     "transliteration": {
       "bg": "hrana"
+    },
+    "exampleTransliterations": {
+      "bg": ["Hranata e vkusna.", "Tryabva da kupim hrana."]
     }
   },
   {
@@ -261,6 +291,9 @@
     },
     "transliteration": {
       "bg": "kashta"
+    },
+    "exampleTransliterations": {
+      "bg": ["Tova e moyata kashta.", "Kashtata e mnogo golyama."]
     }
   },
   {
@@ -285,6 +318,9 @@
     },
     "transliteration": {
       "bg": "kola"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kolata mi e chervena.", "Kolata e barza."]
     }
   },
   {
@@ -309,6 +345,9 @@
     },
     "transliteration": {
       "bg": "vreme"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kolko e chasat?", "Nyamame mnogo vreme."]
     }
   },
   {
@@ -333,6 +372,9 @@
     },
     "transliteration": {
       "bg": "den"
+    },
+    "exampleTransliterations": {
+      "bg": ["Priyaten den!", "Dnes e krasiv den."]
     }
   },
   {
@@ -357,6 +399,9 @@
     },
     "transliteration": {
       "bg": "nosht"
+    },
+    "exampleTransliterations": {
+      "bg": ["Leka nosht!", "Noshtta e tamna."]
     }
   },
   {
@@ -381,6 +426,9 @@
     },
     "transliteration": {
       "bg": "sutrin"
+    },
+    "exampleTransliterations": {
+      "bg": ["Dobro utro!", "Stavam sutrin."]
     }
   },
   {
@@ -405,6 +453,9 @@
     },
     "transliteration": {
       "bg": "sledobed"
+    },
+    "exampleTransliterations": {
+      "bg": ["Dobar den!", "Rabotya sledobed."]
     }
   },
   {
@@ -429,6 +480,9 @@
     },
     "transliteration": {
       "bg": "vecher"
+    },
+    "exampleTransliterations": {
+      "bg": ["Dobar vecher!", "Sreshtame se vecher."]
     }
   },
   {
@@ -453,6 +507,9 @@
     },
     "transliteration": {
       "bg": "mazh"
+    },
+    "exampleTransliterations": {
+      "bg": ["Mazhat e visok.", "Tozi mazh e moyat bashta."]
     }
   },
   {
@@ -477,6 +534,9 @@
     },
     "transliteration": {
       "bg": "zhena"
+    },
+    "exampleTransliterations": {
+      "bg": ["Zhenata e krasiva.", "Tazi zhena e moyata mayka."]
     }
   },
   {
@@ -501,6 +561,9 @@
     },
     "transliteration": {
       "bg": "dete"
+    },
+    "exampleTransliterations": {
+      "bg": ["Deteto si igrae.", "Vsyako dete se nuzhdae ot lyubov."]
     }
   },
   {
@@ -525,6 +588,9 @@
     },
     "transliteration": {
       "bg": "mayka"
+    },
+    "exampleTransliterations": {
+      "bg": ["Mayka mi e dobra.", "Maykata gotvi vecherya."]
     }
   },
   {
@@ -549,6 +615,9 @@
     },
     "transliteration": {
       "bg": "bashta"
+    },
+    "exampleTransliterations": {
+      "bg": ["Bashta mi raboti usileno.", "Bashtata chete vestnika."]
     }
   },
   {
@@ -573,6 +642,9 @@
     },
     "transliteration": {
       "bg": "semeystvo"
+    },
+    "exampleTransliterations": {
+      "bg": ["Obicham semeystovovato si.", "Semeystvoto e vazhno."]
     }
   },
   {
@@ -597,6 +669,9 @@
     },
     "transliteration": {
       "bg": "priyatel"
+    },
+    "exampleTransliterations": {
+      "bg": ["Toy e nay-dobriyat mi priyatel.", "Priyatelite si pomagat."]
     }
   },
   {
@@ -621,6 +696,9 @@
     },
     "transliteration": {
       "bg": "obich"
+    },
+    "exampleTransliterations": {
+      "bg": ["Obicham te.", "Lyubovta e krasiva."]
     }
   },
   {
@@ -645,6 +723,9 @@
     },
     "transliteration": {
       "bg": "shtastliv"
+    },
+    "exampleTransliterations": {
+      "bg": ["Az sam shtastliv.", "Tya izglezha shtastliva."]
     }
   },
   {
@@ -669,6 +750,9 @@
     },
     "transliteration": {
       "bg": "tazhen"
+    },
+    "exampleTransliterations": {
+      "bg": ["Az sam tazhen.", "Ne badi tazhen."]
     }
   },
   {
@@ -693,6 +777,9 @@
     },
     "transliteration": {
       "bg": "dobar"
+    },
+    "exampleTransliterations": {
+      "bg": ["Tova e dobro.", "Ti si dobar chovek."]
     }
   },
   {
@@ -717,6 +804,9 @@
     },
     "transliteration": {
       "bg": "losh"
+    },
+    "exampleTransliterations": {
+      "bg": ["Tova e losho.", "Dnes e losho vreme."]
     }
   },
   {
@@ -741,6 +831,9 @@
     },
     "transliteration": {
       "bg": "golyam"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kashtata e golyama.", "Imam golyam problem."]
     }
   },
   {
@@ -765,6 +858,9 @@
     },
     "transliteration": {
       "bg": "malak"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kotkata e malka.", "Imam malka molba."]
     }
   },
   {
@@ -789,6 +885,9 @@
     },
     "transliteration": {
       "bg": "goresh"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kafeto e goreshto.", "Dnes e mnogo goreshto."]
     }
   },
   {
@@ -813,6 +912,9 @@
     },
     "transliteration": {
       "bg": "studen"
+    },
+    "exampleTransliterations": {
+      "bg": ["Vodata e studena.", "Studeno mi e."]
     }
   },
   {
@@ -837,6 +939,9 @@
     },
     "transliteration": {
       "bg": "nov"
+    },
+    "exampleTransliterations": {
+      "bg": ["Imam nova kola.", "Tova e nova informatsiya."]
     }
   },
   {
@@ -861,6 +966,9 @@
     },
     "transliteration": {
       "bg": "star"
+    },
+    "exampleTransliterations": {
+      "bg": ["Dyado mi e star.", "Tova e stara kniga."]
     }
   },
   {
@@ -885,6 +993,9 @@
     },
     "transliteration": {
       "bg": "mlad"
+    },
+    "exampleTransliterations": {
+      "bg": ["Tya e mnogo mlada.", "Mladite hora sa energichni."]
     }
   },
   {
@@ -909,6 +1020,9 @@
     },
     "transliteration": {
       "bg": "barz"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kolata e barza.", "Molya, govorete po-bavno, ne tolkova barzo."]
     }
   },
   {
@@ -933,6 +1047,9 @@
     },
     "transliteration": {
       "bg": "baven"
+    },
+    "exampleTransliterations": {
+      "bg": ["Kostenurkata e bavna.", "Dvizhenieto e mnogo bavno dnes."]
     }
   },
   {
@@ -957,6 +1074,9 @@
     },
     "transliteration": {
       "bg": "yam"
+    },
+    "exampleTransliterations": {
+      "bg": ["Zakusvam vsyaka sutrin.", "Da yadem zaedno."]
     }
   },
   {
@@ -981,6 +1101,9 @@
     },
     "transliteration": {
       "bg": "piya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Piya kafe vseki den.", "Iskash li neshto za piene?"]
     }
   },
   {
@@ -1005,6 +1128,9 @@
     },
     "transliteration": {
       "bg": "spya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Spya osem chasa vsyaka nosht.", "Bebeto spi."]
     }
   },
   {
@@ -1029,6 +1155,9 @@
     },
     "transliteration": {
       "bg": "rabotya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Rabotya v ofis.", "Tezhkata rabota si struva."]
     }
   },
   {
@@ -1053,6 +1182,9 @@
     },
     "transliteration": {
       "bg": "igraya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Detsata obichat da si igrayat.", "Iskash li da igraem futbol?"]
     }
   },
   {
@@ -1077,6 +1209,9 @@
     },
     "transliteration": {
       "bg": "cheta"
+    },
+    "exampleTransliterations": {
+      "bg": ["Obicham da cheta knigi.", "Mozhesh li da prochetesh tova?"]
     }
   },
   {
@@ -1101,6 +1236,9 @@
     },
     "transliteration": {
       "bg": "pisha"
+    },
+    "exampleTransliterations": {
+      "bg": ["Pisha v dnevnika si.", "Molya, napishete imeto si tuk."]
     }
   },
   {
@@ -1125,6 +1263,9 @@
     },
     "transliteration": {
       "bg": "govorya"
+    },
+    "exampleTransliterations": {
+      "bg": ["Govorish li angliyski?", "Molya, govorete bavno."]
     }
   },
   {
@@ -1149,6 +1290,9 @@
     },
     "transliteration": {
       "bg": "slusham"
+    },
+    "exampleTransliterations": {
+      "bg": ["Slusham muzika.", "Molya, slushayrate vnimatelno."]
     }
   },
   {
@@ -1173,6 +1317,9 @@
     },
     "transliteration": {
       "bg": "vizhdam"
+    },
+    "exampleTransliterations": {
+      "bg": ["Moga da vidya planinata.", "Razbirash li kakvo imam predvid?"]
     }
   },
   {
@@ -1197,6 +1344,9 @@
     },
     "transliteration": {
       "bg": "gledam"
+    },
+    "exampleTransliterations": {
+      "bg": ["Pogledniy tova krasivo tsvete!", "Ne se obrashty."]
     }
   }
 ]

@@ -195,6 +195,16 @@ input:focus {
     }
 }
 
+/* Phonetics and Transliteration Visibility Classes */
+.hide-phonetics .phonetics-text {
+    display: none !important;
+}
+
+.hide-transliterations .transliteration-text,
+.hide-transliterations .example-transliteration {
+    display: none !important;
+}
+
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
     :root {

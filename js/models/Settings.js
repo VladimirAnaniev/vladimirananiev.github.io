@@ -39,6 +39,8 @@ export class Settings {
             showProgress: true,
             autoAdvance: false,
             cardAnimationSpeed: 'normal', // slow, normal, fast
+            showPhonetics: true,
+            showTransliterations: true,
             ...data.display
         };
         
@@ -135,6 +137,24 @@ export class Settings {
      */
     setCouplesMode(enabled) {
         this.couplesMode = !!enabled;
+        this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Enable or disable phonetics display
+     * @param {boolean} enabled - Whether phonetics should be shown
+     */
+    setShowPhonetics(enabled) {
+        this.display.showPhonetics = !!enabled;
+        this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Enable or disable transliterations display
+     * @param {boolean} enabled - Whether transliterations should be shown
+     */
+    setShowTransliterations(enabled) {
+        this.display.showTransliterations = !!enabled;
         this.updatedAt = new Date().toISOString();
     }
 

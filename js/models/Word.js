@@ -38,6 +38,10 @@ export class Word {
             bg: '',
             ...data.transliteration
         };
+        this.exampleTransliterations = {
+            bg: [],
+            ...data.exampleTransliterations
+        };
         this.frequencyRank = data.frequencyRank || 0;
         this.createdAt = data.createdAt || new Date().toISOString();
         this.updatedAt = data.updatedAt || new Date().toISOString();
@@ -85,6 +89,15 @@ export class Word {
      */
     getTransliteration(language) {
         return this.transliteration[language] || '';
+    }
+
+    /**
+     * Get example transliterations for a specific language
+     * @param {string} language - Target language code
+     * @returns {string[]} Array of transliterated examples
+     */
+    getExampleTransliterations(language) {
+        return this.exampleTransliterations[language] || [];
     }
 
     /**
@@ -225,6 +238,7 @@ export class Word {
             examples: { ...this.examples },
             phonetics: { ...this.phonetics },
             transliteration: { ...this.transliteration },
+            exampleTransliterations: { ...this.exampleTransliterations },
             frequencyRank: this.frequencyRank,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt
