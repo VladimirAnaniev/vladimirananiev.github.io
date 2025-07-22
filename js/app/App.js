@@ -524,7 +524,7 @@ export class App {
         
         if (cardFront) cardFront.style.display = 'block';
         if (cardBack) cardBack.style.display = 'none';
-        if (actionButtons) actionButtons.style.display = 'none';
+        if (actionButtons) actionButtons.style.display = 'flex';
         
         // Setup back of card
         const phoneticsText = document.getElementById('phonetics-text');
@@ -632,7 +632,7 @@ export class App {
             // Show front
             if (cardFront) cardFront.style.display = 'block';
             if (cardBack) cardBack.style.display = 'none';
-            if (actionButtons) actionButtons.style.display = 'none';
+            if (actionButtons) actionButtons.style.display = 'flex';
             this.cardRevealed = false;
         } else {
             // Show back
