@@ -13,6 +13,11 @@
       "en": ["Hello, how are you?", "She said hello to everyone."],
       "hu": ["Szia, hogy vagy?", "Sziát mondott mindenkinek."],
       "bg": ["Здравей, как си?", "Тя каза здравей на всички."]
+    },
+    "phonetics": {
+      "en": "həˈloʊ",
+      "hu": "siɐ",
+      "bg": "ˈzdrɐ.vɛj"
     }
   },
   {
@@ -29,6 +34,11 @@
       "en": ["Goodbye, see you tomorrow.", "They waved goodbye."],
       "hu": ["Viszlát, holnap találkozunk.", "Búcsúzóul integettek."],
       "bg": ["Довиждане, до утре.", "Те помахаха за довиждане."]
+    },
+    "phonetics": {
+      "en": "ɡʊdˈbaɪ",
+      "hu": "ˈvislɒːt",
+      "bg": "doˈvi.ʒdɐ.ne"
     }
   },
   {
@@ -45,6 +55,11 @@
       "en": ["Yes, I agree.", "Yes, that's correct."],
       "hu": ["Igen, egyetértek.", "Igen, ez helyes."],
       "bg": ["Да, съгласен съм.", "Да, това е правилно."]
+    },
+    "phonetics": {
+      "en": "jɛs",
+      "hu": "ˈigen",
+      "bg": "da"
     }
   },
   {
@@ -61,6 +76,11 @@
       "en": ["No, I don't think so.", "No, thank you."],
       "hu": ["Nem, nem hiszem.", "Nem, köszönöm."],
       "bg": ["Не, не мисля.", "Не, благодаря."]
+    },
+    "phonetics": {
+      "en": "noʊ",
+      "hu": "nem",
+      "bg": "ne"
     }
   },
   {
@@ -77,6 +97,11 @@
       "en": ["Thank you very much.", "I want to thank you."],
       "hu": ["Nagyon köszönöm.", "Köszönetet szeretnék mondani."],
       "bg": ["Много ви благодаря.", "Искам да ви благодаря."]
+    },
+    "phonetics": {
+      "en": "θæŋk",
+      "hu": "ˈkø.sønø",
+      "bg": "blɐ.ɡoˈdɐ.rja"
     }
   },
   {
@@ -93,6 +118,11 @@
       "en": ["Please help me.", "Could you please wait?"],
       "hu": ["Kérem, segítsen.", "Tudna várni, kérem?"],
       "bg": ["Моля, помогнете ми.", "Можете ли да изчакате, моля?"]
+    },
+    "phonetics": {
+      "en": "pliːz",
+      "hu": "ˈkeː.rem",
+      "bg": "ˈmo.lja"
     }
   },
   {
@@ -109,6 +139,11 @@
       "en": ["I'm sorry for being late.", "Sorry, I didn't understand."],
       "hu": ["Sajnálom, hogy késtem.", "Sajnálom, nem értettem."],
       "bg": ["Съжалявам, че закъснях.", "Съжалявам, не разбрах."]
+    },
+    "phonetics": {
+      "en": "ˈsɔːri",
+      "hu": "ˈʃɐj.naː.lom",
+      "bg": "sɤ.ʒɐˈlja.vɐm"
     }
   },
   {
@@ -125,6 +160,11 @@
       "en": ["Excuse me, where is the bathroom?", "Excuse the interruption."],
       "hu": ["Elnézést, hol a fürdőszoba?", "Elnézést a zavarásért."],
       "bg": ["Извинете, къде е тоалетната?", "Извинете за прекъсването."]
+    },
+    "phonetics": {
+      "en": "ɪkˈskjuːz",
+      "hu": "ˈɛl.neː.zeːʃt",
+      "bg": "iz.viˈne.te"
     }
   },
   {
@@ -141,6 +181,11 @@
       "en": ["I need a glass of water.", "The water is very cold."],
       "hu": ["Egy pohár vizet kérek.", "A víz nagyon hideg."],
       "bg": ["Трябва ми чаша вода.", "Водата е много студена."]
+    },
+    "phonetics": {
+      "en": "ˈwɔːtər",
+      "hu": "viːz",
+      "bg": "voˈda"
     }
   },
   {
@@ -157,6 +202,11 @@
       "en": ["The food is delicious.", "We need to buy food."],
       "hu": ["Az étel finom.", "Ételt kell vásárolnunk."],
       "bg": ["Храната е вкусна.", "Трябва да купим храна."]
+    },
+    "phonetics": {
+      "en": "fuːd",
+      "hu": "ˈeː.tɛl",
+      "bg": "xrɐˈna.t̪ɐ"
     }
   },
   {
@@ -173,6 +223,11 @@
       "en": ["This is my house.", "The house is very big."],
       "hu": ["Ez az én házam.", "A ház nagyon nagy."],
       "bg": ["Това е моята къща.", "Къщата е много голяма."]
+    },
+    "phonetics": {
+      "en": "haʊs",
+      "hu": "haːz",
+      "bg": "ˈkɤ.ʃtɐ"
     }
   },
   {
@@ -189,6 +244,11 @@
       "en": ["My car is red.", "The car is fast."],
       "hu": ["Az autóm piros.", "Az autó gyors."],
       "bg": ["Колата ми е червена.", "Колата е бърза."]
+    },
+    "phonetics": {
+      "en": "kɑːr",
+      "hu": "ˈɐu.t̪oː",
+      "bg": "ko.ˈla.t̪ɐ"
     }
   },
   {
@@ -205,6 +265,11 @@
       "en": ["What time is it?", "We don't have much time."],
       "hu": ["Hány óra van?", "Nincs sok időnk."],
       "bg": ["Колко е часът?", "Нямаме много време."]
+    },
+    "phonetics": {
+      "en": "taɪm",
+      "hu": "ˈi.dɵː",
+      "bg": "ˈvre.me"
     }
   },
   {
@@ -221,6 +286,11 @@
       "en": ["Have a nice day!", "It's a beautiful day."],
       "hu": ["Szép napot!", "Gyönyörű nap van."],
       "bg": ["Приятен ден!", "Днес е красив ден."]
+    },
+    "phonetics": {
+      "en": "deɪ",
+      "hu": "nɐp",
+      "bg": "den"
     }
   },
   {
@@ -237,6 +307,11 @@
       "en": ["Good night!", "The night is dark."],
       "hu": ["Jó éjszakát!", "Az éjszaka sötét."],
       "bg": ["Лека нощ!", "Нощта е тъмна."]
+    },
+    "phonetics": {
+      "en": "naɪt",
+      "hu": "ˈeːj.sɐ.kɐ",
+      "bg": "noʃt"
     }
   },
   {
@@ -253,6 +328,11 @@
       "en": ["Good morning!", "I wake up in the morning."],
       "hu": ["Jó reggelt!", "Reggel kelek fel."],
       "bg": ["Добро утро!", "Ставам сутрин."]
+    },
+    "phonetics": {
+      "en": "ˈmɔːrnɪŋ",
+      "hu": "ˈreg.gel",
+      "bg": "ˈsut.rin"
     }
   },
   {
@@ -269,6 +349,11 @@
       "en": ["Good afternoon!", "I work in the afternoon."],
       "hu": ["Jó napot!", "Délután dolgozom."],
       "bg": ["Добър ден!", "Работя следобед."]
+    },
+    "phonetics": {
+      "en": "ˌæftərˈnuːn",
+      "hu": "ˈdeː.lu.taːn",
+      "bg": "ˈsle.do.bed"
     }
   },
   {
@@ -285,6 +370,11 @@
       "en": ["Good evening!", "We meet in the evening."],
       "hu": ["Jó estét!", "Este találkozunk."],
       "bg": ["Добър вечер!", "Срещаме се вечер."]
+    },
+    "phonetics": {
+      "en": "ˈiːvnɪŋ",
+      "hu": "ˈeʃ.te",
+      "bg": "ˈve.ʧer"
     }
   },
   {
@@ -301,6 +391,11 @@
       "en": ["The man is tall.", "That man is my father."],
       "hu": ["A férfi magas.", "Az a férfi az apám."],
       "bg": ["Мъжът е висок.", "Този мъж е моят баща."]
+    },
+    "phonetics": {
+      "en": "mæn",
+      "hu": "ˈfeːr.fi",
+      "bg": "mɤʃ"
     }
   },
   {
@@ -317,6 +412,11 @@
       "en": ["The woman is beautiful.", "That woman is my mother."],
       "hu": ["A nő szép.", "Az a nő az anyám."],
       "bg": ["Жената е красива.", "Тази жена е моята майка."]
+    },
+    "phonetics": {
+      "en": "ˈwʊmən",
+      "hu": "nøː",
+      "bg": "ʒeˈna.ta"
     }
   },
   {
@@ -333,6 +433,11 @@
       "en": ["The child is playing.", "Every child needs love."],
       "hu": ["A gyerek játszik.", "Minden gyereknek szüksége van szeretetre."],
       "bg": ["Детето си играе.", "Всяко дете се нуждае от любов."]
+    },
+    "phonetics": {
+      "en": "ʧaɪld",
+      "hu": "ˈɟe.rek",
+      "bg": "deˈte.to"
     }
   },
   {
@@ -349,6 +454,11 @@
       "en": ["My mother is kind.", "Mother cooks dinner."],
       "hu": ["Az anyám kedves.", "Anya főzi a vacsorát."],
       "bg": ["Майка ми е добра.", "Майката готви вечеря."]
+    },
+    "phonetics": {
+      "en": "ˈmʌðər",
+      "hu": "ˈɒ.ɲɒ",
+      "bg": "ˈmaj.kɒ"
     }
   },
   {
@@ -365,6 +475,11 @@
       "en": ["My father works hard.", "Father reads the newspaper."],
       "hu": ["Az apám keményen dolgozik.", "Apa újságot olvas."],
       "bg": ["Баща ми работи усилено.", "Бащата чете вестника."]
+    },
+    "phonetics": {
+      "en": "ˈfɑːðər",
+      "hu": "ˈɒ.pɒ",
+      "bg": "ˈbɒ.ʃtɒ"
     }
   },
   {
@@ -381,6 +496,11 @@
       "en": ["I love my family.", "Family is important."],
       "hu": ["Szeretem a családomat.", "A család fontos."],
       "bg": ["Обичам семейството си.", "Семейството е важно."]
+    },
+    "phonetics": {
+      "en": "ˈfæməli",
+      "hu": "ˈt͡ʃɒ.laːd",
+      "bg": "semejˈstvo.to"
     }
   },
   {
@@ -397,6 +517,11 @@
       "en": ["He is my best friend.", "Friends help each other."],
       "hu": ["Ő a legjobb barátom.", "A barátok segítenek egymásnak."],
       "bg": ["Той е най-добрият ми приятел.", "Приятелите си помагат."]
+    },
+    "phonetics": {
+      "en": "frend",
+      "hu": "ˈbɒ.raːt",
+      "bg": "priˈjɒ.tel"
     }
   },
   {
@@ -413,6 +538,11 @@
       "en": ["I love you.", "Love is beautiful."],
       "hu": ["Szeretlek.", "A szerelem gyönyörű."],
       "bg": ["Обичам те.", "Любовта е красива."]
+    },
+    "phonetics": {
+      "en": "lʌv",
+      "hu": "ˈse.re.lem",
+      "bg": "ˈo.bix"
     }
   },
   {
@@ -429,6 +559,11 @@
       "en": ["I am happy.", "She looks happy."],
       "hu": ["Boldog vagyok.", "Boldognak tűnik."],
       "bg": ["Аз съм щастлив.", "Тя изглежда щастлива."]
+    },
+    "phonetics": {
+      "en": "ˈhæpi",
+      "hu": "ˈbol.dog",
+      "bg": "ʃɒstˈlif"
     }
   },
   {
@@ -445,6 +580,11 @@
       "en": ["I am sad.", "Don't be sad."],
       "hu": ["Szomorú vagyok.", "Ne légy szomorú."],
       "bg": ["Аз съм тъжен.", "Не бъди тъжен."]
+    },
+    "phonetics": {
+      "en": "sæd",
+      "hu": "ˈso.mo.ruː",
+      "bg": "tɤˈʒen"
     }
   },
   {
@@ -461,6 +601,11 @@
       "en": ["This is good.", "You are a good person."],
       "hu": ["Ez jó.", "Jó ember vagy."],
       "bg": ["Това е добро.", "Ти си добър човек."]
+    },
+    "phonetics": {
+      "en": "ɡʊd",
+      "hu": "joː",
+      "bg": "ˈdobər"
     }
   },
   {
@@ -477,6 +622,11 @@
       "en": ["This is bad.", "Bad weather today."],
       "hu": ["Ez rossz.", "Rossz idő van ma."],
       "bg": ["Това е лошо.", "Днес е лошо време."]
+    },
+    "phonetics": {
+      "en": "bæd",
+      "hu": "rosː",
+      "bg": "loʃ"
     }
   },
   {
@@ -493,6 +643,11 @@
       "en": ["The house is big.", "I have a big problem."],
       "hu": ["A ház nagy.", "Nagy problémám van."],
       "bg": ["Къщата е голяма.", "Имам голям проблем."]
+    },
+    "phonetics": {
+      "en": "bɪɡ",
+      "hu": "nɒj",
+      "bg": "ɡoˈljɒm"
     }
   },
   {
@@ -509,6 +664,11 @@
       "en": ["The cat is small.", "I have a small request."],
       "hu": ["A macska kicsi.", "Van egy kis kérésem."],
       "bg": ["Котката е малка.", "Имам малка молба."]
+    },
+    "phonetics": {
+      "en": "smɔːl",
+      "hu": "ˈki.t͡ʃi",
+      "bg": "ˈmɒlək"
     }
   },
   {
@@ -525,6 +685,11 @@
       "en": ["The coffee is hot.", "It's very hot today."],
       "hu": ["A kávé forró.", "Nagyon meleg van ma."],
       "bg": ["Кафето е горещо.", "Днес е много горещо."]
+    },
+    "phonetics": {
+      "en": "hɒt",
+      "hu": "ˈfor.roː",
+      "bg": "ɡoˈreʃt"
     }
   },
   {
@@ -541,6 +706,11 @@
       "en": ["The water is cold.", "I'm feeling cold."],
       "hu": ["A víz hideg.", "Fázom."],
       "bg": ["Водата е студена.", "Студено ми е."]
+    },
+    "phonetics": {
+      "en": "koʊld",
+      "hu": "ˈhi.deɡ",
+      "bg": "stuˈden"
     }
   },
   {
@@ -557,6 +727,11 @@
       "en": ["I have a new car.", "This is new information."],
       "hu": ["Van egy új autóm.", "Ez új információ."],
       "bg": ["Имам нова кола.", "Това е нова информация."]
+    },
+    "phonetics": {
+      "en": "njuː",
+      "hu": "uːj",
+      "bg": "nof"
     }
   },
   {
@@ -573,6 +748,11 @@
       "en": ["My grandfather is old.", "This is an old book."],
       "hu": ["A nagyapám öreg.", "Ez egy régi könyv."],
       "bg": ["Дядо ми е стар.", "Това е стара книга."]
+    },
+    "phonetics": {
+      "en": "oʊld",
+      "hu": "ˈø.reɡ",
+      "bg": "stɒr"
     }
   },
   {
@@ -589,6 +769,11 @@
       "en": ["She is very young.", "Young people are energetic."],
       "hu": ["Nagyon fiatal.", "A fiatalok energikusak."],
       "bg": ["Тя е много млада.", "Младите хора са енергични."]
+    },
+    "phonetics": {
+      "en": "jʌŋ",
+      "hu": "ˈfi.ɒ.tɒl",
+      "bg": "mlɒt"
     }
   },
   {
@@ -605,6 +790,11 @@
       "en": ["The car is fast.", "Please speak more slowly, not so fast."],
       "hu": ["Az autó gyors.", "Kérem, beszéljen lassabban, ne ilyen gyorsan."],
       "bg": ["Колата е бърза.", "Моля, говорете по-бавно, не толкова бързо."]
+    },
+    "phonetics": {
+      "en": "fæst",
+      "hu": "ɟorʃ",
+      "bg": "bɤrz"
     }
   },
   {
@@ -621,6 +811,11 @@
       "en": ["The turtle is slow.", "Traffic is very slow today."],
       "hu": ["A teknős lassú.", "A forgalom nagyon lassú ma."],
       "bg": ["Костенурката е бавна.", "Движението е много бавно днес."]
+    },
+    "phonetics": {
+      "en": "sloʊ",
+      "hu": "ˈlɒʃ.uː",
+      "bg": "ˈbɒv.nə"
     }
   },
   {
@@ -637,6 +832,11 @@
       "en": ["I eat breakfast every morning.", "Let's eat together."],
       "hu": ["Minden reggel reggelizem.", "Együnk együtt."],
       "bg": ["Закусвам всяка сутрин.", "Да ядем заедно."]
+    },
+    "phonetics": {
+      "en": "iːt",
+      "hu": "ˈe.sik",
+      "bg": "jɒm"
     }
   },
   {
@@ -653,6 +853,11 @@
       "en": ["I drink coffee every day.", "Would you like something to drink?"],
       "hu": ["Minden nap iszom kávét.", "Szeretnél valamit inni?"],
       "bg": ["Пия кафе всеки ден.", "Искаш ли нещо за пиене?"]
+    },
+    "phonetics": {
+      "en": "drɪŋk",
+      "hu": "ˈi.sik",
+      "bg": "pijə"
     }
   },
   {
@@ -669,6 +874,11 @@
       "en": ["I sleep eight hours every night.", "The baby is sleeping."],
       "hu": ["Minden éjjel nyolc órát alszom.", "A baba alszik."],
       "bg": ["Спя осем часа всяка нощ.", "Бебето спи."]
+    },
+    "phonetics": {
+      "en": "sliːp",
+      "hu": "ˈɒl.sik",
+      "bg": "spjə"
     }
   },
   {
@@ -685,6 +895,11 @@
       "en": ["I work in an office.", "Hard work pays off."],
       "hu": ["Irodában dolgozom.", "A kemény munka megtérül."],
       "bg": ["Работя в офис.", "Тежката работа си струва."]
+    },
+    "phonetics": {
+      "en": "wɜːrk",
+      "hu": "ˈdol.ɡo.zik",
+      "bg": "rə.ˈbo.tjə"
     }
   },
   {
@@ -701,6 +916,11 @@
       "en": ["Children love to play.", "Do you want to play football?"],
       "hu": ["A gyerekek szeretnek játszani.", "Szeretnél focizni?"],
       "bg": ["Децата обичат да си играят.", "Искаш ли да играем футбол?"]
+    },
+    "phonetics": {
+      "en": "pleɪ",
+      "hu": "ˈjaːtsik",
+      "bg": "iˈɡra.ja"
     }
   },
   {
@@ -717,6 +937,11 @@
       "en": ["I like to read books.", "Can you read this?"],
       "hu": ["Szeretek könyveket olvasni.", "El tudod olvasni ezt?"],
       "bg": ["Обичам да чета книги.", "Можеш ли да прочетеш това?"]
+    },
+    "phonetics": {
+      "en": "riːd",
+      "hu": "ˈol.vɒʃ",
+      "bg": "ˈʧe.tə"
     }
   },
   {
@@ -733,6 +958,11 @@
       "en": ["I write in my diary.", "Please write your name here."],
       "hu": ["Írok a naplómba.", "Kérem, írja ide a nevét."],
       "bg": ["Пиша в дневника си.", "Моля, напишете името си тук."]
+    },
+    "phonetics": {
+      "en": "raɪt",
+      "hu": "ˈiːr",
+      "bg": "pi.ˈʃə"
     }
   },
   {
@@ -749,6 +979,11 @@
       "en": ["Do you speak English?", "Please speak slowly."],
       "hu": ["Beszélsz angolul?", "Kérem, beszéljen lassan."],
       "bg": ["Говориш ли английски?", "Моля, говорете бавно."]
+    },
+    "phonetics": {
+      "en": "spiːk",
+      "hu": "ˈbe.seːl",
+      "bg": "ɡo.vo.ˈrjə"
     }
   },
   {
@@ -765,6 +1000,11 @@
       "en": ["I listen to music.", "Please listen carefully."],
       "hu": ["Zenét hallgatok.", "Kérem, figyeljen figyelmesen."],
       "bg": ["Слушам музика.", "Моля, слушайте внимателно."]
+    },
+    "phonetics": {
+      "en": "ˈlɪsən",
+      "hu": "ˈhɒl.lɡɒ.tok",
+      "bg": "ˈslu.ʃəm"
     }
   },
   {
@@ -781,6 +1021,11 @@
       "en": ["I can see the mountain.", "Do you see what I mean?"],
       "hu": ["Látom a hegyet.", "Érted, mire gondolok?"],
       "bg": ["Мога да видя планината.", "Разбираш ли какво имам предвид?"]
+    },
+    "phonetics": {
+      "en": "siː",
+      "hu": "ˈlaː.tom",
+      "bg": "vi.ˈʒdəm"
     }
   },
   {
@@ -797,6 +1042,11 @@
       "en": ["Look at this beautiful flower!", "Don't look back."],
       "hu": ["Nézd ezt a gyönyörű virágot!", "Ne nézz vissza."],
       "bg": ["Погледни това красиво цвете!", "Не се обръщай."]
+    },
+    "phonetics": {
+      "en": "lʊk",
+      "hu": "neːz",
+      "bg": "ɡle.ˈdəm"
     }
   }
 ]

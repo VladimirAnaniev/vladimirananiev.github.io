@@ -392,6 +392,7 @@ export class App {
             startTime: Date.now()
         };
         
+        
         // Start timing this card
         this.progressTracker.startCardTimer(word.id);
         
@@ -442,6 +443,8 @@ export class App {
         if (actionButtons) actionButtons.style.display = 'none';
         
         // Setup back of card
+        const phoneticsText = document.getElementById('phonetics-text');
+        
         if (translationText) {
             if (this.settings.couplesMode && this.settings.getLanguages().sourceLang === 'en') {
                 // Couples mode: show both Hungarian and Bulgarian
@@ -455,12 +458,26 @@ export class App {
                     couplesTranslations.style.display = 'block';
                     translationText.style.display = 'none';
                 }
+                
+                // Hide phonetics in couples mode (too cluttered)
+                if (phoneticsText) phoneticsText.style.display = 'none';
             } else {
                 // Normal mode
                 translationText.textContent = this.currentCard.learningData.targetWord;
                 translationText.style.display = 'block';
                 const couplesTranslations = document.getElementById('couples-translations');
                 if (couplesTranslations) couplesTranslations.style.display = 'none';
+                
+                // Show phonetics for target language
+                if (phoneticsText) {
+                    const phonetics = this.currentCard.word.getPhonetics(targetLang);
+                    if (phonetics && phonetics.trim()) {
+                        phoneticsText.textContent = `[${phonetics}]`;
+                        phoneticsText.style.display = 'block';
+                    } else {
+                        phoneticsText.style.display = 'none';
+                    }
+                }
             }
         }
         
