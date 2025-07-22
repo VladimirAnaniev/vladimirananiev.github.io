@@ -93,8 +93,15 @@
                 <div id="flashcard-container" class="max-w-lg mx-auto">
                     <div id="flashcard" class="bg-white rounded-xl shadow-lg p-8 text-center min-h-[300px] flex flex-col justify-center cursor-pointer transition-transform hover:scale-105">
                         <div id="card-front">
-                            <div class="text-3xl font-bold text-gray-900 mb-4" id="word-text">
-                                Loading...
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="text-3xl font-bold text-gray-900" id="word-text">
+                                    Loading...
+                                </div>
+                                <button id="speak-source-btn" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors" title="Play pronunciation">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </button>
                             </div>
                             <div class="text-sm text-gray-600 mb-4" id="source-examples">
                                 <!-- Source language examples will appear here -->
@@ -105,12 +112,33 @@
                         </div>
                         
                         <div id="card-back" class="hidden">
-                            <div class="text-2xl font-semibold text-blue-600 mb-4" id="translation-text">
-                                Translation
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="text-2xl font-semibold text-blue-600" id="translation-text">
+                                    Translation
+                                </div>
+                                <button id="speak-target-btn" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors" title="Play pronunciation">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                    </svg>
+                                </button>
                             </div>
                             <div id="couples-translations" class="space-y-2 mb-4 hidden">
-                                <div class="text-lg text-green-600" id="translation-1"></div>
-                                <div class="text-lg text-purple-600" id="translation-2"></div>
+                                <div class="flex items-center justify-center">
+                                    <div class="text-lg text-green-600" id="translation-1"></div>
+                                    <button id="speak-hu-btn" class="ml-2 p-1 text-gray-500 hover:text-green-600 rounded transition-colors" title="Play Hungarian pronunciation">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <div class="text-lg text-purple-600" id="translation-2"></div>
+                                    <button id="speak-bg-btn" class="ml-2 p-1 text-gray-500 hover:text-purple-600 rounded transition-colors" title="Play Bulgarian pronunciation">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div class="text-sm text-gray-600 mb-4" id="target-examples">
                                 <!-- Target language examples will appear here -->

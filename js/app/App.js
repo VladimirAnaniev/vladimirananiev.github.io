@@ -30,6 +30,7 @@ export class App {
         this.handleCardResponse = this.handleCardResponse.bind(this);
         this.showAnswer = this.showAnswer.bind(this);
         this.toggleCard = this.toggleCard.bind(this);
+        this.speakText = this.speakText.bind(this);
         this.loadNextCard = this.loadNextCard.bind(this);
         this.startNewSession = this.startNewSession.bind(this);
     }
@@ -49,6 +50,9 @@ export class App {
             
             // Setup UI event listeners
             this.setupEventListeners();
+            
+            // Initialize speech synthesis
+            this.initializeSpeechSynthesis();
             
             // Show appropriate screen
             if (this.settings.learningPath) {
@@ -150,6 +154,50 @@ export class App {
         const flashcard = document.getElementById('flashcard');
         if (flashcard) {
             flashcard.addEventListener('click', this.toggleCard.bind(this));
+        }
+        
+        // Speech buttons
+        const speakSourceBtn = document.getElementById('speak-source-btn');
+        if (speakSourceBtn) {
+            speakSourceBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card flip when clicking speaker
+                if (this.currentCard) {
+                    const [sourceLang] = this.settings.learningPath.split('-');
+                    this.speakText(this.currentCard.learningData.sourceWord, sourceLang);
+                }
+            });
+        }
+        
+        const speakTargetBtn = document.getElementById('speak-target-btn');
+        if (speakTargetBtn) {
+            speakTargetBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card flip when clicking speaker
+                if (this.currentCard) {
+                    const [, targetLang] = this.settings.learningPath.split('-');
+                    this.speakText(this.currentCard.learningData.targetWord, targetLang);
+                }
+            });
+        }
+        
+        // Couples mode speech buttons
+        const speakHuBtn = document.getElementById('speak-hu-btn');
+        if (speakHuBtn) {
+            speakHuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (this.currentCard) {
+                    this.speakText(this.currentCard.word.getTranslation('hu'), 'hu');
+                }
+            });
+        }
+        
+        const speakBgBtn = document.getElementById('speak-bg-btn');
+        if (speakBgBtn) {
+            speakBgBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (this.currentCard) {
+                    this.speakText(this.currentCard.word.getTranslation('bg'), 'bg');
+                }
+            });
         }
         
         const knowBtn = document.getElementById('know-btn');
@@ -470,6 +518,155 @@ export class App {
     showAnswer() {
         if (this.cardRevealed || !this.currentCard) return;
         this.toggleCard();
+    }
+
+    /**
+     * Speak text using Web Speech API
+     * @param {string} text - Text to speak
+     * @param {string} language - Language code (en, hu, bg)
+     */
+    speakText(text, language) {
+        if (!('speechSynthesis' in window)) {
+            console.warn('Speech synthesis not supported in this browser');
+            return;
+        }
+
+        // Stop any currently speaking text
+        speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Find the best available voice for the language
+        const voices = speechSynthesis.getVoices();
+        const bestVoice = this.findBestVoice(voices, language);
+        
+        if (bestVoice) {
+            utterance.voice = bestVoice;
+            utterance.lang = bestVoice.lang;
+            console.log(`Using voice: ${bestVoice.name} (${bestVoice.lang}) for "${text}"`);
+        } else {
+            // Fallback to language code mapping
+            const languageMap = {
+                'en': 'en-US',
+                'hu': 'hu-HU', 
+                'bg': 'bg-BG'
+            };
+            utterance.lang = languageMap[language] || 'en-US';
+            console.warn(`No specific voice found for ${language}, using fallback: ${utterance.lang}`);
+        }
+        
+        utterance.rate = 0.7; // Slower for better learning
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        // Handle errors
+        utterance.onerror = (event) => {
+            console.warn('Speech synthesis error:', event.error);
+        };
+
+        // Wait a moment for voices to load if needed
+        if (voices.length === 0) {
+            setTimeout(() => this.speakText(text, language), 100);
+            return;
+        }
+
+        speechSynthesis.speak(utterance);
+    }
+
+    /**
+     * Find the best available voice for a given language
+     * @param {SpeechSynthesisVoice[]} voices - Available voices
+     * @param {string} language - Target language code (en, hu, bg)
+     * @returns {SpeechSynthesisVoice|null} Best matching voice
+     */
+    findBestVoice(voices, language) {
+        if (!voices.length) return null;
+
+        // Define preferred voices for each language (in order of preference)
+        const voicePreferences = {
+            'en': [
+                'en-US', 'en-GB', 'en-AU', 'en-CA', 'en-NZ',
+                'Microsoft David - English (United States)',
+                'Microsoft Zira - English (United States)',
+                'Google US English',
+                'Alex', 'Karen', 'Daniel'
+            ],
+            'hu': [
+                'hu-HU', 'hu',
+                'Microsoft Szabolcs - Hungarian (Hungary)',
+                'Google magyar',
+                'Hungarian',
+                'Mariska'
+            ],
+            'bg': [
+                'bg-BG', 'bg',
+                'Microsoft Ivan - Bulgarian (Bulgaria)',
+                'Google български',
+                'Bulgarian'
+            ]
+        };
+
+        const preferences = voicePreferences[language] || [];
+        
+        // First, try to find exact matches with our preferences
+        for (const pref of preferences) {
+            const voice = voices.find(v => 
+                v.lang.toLowerCase().includes(pref.toLowerCase()) ||
+                v.name.toLowerCase().includes(pref.toLowerCase())
+            );
+            if (voice) return voice;
+        }
+        
+        // If no preferred voice found, find any voice for the language
+        const langCode = language.toLowerCase();
+        const voice = voices.find(v => 
+            v.lang.toLowerCase().startsWith(langCode) ||
+            v.lang.toLowerCase().includes(langCode)
+        );
+        
+        if (voice) return voice;
+        
+        // Last resort: use default voice for English fallback
+        if (language !== 'en') {
+            return this.findBestVoice(voices, 'en');
+        }
+        
+        return null;
+    }
+
+    /**
+     * Initialize speech synthesis and load available voices
+     */
+    initializeSpeechSynthesis() {
+        if (!('speechSynthesis' in window)) {
+            console.warn('Speech synthesis not supported');
+            return;
+        }
+
+        // Load voices - some browsers need this event
+        const loadVoices = () => {
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+                
+                // Test which languages are actually supported
+                const supportedLanguages = ['en', 'hu', 'bg'];
+                supportedLanguages.forEach(lang => {
+                    const voice = this.findBestVoice(voices, lang);
+                    if (voice) {
+                        console.log(`Best voice for ${lang}: ${voice.name} (${voice.lang})`);
+                    } else {
+                        console.warn(`No voice found for language: ${lang}`);
+                    }
+                });
+            }
+        };
+
+        // Load voices immediately if available
+        loadVoices();
+
+        // Also listen for the voiceschanged event (some browsers need this)
+        speechSynthesis.addEventListener('voiceschanged', loadVoices);
     }
 
     /**
