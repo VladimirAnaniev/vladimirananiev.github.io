@@ -648,9 +648,12 @@ export class App {
         // Handle multiple choice display
         await this.setupMultipleChoice();
         
-        // Hide action buttons if multiple choice is active
+        // Apply multiple choice CSS class if active
+        const body = document.body;
         if (this.settings.display.multipleChoice) {
-            if (actionButtons) actionButtons.style.display = 'none';
+            body.classList.add('multiple-choice-active');
+        } else {
+            body.classList.remove('multiple-choice-active');
         }
     }
 

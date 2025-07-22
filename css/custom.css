@@ -218,6 +218,11 @@ input:focus {
     background-color: inherit;
 }
 
+/* Hide action buttons when multiple choice is active */
+.multiple-choice-active #action-buttons {
+    display: none !important;
+}
+
 /* Panda Mascot Styles */
 .panda-container {
     position: absolute;
