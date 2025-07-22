@@ -200,6 +200,22 @@ export class App {
             });
         }
         
+        // Event delegation for dynamically created example speaker buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.example-speaker-btn')) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent card flip when clicking speaker
+                e.stopImmediatePropagation(); // Stop all other handlers
+                const button = e.target.closest('.example-speaker-btn');
+                const text = button.getAttribute('data-text');
+                const lang = button.getAttribute('data-lang');
+                if (text && lang) {
+                    this.speakText(text, lang);
+                }
+                return false;
+            }
+        }, true); // Use capture phase to intercept before other handlers
+        
         const knowBtn = document.getElementById('know-btn');
         if (knowBtn) {
             knowBtn.addEventListener('click', () => this.handleCardResponse(true));
@@ -430,7 +446,16 @@ export class App {
             const sourceExamplesList = this.currentCard.word.getExamples(sourceLang);
             if (sourceExamplesList.length > 0) {
                 sourceExamples.innerHTML = sourceExamplesList
-                    .map(example => `<div class="italic text-gray-600 mb-1">"${example}"</div>`)
+                    .map((example, index) => `
+                        <div class="flex items-center justify-between mb-2 group">
+                            <div class="italic text-gray-600 flex-1 pr-2">"${example}"</div>
+                            <button class="example-speaker-btn ml-2 p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
+                                    data-text="${example}" data-lang="${sourceLang}" title="Play example">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                </svg>
+                            </button>
+                        </div>`)
                     .join('');
                 sourceExamples.style.display = 'block';
             } else {
@@ -444,6 +469,7 @@ export class App {
         
         // Setup back of card
         const phoneticsText = document.getElementById('phonetics-text');
+        const transliterationText = document.getElementById('transliteration-text');
         
         if (translationText) {
             if (this.settings.couplesMode && this.settings.getLanguages().sourceLang === 'en') {
@@ -459,8 +485,9 @@ export class App {
                     translationText.style.display = 'none';
                 }
                 
-                // Hide phonetics in couples mode (too cluttered)
+                // Hide phonetics and transliteration in couples mode (too cluttered)
                 if (phoneticsText) phoneticsText.style.display = 'none';
+                if (transliterationText) transliterationText.style.display = 'none';
             } else {
                 // Normal mode
                 translationText.textContent = this.currentCard.learningData.targetWord;
@@ -478,6 +505,17 @@ export class App {
                         phoneticsText.style.display = 'none';
                     }
                 }
+                
+                // Show transliteration for Bulgarian
+                if (transliterationText) {
+                    const transliteration = this.currentCard.word.getTransliteration(targetLang);
+                    if (transliteration && transliteration.trim() && targetLang === 'bg') {
+                        transliterationText.textContent = `${transliteration}`;
+                        transliterationText.style.display = 'block';
+                    } else {
+                        transliterationText.style.display = 'none';
+                    }
+                }
             }
         }
         
@@ -487,7 +525,16 @@ export class App {
             const targetExamplesList = this.currentCard.word.getExamples(targetLang);
             if (targetExamplesList.length > 0) {
                 targetExamples.innerHTML = targetExamplesList
-                    .map(example => `<div class="italic text-gray-600 mb-1">"${example}"</div>`)
+                    .map((example, index) => `
+                        <div class="flex items-center justify-between mb-2 group">
+                            <div class="italic text-gray-600 flex-1 pr-2">"${example}"</div>
+                            <button class="example-speaker-btn ml-2 p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
+                                    data-text="${example}" data-lang="${targetLang}" title="Play example">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                </svg>
+                            </button>
+                        </div>`)
                     .join('');
                 targetExamples.style.display = 'block';
             } else {

@@ -34,6 +34,10 @@ export class Word {
             bg: '',
             ...data.phonetics
         };
+        this.transliteration = {
+            bg: '',
+            ...data.transliteration
+        };
         this.frequencyRank = data.frequencyRank || 0;
         this.createdAt = data.createdAt || new Date().toISOString();
         this.updatedAt = data.updatedAt || new Date().toISOString();
@@ -72,6 +76,15 @@ export class Word {
      */
     getPhonetics(language) {
         return this.phonetics[language] || '';
+    }
+
+    /**
+     * Get transliteration for a specific language
+     * @param {string} language - Target language code
+     * @returns {string} Transliteration or empty string if not found
+     */
+    getTransliteration(language) {
+        return this.transliteration[language] || '';
     }
 
     /**
@@ -117,6 +130,16 @@ export class Word {
      */
     setPhonetics(language, phonetics) {
         this.phonetics[language] = phonetics;
+        this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Set transliteration for a language
+     * @param {string} language - Target language code
+     * @param {string} transliteration - Transliteration text
+     */
+    setTransliteration(language, transliteration) {
+        this.transliteration[language] = transliteration;
         this.updatedAt = new Date().toISOString();
     }
 
@@ -201,6 +224,7 @@ export class Word {
             translations: { ...this.translations },
             examples: { ...this.examples },
             phonetics: { ...this.phonetics },
+            transliteration: { ...this.transliteration },
             frequencyRank: this.frequencyRank,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt

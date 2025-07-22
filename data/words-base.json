@@ -18,6 +18,9 @@
       "en": "həˈloʊ",
       "hu": "siɐ",
       "bg": "ˈzdrɐ.vɛj"
+    },
+    "transliteration": {
+      "bg": "zdravey"
     }
   },
   {
@@ -39,6 +42,9 @@
       "en": "ɡʊdˈbaɪ",
       "hu": "ˈvislɒːt",
       "bg": "doˈvi.ʒdɐ.ne"
+    },
+    "transliteration": {
+      "bg": "dowiždane"
     }
   },
   {
@@ -59,6 +65,9 @@
     "phonetics": {
       "en": "jɛs",
       "hu": "ˈigen",
+      "bg": "da"
+    },
+    "transliteration": {
       "bg": "da"
     }
   },
@@ -81,6 +90,9 @@
       "en": "noʊ",
       "hu": "nem",
       "bg": "ne"
+    },
+    "transliteration": {
+      "bg": "ne"
     }
   },
   {
@@ -102,6 +114,9 @@
       "en": "θæŋk",
       "hu": "ˈkø.sønø",
       "bg": "blɐ.ɡoˈdɐ.rja"
+    },
+    "transliteration": {
+      "bg": "blagodarya"
     }
   },
   {
@@ -123,6 +138,9 @@
       "en": "pliːz",
       "hu": "ˈkeː.rem",
       "bg": "ˈmo.lja"
+    },
+    "transliteration": {
+      "bg": "molya"
     }
   },
   {
@@ -144,6 +162,9 @@
       "en": "ˈsɔːri",
       "hu": "ˈʃɐj.naː.lom",
       "bg": "sɤ.ʒɐˈlja.vɐm"
+    },
+    "transliteration": {
+      "bg": "sǎžalyavam"
     }
   },
   {
@@ -165,6 +186,9 @@
       "en": "ɪkˈskjuːz",
       "hu": "ˈɛl.neː.zeːʃt",
       "bg": "iz.viˈne.te"
+    },
+    "transliteration": {
+      "bg": "izvinete"
     }
   },
   {
@@ -186,6 +210,9 @@
       "en": "ˈwɔːtər",
       "hu": "viːz",
       "bg": "voˈda"
+    },
+    "transliteration": {
+      "bg": "voda"
     }
   },
   {
@@ -207,6 +234,9 @@
       "en": "fuːd",
       "hu": "ˈeː.tɛl",
       "bg": "xrɐˈna.t̪ɐ"
+    },
+    "transliteration": {
+      "bg": "hrana"
     }
   },
   {
@@ -228,6 +258,9 @@
       "en": "haʊs",
       "hu": "haːz",
       "bg": "ˈkɤ.ʃtɐ"
+    },
+    "transliteration": {
+      "bg": "kashta"
     }
   },
   {
@@ -249,6 +282,9 @@
       "en": "kɑːr",
       "hu": "ˈɐu.t̪oː",
       "bg": "ko.ˈla.t̪ɐ"
+    },
+    "transliteration": {
+      "bg": "kola"
     }
   },
   {
@@ -270,6 +306,9 @@
       "en": "taɪm",
       "hu": "ˈi.dɵː",
       "bg": "ˈvre.me"
+    },
+    "transliteration": {
+      "bg": "vreme"
     }
   },
   {
@@ -290,6 +329,9 @@
     "phonetics": {
       "en": "deɪ",
       "hu": "nɐp",
+      "bg": "den"
+    },
+    "transliteration": {
       "bg": "den"
     }
   },
@@ -312,6 +354,9 @@
       "en": "naɪt",
       "hu": "ˈeːj.sɐ.kɐ",
       "bg": "noʃt"
+    },
+    "transliteration": {
+      "bg": "nosht"
     }
   },
   {
@@ -333,6 +378,9 @@
       "en": "ˈmɔːrnɪŋ",
       "hu": "ˈreg.gel",
       "bg": "ˈsut.rin"
+    },
+    "transliteration": {
+      "bg": "sutrin"
     }
   },
   {
@@ -354,6 +402,9 @@
       "en": "ˌæftərˈnuːn",
       "hu": "ˈdeː.lu.taːn",
       "bg": "ˈsle.do.bed"
+    },
+    "transliteration": {
+      "bg": "sledobed"
     }
   },
   {
@@ -375,6 +426,9 @@
       "en": "ˈiːvnɪŋ",
       "hu": "ˈeʃ.te",
       "bg": "ˈve.ʧer"
+    },
+    "transliteration": {
+      "bg": "vecher"
     }
   },
   {
@@ -396,6 +450,9 @@
       "en": "mæn",
       "hu": "ˈfeːr.fi",
       "bg": "mɤʃ"
+    },
+    "transliteration": {
+      "bg": "mazh"
     }
   },
   {
@@ -417,6 +474,9 @@
       "en": "ˈwʊmən",
       "hu": "nøː",
       "bg": "ʒeˈna.ta"
+    },
+    "transliteration": {
+      "bg": "zhena"
     }
   },
   {
@@ -438,6 +498,9 @@
       "en": "ʧaɪld",
       "hu": "ˈɟe.rek",
       "bg": "deˈte.to"
+    },
+    "transliteration": {
+      "bg": "dete"
     }
   },
   {
@@ -459,6 +522,9 @@
       "en": "ˈmʌðər",
       "hu": "ˈɒ.ɲɒ",
       "bg": "ˈmaj.kɒ"
+    },
+    "transliteration": {
+      "bg": "mayka"
     }
   },
   {
@@ -480,6 +546,9 @@
       "en": "ˈfɑːðər",
       "hu": "ˈɒ.pɒ",
       "bg": "ˈbɒ.ʃtɒ"
+    },
+    "transliteration": {
+      "bg": "bashta"
     }
   },
   {
@@ -501,6 +570,9 @@
       "en": "ˈfæməli",
       "hu": "ˈt͡ʃɒ.laːd",
       "bg": "semejˈstvo.to"
+    },
+    "transliteration": {
+      "bg": "semeystvo"
     }
   },
   {
@@ -522,6 +594,9 @@
       "en": "frend",
       "hu": "ˈbɒ.raːt",
       "bg": "priˈjɒ.tel"
+    },
+    "transliteration": {
+      "bg": "priyatel"
     }
   },
   {
@@ -543,6 +618,9 @@
       "en": "lʌv",
       "hu": "ˈse.re.lem",
       "bg": "ˈo.bix"
+    },
+    "transliteration": {
+      "bg": "obich"
     }
   },
   {
@@ -564,6 +642,9 @@
       "en": "ˈhæpi",
       "hu": "ˈbol.dog",
       "bg": "ʃɒstˈlif"
+    },
+    "transliteration": {
+      "bg": "shtastliv"
     }
   },
   {
@@ -585,6 +666,9 @@
       "en": "sæd",
       "hu": "ˈso.mo.ruː",
       "bg": "tɤˈʒen"
+    },
+    "transliteration": {
+      "bg": "tazhen"
     }
   },
   {
@@ -606,6 +690,9 @@
       "en": "ɡʊd",
       "hu": "joː",
       "bg": "ˈdobər"
+    },
+    "transliteration": {
+      "bg": "dobar"
     }
   },
   {
@@ -627,6 +714,9 @@
       "en": "bæd",
       "hu": "rosː",
       "bg": "loʃ"
+    },
+    "transliteration": {
+      "bg": "losh"
     }
   },
   {
@@ -648,6 +738,9 @@
       "en": "bɪɡ",
       "hu": "nɒj",
       "bg": "ɡoˈljɒm"
+    },
+    "transliteration": {
+      "bg": "golyam"
     }
   },
   {
@@ -669,6 +762,9 @@
       "en": "smɔːl",
       "hu": "ˈki.t͡ʃi",
       "bg": "ˈmɒlək"
+    },
+    "transliteration": {
+      "bg": "malak"
     }
   },
   {
@@ -690,6 +786,9 @@
       "en": "hɒt",
       "hu": "ˈfor.roː",
       "bg": "ɡoˈreʃt"
+    },
+    "transliteration": {
+      "bg": "goresh"
     }
   },
   {
@@ -711,6 +810,9 @@
       "en": "koʊld",
       "hu": "ˈhi.deɡ",
       "bg": "stuˈden"
+    },
+    "transliteration": {
+      "bg": "studen"
     }
   },
   {
@@ -732,6 +834,9 @@
       "en": "njuː",
       "hu": "uːj",
       "bg": "nof"
+    },
+    "transliteration": {
+      "bg": "nov"
     }
   },
   {
@@ -753,6 +858,9 @@
       "en": "oʊld",
       "hu": "ˈø.reɡ",
       "bg": "stɒr"
+    },
+    "transliteration": {
+      "bg": "star"
     }
   },
   {
@@ -774,6 +882,9 @@
       "en": "jʌŋ",
       "hu": "ˈfi.ɒ.tɒl",
       "bg": "mlɒt"
+    },
+    "transliteration": {
+      "bg": "mlad"
     }
   },
   {
@@ -795,6 +906,9 @@
       "en": "fæst",
       "hu": "ɟorʃ",
       "bg": "bɤrz"
+    },
+    "transliteration": {
+      "bg": "barz"
     }
   },
   {
@@ -816,6 +930,9 @@
       "en": "sloʊ",
       "hu": "ˈlɒʃ.uː",
       "bg": "ˈbɒv.nə"
+    },
+    "transliteration": {
+      "bg": "baven"
     }
   },
   {
@@ -837,6 +954,9 @@
       "en": "iːt",
       "hu": "ˈe.sik",
       "bg": "jɒm"
+    },
+    "transliteration": {
+      "bg": "yam"
     }
   },
   {
@@ -858,6 +978,9 @@
       "en": "drɪŋk",
       "hu": "ˈi.sik",
       "bg": "pijə"
+    },
+    "transliteration": {
+      "bg": "piya"
     }
   },
   {
@@ -879,6 +1002,9 @@
       "en": "sliːp",
       "hu": "ˈɒl.sik",
       "bg": "spjə"
+    },
+    "transliteration": {
+      "bg": "spya"
     }
   },
   {
@@ -900,6 +1026,9 @@
       "en": "wɜːrk",
       "hu": "ˈdol.ɡo.zik",
       "bg": "rə.ˈbo.tjə"
+    },
+    "transliteration": {
+      "bg": "rabotya"
     }
   },
   {
@@ -921,6 +1050,9 @@
       "en": "pleɪ",
       "hu": "ˈjaːtsik",
       "bg": "iˈɡra.ja"
+    },
+    "transliteration": {
+      "bg": "igraya"
     }
   },
   {
@@ -942,6 +1074,9 @@
       "en": "riːd",
       "hu": "ˈol.vɒʃ",
       "bg": "ˈʧe.tə"
+    },
+    "transliteration": {
+      "bg": "cheta"
     }
   },
   {
@@ -963,6 +1098,9 @@
       "en": "raɪt",
       "hu": "ˈiːr",
       "bg": "pi.ˈʃə"
+    },
+    "transliteration": {
+      "bg": "pisha"
     }
   },
   {
@@ -984,6 +1122,9 @@
       "en": "spiːk",
       "hu": "ˈbe.seːl",
       "bg": "ɡo.vo.ˈrjə"
+    },
+    "transliteration": {
+      "bg": "govorya"
     }
   },
   {
@@ -1005,6 +1146,9 @@
       "en": "ˈlɪsən",
       "hu": "ˈhɒl.lɡɒ.tok",
       "bg": "ˈslu.ʃəm"
+    },
+    "transliteration": {
+      "bg": "slusham"
     }
   },
   {
@@ -1026,6 +1170,9 @@
       "en": "siː",
       "hu": "ˈlaː.tom",
       "bg": "vi.ˈʒdəm"
+    },
+    "transliteration": {
+      "bg": "vizhdam"
     }
   },
   {
@@ -1047,6 +1194,9 @@
       "en": "lʊk",
       "hu": "neːz",
       "bg": "ɡle.ˈdəm"
+    },
+    "transliteration": {
+      "bg": "gledam"
     }
   }
 ]
