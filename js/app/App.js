@@ -20,6 +20,7 @@ export class App {
         this.currentSession = null;
         this.currentCard = null;
         this.isInitialized = false;
+        this.currentMultipleChoiceResult = null;
         
         // UI state
         this.currentScreen = 'welcome'; // welcome, session, complete, settings
@@ -122,6 +123,12 @@ export class App {
         const transliterationsToggle = document.getElementById('show-transliterations-toggle');
         if (transliterationsToggle) {
             transliterationsToggle.checked = this.settings.display.showTransliterations;
+        }
+        
+        // Update multiple choice toggle
+        const multipleChoiceToggle = document.getElementById('multiple-choice-toggle');
+        if (multipleChoiceToggle) {
+            multipleChoiceToggle.checked = this.settings.display.multipleChoice;
         }
         
         // Apply CSS classes to body based on settings
@@ -268,6 +275,12 @@ export class App {
             newSessionBtn.addEventListener('click', this.startNewSession);
         }
         
+        // Multiple choice next button
+        const multipleChoiceNextBtn = document.getElementById('multiple-choice-next-btn');
+        if (multipleChoiceNextBtn) {
+            multipleChoiceNextBtn.addEventListener('click', this.handleMultipleChoiceNext.bind(this));
+        }
+        
         // Settings
         const settingsBtn = document.getElementById('settings-btn');
         if (settingsBtn) {
@@ -323,6 +336,14 @@ export class App {
         if (transliterationsToggle) {
             transliterationsToggle.addEventListener('change', (e) => {
                 this.settings.setShowTransliterations(e.target.checked);
+                this.saveSettings();
+            });
+        }
+        
+        const multipleChoiceToggle = document.getElementById('multiple-choice-toggle');
+        if (multipleChoiceToggle) {
+            multipleChoiceToggle.addEventListener('change', (e) => {
+                this.settings.setMultipleChoice(e.target.checked);
                 this.saveSettings();
             });
         }
@@ -464,14 +485,14 @@ export class App {
         // Start timing this card
         this.progressTracker.startCardTimer(word.id);
         
-        this.displayCard();
+        await this.displayCard();
         this.cardRevealed = false;
     }
 
     /**
      * Display the current card
      */
-    displayCard() {
+    async displayCard() {
         if (!this.currentCard) return;
         
         const wordText = document.getElementById('word-text');
@@ -615,6 +636,177 @@ export class App {
                 targetExamples.innerHTML = '<div class="text-gray-500">No examples available.</div>';
                 targetExamples.style.display = 'block';
             }
+        }
+        
+        // Handle multiple choice display
+        await this.setupMultipleChoice();
+        
+        // Hide action buttons if multiple choice is active
+        if (this.settings.display.multipleChoice) {
+            if (actionButtons) actionButtons.style.display = 'none';
+        }
+    }
+
+    /**
+     * Setup multiple choice question for the current card
+     */
+    async setupMultipleChoice() {
+        const multipleChoice = document.getElementById('multiple-choice');
+        const multipleChoiceNext = document.getElementById('multiple-choice-next');
+        
+        if (!multipleChoice) return;
+
+        if (!this.settings.display.multipleChoice) {
+            multipleChoice.style.display = 'none';
+            if (multipleChoiceNext) multipleChoiceNext.style.display = 'none';
+            this.currentMultipleChoiceResult = null;
+            return;
+        }
+
+        multipleChoice.style.display = 'block';
+        if (multipleChoiceNext) multipleChoiceNext.style.display = 'none';
+        this.currentMultipleChoiceResult = null;
+        
+        // Generate choices for multiple choice
+        const choices = await this.generateMultipleChoices();
+        const choiceContainers = document.querySelectorAll('.choice-container');
+        const [, targetLang] = this.settings.learningPath.split('-');
+        
+        choiceContainers.forEach((container, index) => {
+            if (choices[index]) {
+                const choice = choices[index];
+                const choiceText = container.querySelector('.choice-text');
+                const choiceTransliteration = container.querySelector('.choice-transliteration');
+                const soundButton = container.querySelector('.choice-sound-btn');
+                
+                // Set text content
+                choiceText.textContent = choice.text;
+                
+                // Set transliteration if target language is Bulgarian
+                if (targetLang === 'bg') {
+                    const transliteration = choice.word.getTransliteration('bg');
+                    if (transliteration) {
+                        choiceTransliteration.textContent = transliteration;
+                        choiceTransliteration.classList.remove('hidden');
+                    } else {
+                        choiceTransliteration.classList.add('hidden');
+                    }
+                } else {
+                    choiceTransliteration.classList.add('hidden');
+                }
+                
+                // Set up choice button (container is now the button)
+                container.onclick = (e) => {
+                    if (!e.target.closest('.choice-sound-btn')) {
+                        this.handleMultipleChoiceAnswer(choice.isCorrect, container);
+                    }
+                };
+                
+                // Set up sound button
+                if (soundButton) {
+                    soundButton.onclick = (e) => {
+                        e.stopPropagation();
+                        this.speakText(choice.text, targetLang);
+                    };
+                }
+                
+                // Reset visual state
+                container.classList.remove('bg-green-200', 'bg-red-200', 'border-green-400', 'border-red-400');
+                container.classList.add('bg-white', 'border-gray-200');
+                container.disabled = false;
+            }
+        });
+    }
+
+    /**
+     * Generate multiple choice options
+     * @returns {Promise<Object[]>} Array of choice objects with text, word, and isCorrect properties
+     */
+    async generateMultipleChoices() {
+        if (!this.currentCard) return [];
+
+        const [, targetLang] = this.settings.learningPath.split('-');
+        const correctAnswer = this.currentCard.word.getTranslation(targetLang);
+        
+        // Get all words from database
+        const allWords = await this.database.loadWords();
+        
+        // Get other words for wrong answers
+        const otherWords = allWords
+            .filter(word => word.id !== this.currentCard.word.id && word.hasTranslation(targetLang))
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map(word => ({ 
+                text: word.getTranslation(targetLang), 
+                word: word,
+                isCorrect: false 
+            }));
+
+        // Add correct answer
+        const choices = [
+            { 
+                text: correctAnswer, 
+                word: this.currentCard.word,
+                isCorrect: true 
+            },
+            ...otherWords
+        ];
+
+        // Shuffle choices
+        return choices.sort(() => Math.random() - 0.5);
+    }
+
+    /**
+     * Handle multiple choice answer selection
+     * @param {boolean} isCorrect - Whether the selected answer is correct
+     * @param {HTMLElement} clickedContainer - The container that was clicked
+     */
+    handleMultipleChoiceAnswer(isCorrect, clickedContainer) {
+        const [, targetLang] = this.settings.learningPath.split('-');
+        const correctAnswer = this.currentCard.word.getTranslation(targetLang);
+        
+        // Store the result for later use
+        this.currentMultipleChoiceResult = isCorrect;
+        
+        // Disable all choice buttons and show results
+        const choiceContainers = document.querySelectorAll('.choice-container');
+        choiceContainers.forEach(container => {
+            const text = container.querySelector('.choice-text').textContent;
+            
+            container.disabled = true;
+            container.onclick = null; // Disable clicking
+            
+            if (text === correctAnswer) {
+                // Highlight correct answer in green
+                container.classList.remove('bg-white', 'border-gray-200');
+                container.classList.add('bg-green-200', 'border-green-400');
+            } else if (container === clickedContainer && !isCorrect) {
+                // Highlight wrong answer in red
+                container.classList.remove('bg-white', 'border-gray-200');
+                container.classList.add('bg-red-200', 'border-red-400');
+            }
+        });
+
+        // Show the Next button
+        const multipleChoiceNext = document.getElementById('multiple-choice-next');
+        if (multipleChoiceNext) {
+            multipleChoiceNext.style.display = 'flex';
+        }
+
+        // Flip card to show the back
+        if (!this.cardRevealed) {
+            setTimeout(() => {
+                this.toggleCard();
+            }, 800);
+        }
+    }
+    
+    /**
+     * Handle Next button click in multiple choice mode
+     */
+    handleMultipleChoiceNext() {
+        if (this.currentMultipleChoiceResult !== null) {
+            this.handleCardResponse(this.currentMultipleChoiceResult);
         }
     }
 

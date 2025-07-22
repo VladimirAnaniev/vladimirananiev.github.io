@@ -164,6 +164,72 @@
                         </button>
                     </div>
 
+                    <!-- Multiple Choice Section -->
+                    <div id="multiple-choice" class="mt-6 hidden">
+                        <h4 class="text-center text-sm font-medium text-gray-600 mb-4">Choose the correct translation:</h4>
+                        <div class="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                            <button class="choice-container bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors text-left" data-choice="0">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1 pr-2">
+                                        <div class="choice-text">Choice 1</div>
+                                        <div class="choice-transliteration text-xs text-gray-500 mt-1 hidden"></div>
+                                    </div>
+                                    <span class="choice-sound-btn flex-shrink-0 p-1 text-gray-400 hover:text-blue-600 rounded transition-colors cursor-pointer" title="Play pronunciation">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="choice-container bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors text-left" data-choice="1">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1 pr-2">
+                                        <div class="choice-text">Choice 2</div>
+                                        <div class="choice-transliteration text-xs text-gray-500 mt-1 hidden"></div>
+                                    </div>
+                                    <span class="choice-sound-btn flex-shrink-0 p-1 text-gray-400 hover:text-blue-600 rounded transition-colors cursor-pointer" title="Play pronunciation">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="choice-container bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors text-left" data-choice="2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1 pr-2">
+                                        <div class="choice-text">Choice 3</div>
+                                        <div class="choice-transliteration text-xs text-gray-500 mt-1 hidden"></div>
+                                    </div>
+                                    <span class="choice-sound-btn flex-shrink-0 p-1 text-gray-400 hover:text-blue-600 rounded transition-colors cursor-pointer" title="Play pronunciation">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="choice-container bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors text-left" data-choice="3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1 pr-2">
+                                        <div class="choice-text">Choice 4</div>
+                                        <div class="choice-transliteration text-xs text-gray-500 mt-1 hidden"></div>
+                                    </div>
+                                    <span class="choice-sound-btn flex-shrink-0 p-1 text-gray-400 hover:text-blue-600 rounded transition-colors cursor-pointer" title="Play pronunciation">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <!-- Next Button for Multiple Choice -->
+                        <div id="multiple-choice-next" class="flex justify-center mt-4 hidden">
+                            <button id="multiple-choice-next-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -234,6 +300,14 @@
                             <span class="text-sm font-medium text-gray-700">Show Transliterations</span>
                         </label>
                         <p class="text-xs text-gray-500 mt-1">Display Latin transliterations for Bulgarian text</p>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" id="multiple-choice-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                            <span class="text-sm font-medium text-gray-700">Multiple Choice</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mt-1">Show 4 answer choices for each word</p>
                     </div>
 
                     <div>

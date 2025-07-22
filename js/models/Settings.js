@@ -41,6 +41,7 @@ export class Settings {
             cardAnimationSpeed: 'normal', // slow, normal, fast
             showPhonetics: true,
             showTransliterations: true,
+            multipleChoice: false,
             ...data.display
         };
         
@@ -157,6 +158,15 @@ export class Settings {
      */
     setShowTransliterations(enabled) {
         this.display.showTransliterations = !!enabled;
+        this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Enable or disable multiple choice mode
+     * @param {boolean} enabled - Whether multiple choice should be shown
+     */
+    setMultipleChoice(enabled) {
+        this.display.multipleChoice = !!enabled;
         this.updatedAt = new Date().toISOString();
     }
 

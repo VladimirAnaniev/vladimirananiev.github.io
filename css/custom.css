@@ -201,8 +201,21 @@ input:focus {
 }
 
 .hide-transliterations .transliteration-text,
-.hide-transliterations .example-transliteration {
+.hide-transliterations .example-transliteration,
+.hide-transliterations .choice-transliteration {
     display: none !important;
+}
+
+/* Multiple Choice Button Styles */
+.choice-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.choice-btn:disabled:hover {
+    transform: none;
+    border-color: inherit;
+    background-color: inherit;
 }
 
 /* High Contrast Mode */
