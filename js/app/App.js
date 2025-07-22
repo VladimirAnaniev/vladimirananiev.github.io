@@ -531,15 +531,23 @@ export class App {
         const transliterationText = document.getElementById('transliteration-text');
         
         if (translationText) {
-            if (this.settings.couplesMode && this.settings.getLanguages().sourceLang === 'en') {
-                // Couples mode: show both Hungarian and Bulgarian
+            if (this.settings.couplesMode && this.settings.canUseCouplesMode()) {
+                // Couples mode: show two translations based on source language
                 const couplesTranslations = document.getElementById('couples-translations');
                 const translation1 = document.getElementById('translation-1');
                 const translation2 = document.getElementById('translation-2');
+                const { sourceLang } = this.settings.getLanguages();
                 
                 if (couplesTranslations && translation1 && translation2) {
-                    translation1.textContent = `🇭🇺 ${this.currentCard.word.getTranslation('hu')}`;
-                    translation2.textContent = `🇧🇬 ${this.currentCard.word.getTranslation('bg')}`;
+                    if (sourceLang === 'en') {
+                        // English source: show Hungarian and Bulgarian
+                        translation1.textContent = `🇭🇺 ${this.currentCard.word.getTranslation('hu')}`;
+                        translation2.textContent = `🇧🇬 ${this.currentCard.word.getTranslation('bg')}`;
+                    } else if (sourceLang === 'bg') {
+                        // Bulgarian source: show English and Hungarian
+                        translation1.textContent = `🇺🇸 ${this.currentCard.word.getTranslation('en')}`;
+                        translation2.textContent = `🇭🇺 ${this.currentCard.word.getTranslation('hu')}`;
+                    }
                     couplesTranslations.style.display = 'block';
                     translationText.style.display = 'none';
                 }

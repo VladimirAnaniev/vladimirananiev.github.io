@@ -88,7 +88,9 @@ export class Settings {
             { value: 'en-hu', label: 'English → Hungarian', sourceLang: 'en', targetLang: 'hu' },
             { value: 'en-bg', label: 'English → Bulgarian', sourceLang: 'en', targetLang: 'bg' },
             { value: 'hu-en', label: 'Hungarian → English', sourceLang: 'hu', targetLang: 'en' },
-            { value: 'hu-bg', label: 'Hungarian → Bulgarian', sourceLang: 'hu', targetLang: 'bg' }
+            { value: 'hu-bg', label: 'Hungarian → Bulgarian', sourceLang: 'hu', targetLang: 'bg' },
+            { value: 'bg-en', label: 'Bulgarian → English', sourceLang: 'bg', targetLang: 'en' },
+            { value: 'bg-hu', label: 'Bulgarian → Hungarian', sourceLang: 'bg', targetLang: 'hu' }
         ];
     }
 
@@ -224,9 +226,9 @@ export class Settings {
      */
     canUseCouplesMode() {
         const { sourceLang } = this.getLanguages();
-        // Couples mode only makes sense when source is English
-        // and we can show both Hungarian and Bulgarian
-        return sourceLang === 'en';
+        // Couples mode makes sense when source is English (show hu+bg)
+        // or when source is Bulgarian (show en+hu)
+        return sourceLang === 'en' || sourceLang === 'bg';
     }
 
     /**
