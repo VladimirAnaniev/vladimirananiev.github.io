@@ -26,6 +26,7 @@ export class App {
         this.currentScreen = 'welcome'; // welcome, session, complete, settings
         this.cardRevealed = false;
         this.sessionStartTime = null;
+        this.pandaReactionTimeout = null;
         
         // Bind methods
         this.handleCardResponse = this.handleCardResponse.bind(this);
@@ -441,6 +442,9 @@ export class App {
             // Load first card
             await this.loadNextCard();
             
+            // Initialize panda to neutral state
+            this.resetPandaState();
+            
             this.showSessionScreen();
             this.hideLoadingScreen();
             
@@ -484,6 +488,9 @@ export class App {
         
         // Start timing this card
         this.progressTracker.startCardTimer(word.id);
+        
+        // Reset panda to neutral for new card
+        this.resetPandaState();
         
         await this.displayCard();
         this.cardRevealed = false;
@@ -787,6 +794,9 @@ export class App {
             }
         });
 
+        // Show panda reaction
+        this.showPandaReaction(isCorrect);
+
         // Show the Next button
         const multipleChoiceNext = document.getElementById('multiple-choice-next');
         if (multipleChoiceNext) {
@@ -1006,6 +1016,11 @@ export class App {
         if (!this.cardRevealed || !this.currentCard) return;
         
         try {
+            // Show panda reaction if not in multiple choice mode (already shown there)
+            if (!this.settings.display.multipleChoice) {
+                this.showPandaReaction(wasCorrect);
+            }
+            
             // End timing for this card
             const reviewTime = this.progressTracker.endCardTimer(this.currentCard.word.id);
             
@@ -1032,7 +1047,10 @@ export class App {
                 if (result.isSessionComplete) {
                     await this.completeSession();
                 } else {
-                    await this.loadNextCard();
+                    // Wait a moment for panda reaction before loading next card
+                    setTimeout(async () => {
+                        await this.loadNextCard();
+                    }, this.settings.display.multipleChoice ? 0 : 1500);
                 }
             } else {
                 this.showError('Failed to save progress. Please try again.');
@@ -1301,6 +1319,53 @@ export class App {
         
         // Reset file input
         event.target.value = '';
+    }
+
+    /**
+     * Show panda reaction based on answer correctness
+     * @param {boolean} isCorrect - Whether the answer was correct
+     */
+    showPandaReaction(isCorrect) {
+        const pandaMascot = document.getElementById('panda-mascot');
+        if (!pandaMascot) return;
+        
+        // Clear any existing reaction timeout
+        if (this.pandaReactionTimeout) {
+            clearTimeout(this.pandaReactionTimeout);
+        }
+        
+        // Remove all existing state classes
+        pandaMascot.classList.remove('panda-neutral', 'panda-happy', 'panda-sad');
+        
+        // Add appropriate reaction class
+        if (isCorrect) {
+            pandaMascot.classList.add('panda-happy');
+        } else {
+            pandaMascot.classList.add('panda-sad');
+        }
+        
+        // Reset to neutral after reaction completes
+        this.pandaReactionTimeout = setTimeout(() => {
+            this.resetPandaState();
+        }, 2000);
+    }
+    
+    /**
+     * Reset panda to neutral state
+     */
+    resetPandaState() {
+        const pandaMascot = document.getElementById('panda-mascot');
+        if (!pandaMascot) return;
+        
+        // Clear any pending timeout
+        if (this.pandaReactionTimeout) {
+            clearTimeout(this.pandaReactionTimeout);
+            this.pandaReactionTimeout = null;
+        }
+        
+        // Remove all state classes and set to neutral
+        pandaMascot.classList.remove('panda-happy', 'panda-sad');
+        pandaMascot.classList.add('panda-neutral');
     }
 }
 

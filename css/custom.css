@@ -218,6 +218,106 @@ input:focus {
     background-color: inherit;
 }
 
+/* Panda Mascot Styles */
+.panda-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.panda-emoji {
+    font-size: 2.5rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Panda States */
+.panda-neutral .panda-emoji {
+    transform: scale(1);
+    filter: none;
+}
+
+.panda-happy .panda-emoji {
+    animation: pandaBounce 0.6s ease-out;
+}
+
+.panda-happy .panda-emoji::after {
+    content: "✨";
+    position: absolute;
+    margin-left: 0.2rem;
+    animation: sparkle 0.8s ease-out;
+}
+
+.panda-sad .panda-emoji {
+    animation: pandaWiggle 0.8s ease-out;
+}
+
+.panda-sad .panda-emoji::after {
+    content: "💧";
+    position: absolute;
+    margin-left: 0.1rem;
+    margin-top: 0.5rem;
+    animation: teardrop 1s ease-out;
+}
+
+/* Panda Animations */
+@keyframes pandaBounce {
+    0% { transform: scale(1) translateY(0); }
+    30% { transform: scale(1.2) translateY(-8px); }
+    50% { transform: scale(1.1) translateY(-4px); }
+    70% { transform: scale(1.15) translateY(-6px); }
+    100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes pandaWiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-5deg) scale(0.95); }
+    30% { transform: rotate(5deg) scale(0.95); }
+    45% { transform: rotate(-3deg) scale(0.98); }
+    60% { transform: rotate(3deg) scale(0.98); }
+    75% { transform: rotate(-1deg) scale(0.99); }
+}
+
+@keyframes sparkle {
+    0% { 
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(0.8) rotate(360deg);
+    }
+}
+
+@keyframes teardrop {
+    0% { 
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    30% { 
+        opacity: 1;
+        transform: translateY(2px) scale(1);
+    }
+    100% { 
+        opacity: 0;
+        transform: translateY(10px) scale(0.8);
+    }
+}
+
+/* Responsive Design - Hide panda on small screens */
+@media (max-width: 640px) {
+    .panda-container {
+        display: none;
+    }
+}
+
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
     :root {
