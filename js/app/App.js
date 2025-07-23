@@ -195,24 +195,101 @@ export class App {
      * Setup all event listeners
      */
     setupEventListeners() {
-        // Language selector
-        const languageSelector = document.getElementById('language-selector');
-        if (languageSelector) {
-            languageSelector.addEventListener('change', (e) => {
-                const startBtn = document.getElementById('start-learning-btn');
-                if (startBtn) {
-                    startBtn.disabled = !e.target.value;
-                }
+        // Setup form elements
+        const sourceLanguage = document.getElementById('source-language');
+        const targetLanguage = document.getElementById('target-language');
+        const startLearningBtn = document.getElementById('start-learning-btn');
+        const setupStatus = document.getElementById('setup-status');
+
+        // Language selection validation
+        const validateSetup = () => {
+            const source = sourceLanguage?.value;
+            const target = targetLanguage?.value;
+            
+            if (!source || !target) {
+                startLearningBtn.disabled = true;
+                setupStatus.textContent = 'Please select both languages to continue';
+                return false;
+            }
+            
+            if (source === target) {
+                startLearningBtn.disabled = true;
+                setupStatus.textContent = 'Please select different languages';
+                return false;
+            }
+            
+            startLearningBtn.disabled = false;
+            setupStatus.textContent = 'Ready to start learning!';
+            
+            // Update settings
+            this.settings.setLearningPath(`${source}-${target}`);
+            return true;
+        };
+
+        // Language dropdowns
+        if (sourceLanguage) {
+            sourceLanguage.addEventListener('change', validateSetup);
+        }
+        if (targetLanguage) {
+            targetLanguage.addEventListener('change', validateSetup);
+        }
+
+        // Learning mode selection
+        const learningModeInputs = document.querySelectorAll('input[name="learning-mode"]');
+        learningModeInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                const mode = e.target.value;
+                this.settings.display.multipleChoice = (mode === 'multiple-choice');
+                this.settings.display.phraseConstruction = (mode === 'fill-blank' || mode === 'word-order');
+                this.settings.display.phraseMode = (mode === 'fill-blank') ? 'fillBlank' : 'wordOrder';
+            });
+        });
+
+        // Text assistance (mutually exclusive)
+        const textAssistanceInputs = document.querySelectorAll('input[name="text-assistance"]');
+        textAssistanceInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                const value = e.target.value;
+                this.settings.display.showPhonetics = (value === 'phonetics');
+                this.settings.display.showTransliterations = (value === 'transliteration');
+            });
+        });
+
+        // Couples mode
+        const couplesModeSetup = document.getElementById('couples-mode-setup');
+        if (couplesModeSetup) {
+            couplesModeSetup.addEventListener('change', (e) => {
+                this.settings.setCouplesMode(e.target.checked);
             });
         }
-        
+
+        // Daily cards
+        const dailyCardsSetup = document.getElementById('daily-cards-setup');
+        if (dailyCardsSetup) {
+            dailyCardsSetup.addEventListener('change', (e) => {
+                this.settings.setDailyCardCount(parseInt(e.target.value));
+            });
+        }
+
+        // Theme controls
+        const colorPickerSetup = document.getElementById('color-picker-setup');
+        if (colorPickerSetup) {
+            colorPickerSetup.addEventListener('change', (e) => {
+                this.handleColorChange(e);
+            });
+        }
+
+        const whiteThemeSetup = document.getElementById('white-theme-setup');
+        if (whiteThemeSetup) {
+            whiteThemeSetup.addEventListener('click', () => {
+                this.toggleWhiteTheme();
+            });
+        }
+
         // Start learning button
-        const startBtn = document.getElementById('start-learning-btn');
-        if (startBtn) {
-            startBtn.addEventListener('click', () => {
-                const selectedPath = languageSelector?.value;
-                if (selectedPath) {
-                    this.settings.setLearningPath(selectedPath);
+        if (startLearningBtn) {
+            startLearningBtn.addEventListener('click', () => {
+                if (validateSetup()) {
                     this.saveSettings();
                     this.startNewSession();
                 }
@@ -2148,6 +2225,109 @@ export class App {
         document.documentElement.style.setProperty('--border-color', '#E91E63');
         
         console.log('Forced MORE PINK theme for mobile compatibility');
+    }
+
+    /**
+     * Handle color picker change
+     */
+    handleColorChange(event) {
+        const color = event.target.value;
+        this.applyDynamicTheme(color);
+    }
+
+    /**
+     * Toggle white theme
+     */
+    toggleWhiteTheme() {
+        this.applyDynamicTheme('#FFFFFF');
+    }
+
+    /**
+     * Apply dynamic theme with generated color palette
+     */
+    applyDynamicTheme(baseColor) {
+        const palette = this.generateColorPalette(baseColor);
+        
+        // Apply colors to CSS variables
+        document.documentElement.style.setProperty('--bg-primary', palette.background);
+        document.documentElement.style.setProperty('--bg-header', palette.header);
+        document.documentElement.style.setProperty('--primary-color', palette.primary);
+        document.documentElement.style.setProperty('--primary-hover', palette.primaryHover);
+        document.documentElement.style.setProperty('--accent-light', palette.accent);
+        document.documentElement.style.setProperty('--accent-lighter', palette.accentLight);
+        
+        // Force body background for mobile compatibility
+        document.body.style.backgroundColor = palette.background;
+        document.body.style.background = palette.background;
+        document.body.style.setProperty('background-color', palette.background, 'important');
+        
+        console.log('Applied dynamic theme with base color:', baseColor);
+    }
+
+    /**
+     * Generate color palette from base color
+     */
+    generateColorPalette(baseColor) {
+        const hsl = this.hexToHsl(baseColor);
+        
+        // Generate different shades
+        const background = this.hslToHex(hsl.h, Math.max(10, hsl.s * 0.3), Math.max(85, hsl.l));
+        const header = this.hslToHex(hsl.h, Math.max(20, hsl.s * 0.7), Math.max(70, hsl.l * 0.8));
+        const primary = this.hslToHex(hsl.h, Math.max(30, hsl.s * 0.9), Math.max(50, hsl.l * 0.6));
+        const primaryHover = this.hslToHex(hsl.h, Math.max(30, hsl.s * 0.9), Math.max(40, hsl.l * 0.5));
+        const accent = this.hslToHex(hsl.h, Math.max(25, hsl.s * 0.6), Math.max(65, hsl.l * 0.75));
+        const accentLight = this.hslToHex(hsl.h, Math.max(15, hsl.s * 0.4), Math.max(80, hsl.l * 0.9));
+        
+        return {
+            background,
+            header,
+            primary,
+            primaryHover,
+            accent,
+            accentLight
+        };
+    }
+
+    /**
+     * Convert hex to HSL
+     */
+    hexToHsl(hex) {
+        const r = parseInt(hex.slice(1, 3), 16) / 255;
+        const g = parseInt(hex.slice(3, 5), 16) / 255;
+        const b = parseInt(hex.slice(5, 7), 16) / 255;
+        
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        
+        if (max === min) {
+            h = s = 0;
+        } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        
+        return { h: h * 360, s: s * 100, l: l * 100 };
+    }
+
+    /**
+     * Convert HSL to hex
+     */
+    hslToHex(h, s, l) {
+        l /= 100;
+        const a = s * Math.min(l, 1 - l) / 100;
+        const f = n => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color).toString(16).padStart(2, '0');
+        };
+        return `#${f(0)}${f(8)}${f(4)}`;
     }
 }
 

@@ -19,54 +19,146 @@
 
     <!-- Main App Container -->
     <div id="app" class="min-h-screen hidden">
-        <!-- Header -->
-        <header class="bg-white shadow-sm border-b">
-            <div class="max-w-4xl mx-auto px-4 py-2">
-                <div class="flex items-center justify-between">
-                    <h1 class="text-lg font-semibold text-gray-900">Language Learning</h1>
-                    
-                    <!-- Navigation -->
-                    <nav class="flex items-center space-x-4">
-                        <div id="progress-indicator" class="hidden">
-                            <span class="text-xs text-gray-600">Progress: <span id="session-progress">0/50</span></span>
-                        </div>
-                        
-                        <button id="settings-btn" class="p-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100" aria-label="Settings">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                        </button>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
         <!-- Main Content -->
-        <main class="max-w-4xl mx-auto px-4 py-6">
+        <main class="max-w-6xl mx-auto px-4 py-8">
             <!-- Welcome Screen -->
-            <div id="welcome-screen" class="text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome to Language Learning</h2>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Learn languages through spaced repetition flashcards. Practice 50 words daily and build your vocabulary effectively.
-                </p>
-                
-                <div class="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto mb-8">
-                    <h3 class="text-lg font-semibold mb-4">Select Learning Path</h3>
-                    <select id="language-selector" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Choose language pair...</option>
-                        <option value="en-hu">English → Hungarian</option>
-                        <option value="en-bg">English → Bulgarian</option>
-                        <option value="hu-en">Hungarian → English</option>
-                        <option value="hu-bg">Hungarian → Bulgarian</option>
-                        <option value="bg-en">Bulgarian → English</option>
-                        <option value="bg-hu">Bulgarian → Hungarian</option>
-                    </select>
+            <div id="welcome-screen" class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Language Learning Setup</h2>
+                    <p class="text-gray-600 mb-6">
+                        Configure your learning preferences and start practicing!
+                    </p>
                 </div>
 
-                <button id="start-learning-btn" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    Start Learning
-                </button>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Language Selection -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-900">Languages</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">I know:</label>
+                                <select id="source-language" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Select your known language...</option>
+                                    <option value="en">English</option>
+                                    <option value="hu">Hungarian</option>
+                                    <option value="bg">Bulgarian</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">I want to learn:</label>
+                                <select id="target-language" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Select language to learn...</option>
+                                    <option value="en">English</option>
+                                    <option value="hu">Hungarian</option>
+                                    <option value="bg">Bulgarian</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" id="couples-mode-setup" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                                    <span class="text-sm font-medium text-gray-700">Couples Mode</span>
+                                </label>
+                                <p class="text-xs text-gray-500 mt-1 ml-8">Show both Hungarian and Bulgarian translations</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Learning Mode Selection -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-900">Learning Mode</h3>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-start space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="learning-mode" value="flashcards" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500" checked>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Flashcards</div>
+                                    <div class="text-xs text-gray-500">Traditional card flipping with spaced repetition</div>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-start space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="learning-mode" value="multiple-choice" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Multiple Choice</div>
+                                    <div class="text-xs text-gray-500">Choose from 4 answer options</div>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-start space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="learning-mode" value="fill-blank" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Fill in the Blank</div>
+                                    <div class="text-xs text-gray-500">Complete phrases with missing words</div>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-start space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="learning-mode" value="word-order" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Word Ordering</div>
+                                    <div class="text-xs text-gray-500">Arrange scrambled words into correct sentences</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Display Options -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-900">Display Options</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Text Assistance (choose one):</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="radio" name="text-assistance" value="none" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500" checked>
+                                        <span class="text-sm text-gray-700">None</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="radio" name="text-assistance" value="phonetics" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Phonetics (IPA pronunciation guide)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="radio" name="text-assistance" value="transliteration" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Transliteration (Latin letters)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Cards per day:</label>
+                                <input type="number" id="daily-cards-setup" min="10" max="100" value="50" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Selection -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-900">Theme</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Choose your color:</label>
+                                <div class="flex items-center space-x-3">
+                                    <input type="color" id="color-picker-setup" value="#F8BBD9" class="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer">
+                                    <button id="white-theme-setup" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
+                                        White Theme
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="start-learning-btn" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-lg" disabled>
+                        Start Learning
+                    </button>
+                    <p id="setup-status" class="text-sm text-gray-500 mt-2">Please select your languages to continue</p>
+                </div>
             </div>
 
             <!-- Flashcard Session -->
@@ -306,98 +398,6 @@
             </div>
         </main>
 
-        <!-- Settings Panel -->
-        <div id="settings-panel" class="fixed inset-y-0 right-0 w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-40">
-            <div class="p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold">Settings</h3>
-                    <button id="close-settings-btn" class="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Language Pair</label>
-                        <select id="settings-language-selector" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="en-hu">English → Hungarian</option>
-                            <option value="en-bg">English → Bulgarian</option>
-                            <option value="hu-en">Hungarian → English</option>
-                            <option value="hu-bg">Hungarian → Bulgarian</option>
-                            <option value="bg-en">Bulgarian → English</option>
-                            <option value="bg-hu">Bulgarian → Hungarian</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" id="couples-mode-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Couples Mode</span>
-                        </label>
-                        <p class="text-xs text-gray-500 mt-1">Show both Hungarian and Bulgarian translations</p>
-                    </div>
-
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" id="show-phonetics-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500" checked>
-                            <span class="text-sm font-medium text-gray-700">Show Phonetics</span>
-                        </label>
-                        <p class="text-xs text-gray-500 mt-1">Display IPA phonetic transcriptions</p>
-                    </div>
-
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" id="show-transliterations-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500" checked>
-                            <span class="text-sm font-medium text-gray-700">Show Transliterations</span>
-                        </label>
-                        <p class="text-xs text-gray-500 mt-1">Display Latin transliterations for Bulgarian text</p>
-                    </div>
-
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" id="multiple-choice-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Multiple Choice</span>
-                        </label>
-                        <p class="text-xs text-gray-500 mt-1">Show 4 answer choices for each word</p>
-                    </div>
-
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" id="phrase-construction-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Phrase Construction</span>
-                        </label>
-                        <p class="text-xs text-gray-500 mt-1">Practice building phrases using example sentences</p>
-                        
-                        <div id="phrase-mode-selector" class="mt-2 ml-8 hidden">
-                            <select id="phrase-mode-select" class="w-full p-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                                <option value="fillBlank">Fill in the Blank</option>
-                                <option value="wordOrder">Word Ordering</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Daily Cards</label>
-                        <input type="number" id="daily-cards-input" min="10" max="100" value="50" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    </div>
-
-                    <div class="pt-4 border-t">
-                        <button id="export-data-btn" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors mb-2">
-                            Export Data
-                        </button>
-                        <button id="import-data-btn" class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors">
-                            Import Data
-                        </button>
-                        <input type="file" id="import-file-input" accept=".json" class="hidden">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Overlay -->
-        <div id="settings-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
     </div>
 
     <!-- Scripts -->
