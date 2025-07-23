@@ -6,13 +6,88 @@
     --success-color: #059669;
     --error-color: #dc2626;
     --warning-color: #d97706;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Pink Theme (Default) */
+:root {
+    --bg-primary: #FF8DA1;
+    --bg-secondary: #FFE4E8;
+    --bg-card: #FFF0F2;
+    --text-primary: #2D1B2E;
+    --text-secondary: #5A4A5B;
+    --border-color: #F0B7C1;
+    --header-bg: #FF9BB0;
+    --primary-color: #D63384;
+    --primary-hover: #B02A5B;
+}
+
+/* White Theme */
+body.white-theme {
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
     --border-color: #e5e7eb;
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --header-bg: #ffffff;
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+}
+
+/* Apply theme colors to elements */
+header {
+    background-color: var(--header-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+#flashcard,
+.bg-white {
+    background-color: var(--bg-card) !important;
+}
+
+.bg-gray-50 {
+    background-color: var(--bg-secondary) !important;
+}
+
+.text-gray-900 {
+    color: var(--text-primary) !important;
+}
+
+.text-gray-600,
+.text-gray-500 {
+    color: var(--text-secondary) !important;
+}
+
+.border-gray-200,
+.border-gray-300 {
+    border-color: var(--border-color) !important;
+}
+
+.bg-blue-600,
+.bg-blue-500 {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-blue-700:hover,
+.hover\\:bg-blue-700:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+.text-blue-600,
+.text-blue-800 {
+    color: var(--primary-color) !important;
+}
+
+.bg-blue-100 {
+    background-color: var(--bg-secondary) !important;
+}
+
+.border-blue-500:focus,
+.focus\\:ring-blue-500:focus {
+    border-color: var(--primary-color) !important;
+    --tw-ring-color: var(--primary-color) !important;
 }
 
 /* Custom Animations */
@@ -177,7 +252,7 @@ input:focus {
 /* Dark Mode Support (Future Enhancement) */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #0f172a;
+        --bg-primary: #FF8DA1;
         --bg-secondary: #1e293b;
         --text-primary: #f1f5f9;
         --text-secondary: #94a3b8;

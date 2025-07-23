@@ -87,6 +87,9 @@ export class App {
         
         // Apply settings to UI
         this.applySettingsToUI();
+        
+        // Load saved theme preference
+        this.loadThemePreference();
     }
 
     /**
@@ -313,6 +316,12 @@ export class App {
         const wordOrderNextBtn = document.getElementById('word-order-next-btn');
         if (wordOrderNextBtn) {
             wordOrderNextBtn.addEventListener('click', this.handleWordOrderNext.bind(this));
+        }
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', this.toggleTheme.bind(this));
         }
         
         // Settings
@@ -2124,6 +2133,39 @@ export class App {
             'panda-happy', 'panda-sad', 'panda-streak', 'panda-super-streak'
         );
         pandaMascot.classList.add('panda-neutral');
+    }
+    
+    /**
+     * Toggle between pink and white themes
+     */
+    toggleTheme() {
+        const body = document.body;
+        const isWhiteTheme = body.classList.contains('white-theme');
+        
+        if (isWhiteTheme) {
+            body.classList.remove('white-theme');
+            console.log('Switched to pink theme');
+        } else {
+            body.classList.add('white-theme');
+            console.log('Switched to white theme');
+        }
+        
+        // Save theme preference
+        this.storage.setItem('theme_preference', isWhiteTheme ? 'pink' : 'white');
+    }
+    
+    /**
+     * Load saved theme preference
+     */
+    loadThemePreference() {
+        const savedTheme = this.storage.getItem('theme_preference', 'pink');
+        const body = document.body;
+        
+        if (savedTheme === 'white') {
+            body.classList.add('white-theme');
+        } else {
+            body.classList.remove('white-theme');
+        }
     }
 }
 
