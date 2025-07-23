@@ -46,6 +46,9 @@ export class App {
      */
     async init() {
         try {
+            // Force pink theme immediately for iPhone compatibility
+            this.forcePinkTheme();
+            
             this.showLoadingScreen();
             
             // Load settings
@@ -2124,6 +2127,27 @@ export class App {
             'panda-happy', 'panda-sad', 'panda-streak', 'panda-super-streak'
         );
         pandaMascot.classList.add('panda-neutral');
+    }
+    
+    /**
+     * Force pink theme for iPhone compatibility
+     */
+    forcePinkTheme() {
+        // Set body background immediately - MORE PINK!
+        document.body.style.backgroundColor = '#F8BBD9';
+        document.body.style.background = '#F8BBD9';
+        document.body.style.setProperty('background-color', '#F8BBD9', 'important');
+        
+        // Apply to document root as well
+        document.documentElement.style.setProperty('--bg-primary', '#F8BBD9');
+        document.documentElement.style.setProperty('--bg-header', '#F06292');
+        document.documentElement.style.setProperty('--bg-card', '#FFFFFF');
+        document.documentElement.style.setProperty('--primary-color', '#E91E63');
+        document.documentElement.style.setProperty('--text-primary', '#2E2E2E');
+        document.documentElement.style.setProperty('--text-secondary', '#4A1A4A');
+        document.documentElement.style.setProperty('--border-color', '#E91E63');
+        
+        console.log('Forced MORE PINK theme for mobile compatibility');
     }
 }
 

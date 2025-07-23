@@ -1,18 +1,34 @@
-/* Custom CSS Variables */
+/* Custom CSS Variables - Beautiful Pink Theme */
 :root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --secondary-color: #64748b;
-    --success-color: #059669;
-    --error-color: #dc2626;
-    --warning-color: #d97706;
-    --bg-primary: #f8fafc;
-    --bg-secondary: #ffffff;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --border-color: #e5e7eb;
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    /* Pink Theme Colors */
+    --primary-color: #E91E63;
+    --primary-hover: #C2185B;
+    --secondary-color: #8E6A7A;
+    --success-color: #4CAF50;
+    --error-color: #F44336;
+    --warning-color: #FF9800;
+    
+    /* Background Colors - More Pink! */
+    --bg-primary: #F8BBD9;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-header: #F06292;
+    
+    /* Text Colors */
+    --text-primary: #2E2E2E;
+    --text-secondary: #4A1A4A;
+    --text-muted: #8E6A7A;
+    
+    /* Border and UI Colors */
+    --border-color: #E91E63;
+    --border-light: #F8BBD9;
+    --accent-light: #F06292;
+    --accent-lighter: #F8BBD9;
+    
+    /* Shadows */
+    --shadow: 0 2px 4px rgba(233, 30, 99, 0.15);
+    --shadow-lg: 0 8px 25px rgba(233, 30, 99, 0.2);
+    --shadow-card: 0 4px 12px rgba(233, 30, 99, 0.12);
 }
 
 /* Custom Animations */
@@ -149,39 +165,236 @@ input:focus {
     outline-offset: 2px;
 }
 
-/* Mobile Responsive Adjustments */
+/* Mobile Responsive Adjustments - iPhone Specific */
 @media (max-width: 768px) {
+    /* Force MORE PINK background on mobile */
+    body {
+        background-color: #F8BBD9 !important;
+        background: #F8BBD9 !important;
+    }
+    
+    /* Header even more pink on mobile */
+    header {
+        background-color: #F06292 !important;
+        background: #F06292 !important;
+        border-bottom: 1px solid #E91E63 !important;
+    }
+    
     #settings-panel {
-        width: 100%;
+        width: 100% !important;
+        background-color: #FFFFFF !important;
+        background: #FFFFFF !important;
     }
     
     #flashcard {
-        min-height: 250px;
-        margin: 0 1rem;
+        min-height: 250px !important;
+        margin: 0 1rem !important;
+        background-color: #FFFFFF !important;
+        background: #FFFFFF !important;
+        border: 1px solid #F8BBD9 !important;
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.12) !important;
     }
     
     .text-3xl {
-        font-size: 1.875rem;
+        font-size: 1.875rem !important;
+        color: #2E2E2E !important;
     }
     
     #action-buttons {
-        flex-direction: column;
-        space-y: 0.5rem;
+        flex-direction: column !important;
+        space-y: 0.5rem !important;
     }
     
     #action-buttons button {
-        width: 100%;
+        width: 100% !important;
     }
+    
+    /* Mobile-specific overrides for Tailwind classes - ALL IMPORTANT */
+    .bg-white {
+        background-color: #FFFFFF !important;
+        background: #FFFFFF !important;
+    }
+    
+    .bg-gray-50 {
+        background-color: #F8BBD9 !important;
+        background: #F8BBD9 !important;
+    }
+    
+    .text-gray-900 {
+        color: #2E2E2E !important;
+    }
+    
+    .text-gray-600 {
+        color: #4A1A4A !important;
+    }
+    
+    .text-gray-500 {
+        color: #8E6A7A !important;
+    }
+    
+    .bg-blue-600 {
+        background-color: #E91E63 !important;
+        background: #E91E63 !important;
+    }
+    
+    .bg-blue-100 {
+        background-color: #F06292 !important;
+        background: #F06292 !important;
+        color: #FFFFFF !important;
+    }
+    
+    .border-gray-200,
+    .border-gray-300 {
+        border-color: #E91E63 !important;
+    }
+}
+
+/* Apply Pink Theme to All Elements - ALL IMPORTANT */
+header {
+    background-color: var(--bg-header) !important;
+    background: var(--bg-header) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Cards and Backgrounds */
+#flashcard,
+.bg-white {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    box-shadow: var(--shadow-card) !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+    background-color: var(--accent-lighter) !important;
+    background: var(--accent-lighter) !important;
+}
+
+/* Text Colors */
+.text-gray-900,
+h1, h2, h3 {
+    color: var(--text-primary) !important;
+}
+
+.text-gray-600,
+.text-gray-700 {
+    color: var(--text-secondary) !important;
+}
+
+.text-gray-500 {
+    color: var(--text-muted) !important;
+}
+
+/* Primary Buttons and Elements */
+.bg-blue-600,
+.bg-blue-500,
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    background: var(--primary-color) !important;
+    color: white !important;
+}
+
+.bg-blue-700:hover,
+.hover\\:bg-blue-700:hover,
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    background: var(--primary-hover) !important;
+}
+
+.text-blue-600,
+.text-blue-800 {
+    color: var(--primary-color) !important;
+}
+
+.bg-blue-100 {
+    background-color: var(--accent-light) !important;
+    background: var(--accent-light) !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Borders */
+.border-gray-200,
+.border-gray-300 {
+    border-color: var(--border-color) !important;
+}
+
+.border-blue-400:hover,
+.hover\\:border-blue-400:hover {
+    border-color: var(--primary-color) !important;
+}
+
+/* Focus States */
+.focus\\:ring-2:focus,
+.focus\\:ring-blue-500:focus {
+    --tw-ring-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Success and Error Colors */
+.bg-green-500 {
+    background-color: var(--success-color) !important;
+    background: var(--success-color) !important;
+}
+
+.bg-red-500 {
+    background-color: var(--error-color) !important;
+    background: var(--error-error) !important;
+}
+
+/* Progress Bars */
+#progress-bar {
+    background-color: var(--primary-color) !important;
+    background: var(--primary-color) !important;
+}
+
+/* Loading Screen */
+#loading-screen .border-blue-600 {
+    border-color: var(--primary-color) !important;
+}
+
+/* Hover Effects */
+.hover\\:bg-gray-100:hover,
+.hover\\:bg-blue-50:hover {
+    background-color: var(--accent-lighter) !important;
+    background: var(--accent-lighter) !important;
+}
+
+.hover\\:text-gray-900:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Choice Buttons */
+.choice-container {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.choice-container:hover {
+    border-color: var(--primary-color) !important;
+    background-color: var(--accent-lighter) !important;
+    background: var(--accent-lighter) !important;
+}
+
+/* Settings Panel */
+#settings-panel {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    box-shadow: var(--shadow-lg) !important;
 }
 
 /* Dark Mode Support (Future Enhancement) */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --border-color: #334155;
+        --bg-primary: #1A0E1A;
+        --bg-secondary: #2D1B2D;
+        --bg-card: #2D1B2D;
+        --bg-header: #3D2B3D;
+        --text-primary: #F8F9FA;
+        --text-secondary: #E9ECEF;
+        --border-color: #5D4E5D;
     }
 }
 
