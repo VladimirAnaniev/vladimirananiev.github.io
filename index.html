@@ -235,6 +235,53 @@
                         </div>
                     </div>
 
+                    <!-- Phrase Construction Section -->
+                    <div id="phrase-construction" class="mt-6 hidden">
+                        <!-- Fill in the Blank Mode -->
+                        <div id="fill-blank-mode" class="hidden">
+                            <h4 class="text-center text-sm font-medium text-gray-600 mb-4">Complete the phrase:</h4>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                                <div id="fill-blank-hint" class="text-lg text-gray-700 text-center mb-3 font-medium hidden">
+                                    <!-- Source phrase hint will appear here -->
+                                </div>
+                                <div id="phrase-with-blanks" class="text-lg text-center font-medium text-gray-800">
+                                    <!-- Phrase with blanks will appear here -->
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="blank-choices">
+                                <!-- Multiple choice options for blanks will appear here -->
+                            </div>
+                            <div id="fill-blank-next" class="flex justify-center mt-4 hidden">
+                                <button id="fill-blank-next-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Word Ordering Mode -->
+                        <div id="word-order-mode" class="hidden">
+                            <h4 class="text-center text-sm font-medium text-gray-600 mb-4">Put the words in the correct order:</h4>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                                <div id="target-phrase-hint" class="text-lg text-gray-700 text-center mb-2 font-medium">
+                                    <!-- Source phrase hint will appear here -->
+                                </div>
+                                <div id="word-drop-zone" class="min-h-[60px] border-2 border-dashed border-gray-300 rounded-lg p-3 flex flex-wrap gap-2 items-center justify-center">
+                                    <span class="text-gray-400 text-sm" id="drop-zone-hint">Drop words here</span>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <div id="word-bank" class="flex flex-wrap gap-2 justify-center">
+                                    <!-- Shuffled words will appear here -->
+                                </div>
+                            </div>
+                            <div id="word-order-next" class="flex justify-center mt-4 hidden">
+                                <button id="word-order-next-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -313,6 +360,21 @@
                             <span class="text-sm font-medium text-gray-700">Multiple Choice</span>
                         </label>
                         <p class="text-xs text-gray-500 mt-1">Show 4 answer choices for each word</p>
+                    </div>
+
+                    <div>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" id="phrase-construction-toggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                            <span class="text-sm font-medium text-gray-700">Phrase Construction</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mt-1">Practice building phrases using example sentences</p>
+                        
+                        <div id="phrase-mode-selector" class="mt-2 ml-8 hidden">
+                            <select id="phrase-mode-select" class="w-full p-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                                <option value="fillBlank">Fill in the Blank</option>
+                                <option value="wordOrder">Word Ordering</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div>

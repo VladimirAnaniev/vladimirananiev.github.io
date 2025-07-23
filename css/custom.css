@@ -337,6 +337,70 @@ input:focus {
     }
 }
 
+/* Phrase Construction Styles */
+.word-token {
+    display: inline-block;
+    user-select: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.word-token:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.word-token:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#word-drop-zone {
+    min-height: 80px;
+    transition: all 0.2s ease;
+}
+
+#word-drop-zone:hover {
+    border-color: #3b82f6;
+    background-color: #f0f9ff;
+}
+
+.blank-choice {
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.blank-choice:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.blank-choice:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Hide action buttons when phrase construction is active */
+.phrase-construction-active #action-buttons {
+    display: none !important;
+}
+
+/* Phrase construction animations */
+@keyframes wordSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.word-token {
+    animation: wordSlideIn 0.3s ease-out;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -345,5 +409,13 @@ input:focus {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+    
+    .word-token:hover {
+        transform: none;
+    }
+    
+    .blank-choice:hover:not(:disabled) {
+        transform: none;
     }
 }

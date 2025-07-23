@@ -42,6 +42,8 @@ export class Settings {
             showPhonetics: true,
             showTransliterations: true,
             multipleChoice: false,
+            phraseConstruction: false,
+            phraseMode: 'fillBlank', // 'fillBlank' or 'wordOrder'
             ...data.display
         };
         
@@ -168,6 +170,26 @@ export class Settings {
     setMultipleChoice(enabled) {
         this.display.multipleChoice = !!enabled;
         this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Enable or disable phrase construction mode
+     * @param {boolean} enabled - Whether phrase construction should be shown
+     */
+    setPhraseConstruction(enabled) {
+        this.display.phraseConstruction = !!enabled;
+        this.updatedAt = new Date().toISOString();
+    }
+
+    /**
+     * Set phrase construction mode
+     * @param {string} mode - The phrase mode ('fillBlank' or 'wordOrder')
+     */
+    setPhraseMode(mode) {
+        if (['fillBlank', 'wordOrder'].includes(mode)) {
+            this.display.phraseMode = mode;
+            this.updatedAt = new Date().toISOString();
+        }
     }
 
     /**

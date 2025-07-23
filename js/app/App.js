@@ -21,6 +21,9 @@ export class App {
         this.currentCard = null;
         this.isInitialized = false;
         this.currentMultipleChoiceResult = null;
+        this.currentPhraseResult = null;
+        this.targetSentence = null;
+        this.droppedWords = [];
         
         // UI state
         this.currentScreen = 'welcome'; // welcome, session, complete, settings
@@ -130,6 +133,24 @@ export class App {
         const multipleChoiceToggle = document.getElementById('multiple-choice-toggle');
         if (multipleChoiceToggle) {
             multipleChoiceToggle.checked = this.settings.display.multipleChoice;
+        }
+        
+        // Update phrase construction toggle
+        const phraseConstructionToggle = document.getElementById('phrase-construction-toggle');
+        if (phraseConstructionToggle) {
+            phraseConstructionToggle.checked = this.settings.display.phraseConstruction;
+        }
+        
+        // Update phrase mode selector
+        const phraseModeSelect = document.getElementById('phrase-mode-select');
+        if (phraseModeSelect) {
+            phraseModeSelect.value = this.settings.display.phraseMode;
+        }
+        
+        // Show/hide phrase mode selector
+        const phraseSelector = document.getElementById('phrase-mode-selector');
+        if (phraseSelector) {
+            phraseSelector.style.display = this.settings.display.phraseConstruction ? 'block' : 'none';
         }
         
         // Apply CSS classes to body based on settings
@@ -282,6 +303,17 @@ export class App {
             multipleChoiceNextBtn.addEventListener('click', this.handleMultipleChoiceNext.bind(this));
         }
         
+        // Phrase construction buttons
+        const fillBlankNextBtn = document.getElementById('fill-blank-next-btn');
+        if (fillBlankNextBtn) {
+            fillBlankNextBtn.addEventListener('click', this.handleFillBlankNext.bind(this));
+        }
+        
+        const wordOrderNextBtn = document.getElementById('word-order-next-btn');
+        if (wordOrderNextBtn) {
+            wordOrderNextBtn.addEventListener('click', this.handleWordOrderNext.bind(this));
+        }
+        
         // Settings
         const settingsBtn = document.getElementById('settings-btn');
         if (settingsBtn) {
@@ -345,6 +377,28 @@ export class App {
         if (multipleChoiceToggle) {
             multipleChoiceToggle.addEventListener('change', (e) => {
                 this.settings.setMultipleChoice(e.target.checked);
+                this.saveSettings();
+            });
+        }
+        
+        const phraseConstructionToggle = document.getElementById('phrase-construction-toggle');
+        if (phraseConstructionToggle) {
+            phraseConstructionToggle.addEventListener('change', (e) => {
+                this.settings.setPhraseConstruction(e.target.checked);
+                this.saveSettings();
+                
+                // Show/hide phrase mode selector
+                const phraseSelector = document.getElementById('phrase-mode-selector');
+                if (phraseSelector) {
+                    phraseSelector.style.display = e.target.checked ? 'block' : 'none';
+                }
+            });
+        }
+        
+        const phraseModeSelect = document.getElementById('phrase-mode-select');
+        if (phraseModeSelect) {
+            phraseModeSelect.addEventListener('change', (e) => {
+                this.settings.setPhraseMode(e.target.value);
                 this.saveSettings();
             });
         }
@@ -485,6 +539,11 @@ export class App {
             startTime: Date.now()
         };
         
+        // Reset results from previous modes
+        this.currentMultipleChoiceResult = null;
+        this.currentPhraseResult = null;
+        this.targetSentence = null;
+        this.droppedWords = [];
         
         // Start timing this card
         this.progressTracker.startCardTimer(word.id);
@@ -647,6 +706,33 @@ export class App {
         
         // Handle multiple choice display
         await this.setupMultipleChoice();
+        
+        // Handle phrase construction display
+        await this.setupPhraseConstruction();
+        
+        // Handle card display state based on active modes
+        const flashcard = document.getElementById('flashcard');
+        
+        if (this.settings.display.phraseConstruction) {
+            // Hide entire flashcard in phrase construction mode
+            if (flashcard) flashcard.style.display = 'none';
+            if (actionButtons) actionButtons.style.display = 'none';
+            this.cardRevealed = true;
+        } else if (this.settings.display.multipleChoice) {
+            // Show back of card for multiple choice mode
+            if (flashcard) flashcard.style.display = 'block';
+            if (cardFront) cardFront.style.display = 'none';
+            if (cardBack) cardBack.style.display = 'block';
+            if (actionButtons) actionButtons.style.display = 'none';
+            this.cardRevealed = true;
+        } else {
+            // Normal flashcard mode
+            if (flashcard) flashcard.style.display = 'block';
+            if (cardFront) cardFront.style.display = 'block';
+            if (cardBack) cardBack.style.display = 'none';
+            if (actionButtons) actionButtons.style.display = 'none';
+            this.cardRevealed = false;
+        }
         
         // Apply multiple choice CSS class if active
         const body = document.body;
@@ -824,10 +910,579 @@ export class App {
     }
 
     /**
+     * Setup phrase construction for the current card
+     */
+    async setupPhraseConstruction() {
+        const phraseConstruction = document.getElementById('phrase-construction');
+        const fillBlankMode = document.getElementById('fill-blank-mode');
+        const wordOrderMode = document.getElementById('word-order-mode');
+        
+        if (!phraseConstruction) return;
+
+        if (!this.settings.display.phraseConstruction) {
+            phraseConstruction.style.display = 'none';
+            // Hide next buttons when phrase construction is disabled
+            const fillBlankNext = document.getElementById('fill-blank-next');
+            const wordOrderNext = document.getElementById('word-order-next');
+            if (fillBlankNext) fillBlankNext.style.display = 'none';
+            if (wordOrderNext) wordOrderNext.style.display = 'none';
+            return;
+        }
+
+        phraseConstruction.style.display = 'block';
+        
+        // Hide both next buttons initially
+        const fillBlankNext = document.getElementById('fill-blank-next');
+        const wordOrderNext = document.getElementById('word-order-next');
+        const fillBlankHint = document.getElementById('fill-blank-hint');
+        if (fillBlankNext) fillBlankNext.style.display = 'none';
+        if (wordOrderNext) wordOrderNext.style.display = 'none';
+        if (fillBlankHint) fillBlankHint.classList.add('hidden');
+        
+        // Show the appropriate mode
+        if (this.settings.display.phraseMode === 'fillBlank') {
+            fillBlankMode.style.display = 'block';
+            wordOrderMode.style.display = 'none';
+            await this.setupFillBlankMode();
+        } else if (this.settings.display.phraseMode === 'wordOrder') {
+            fillBlankMode.style.display = 'none';
+            wordOrderMode.style.display = 'block';
+            await this.setupWordOrderMode();
+        }
+    }
+
+    /**
+     * Setup fill-in-the-blank mode
+     */
+    async setupFillBlankMode() {
+        if (!this.currentCard) return;
+
+        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
+        const targetWord = this.currentCard.word.getTranslation(targetLang);
+        
+        // Find examples that contain the target word
+        const targetExamples = this.currentCard.word.getExamples(targetLang);
+        const sourceExamples = this.currentCard.word.getExamples(sourceLang);
+        
+        // Filter examples that contain the target word (case insensitive)
+        const validExamples = [];
+        targetExamples.forEach((example, index) => {
+            if (example.toLowerCase().includes(targetWord.toLowerCase())) {
+                validExamples.push({
+                    target: example,
+                    source: sourceExamples[index] || sourceExamples[0] || `"${this.currentCard.word.getTranslation(sourceLang)}"`,
+                    index: index
+                });
+            }
+        });
+        
+        if (validExamples.length === 0) {
+            // Fallback: create a simple phrase using the word
+            await this.createSimpleFillBlank();
+            return;
+        }
+
+        // Pick a random valid example
+        const selectedExample = validExamples[Math.floor(Math.random() * validExamples.length)];
+
+        // Show source reference above the blank
+        const hintElement = document.getElementById('fill-blank-hint');
+        if (hintElement) {
+            hintElement.textContent = selectedExample.source;
+            hintElement.classList.remove('hidden');
+        }
+
+        // Create a fill-in-the-blank from the example
+        const phraseWithBlanks = selectedExample.target.replace(new RegExp(targetWord, 'gi'), '____');
+        
+        // Display the phrase with blanks
+        const phraseElement = document.getElementById('phrase-with-blanks');
+        phraseElement.textContent = phraseWithBlanks;
+
+        // Generate multiple choice options for the blank
+        await this.generateBlankChoices(targetWord);
+    }
+
+    /**
+     * Create a simple fill-in-the-blank when no examples are available
+     */
+    async createSimpleFillBlank() {
+        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
+        const sourceWord = this.currentCard.word.getTranslation(sourceLang);
+        const targetWord = this.currentCard.word.getTranslation(targetLang);
+        
+        // Show source reference
+        const hintElement = document.getElementById('fill-blank-hint');
+        if (hintElement) {
+            hintElement.textContent = `"${sourceWord}"`;
+            hintElement.classList.remove('hidden');
+        }
+        
+        // Create simple templates based on word type
+        const templates = [
+            `This is a ____.`,
+            `I see a ____.`,
+            `The ____ is here.`,
+            `Where is the ____?`
+        ];
+        
+        const template = templates[Math.floor(Math.random() * templates.length)];
+        const phraseElement = document.getElementById('phrase-with-blanks');
+        phraseElement.textContent = template;
+
+        await this.generateBlankChoices(targetWord);
+    }
+
+    /**
+     * Generate choices for fill-in-the-blank
+     */
+    async generateBlankChoices(correctAnswer) {
+        const [, targetLang] = this.settings.learningPath.split('-');
+        const allWords = await this.database.loadWords();
+        
+        // Get other words for wrong answers
+        const otherWords = allWords
+            .filter(word => word.id !== this.currentCard.word.id && word.hasTranslation(targetLang))
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map(word => word.getTranslation(targetLang));
+
+        // Create choices array
+        const choices = [correctAnswer, ...otherWords].sort(() => Math.random() - 0.5);
+
+        // Display choices
+        const choicesContainer = document.getElementById('blank-choices');
+        choicesContainer.innerHTML = '';
+
+        choices.forEach((choice, index) => {
+            const button = document.createElement('button');
+            button.className = 'blank-choice bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors';
+            button.textContent = choice;
+            button.onclick = () => this.handleBlankChoice(choice, correctAnswer, button);
+            choicesContainer.appendChild(button);
+        });
+    }
+
+    /**
+     * Handle blank choice selection
+     */
+    handleBlankChoice(selectedChoice, correctAnswer, clickedButton) {
+        const isCorrect = selectedChoice === correctAnswer;
+        
+        // Store result
+        this.currentPhraseResult = isCorrect;
+        
+        // Disable all choices and show results
+        const choices = document.querySelectorAll('.blank-choice');
+        choices.forEach(choice => {
+            choice.disabled = true;
+            choice.onclick = null;
+            
+            if (choice.textContent === correctAnswer) {
+                choice.classList.add('bg-green-200', 'border-green-400');
+            } else if (choice === clickedButton && !isCorrect) {
+                choice.classList.add('bg-red-200', 'border-red-400');
+            }
+        });
+
+        // Show next button
+        const nextButton = document.getElementById('fill-blank-next');
+        if (nextButton) {
+            nextButton.style.display = 'flex';
+        }
+    }
+
+    /**
+     * Setup word ordering mode
+     */
+    async setupWordOrderMode() {
+        if (!this.currentCard) return;
+
+        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
+        const targetWord = this.currentCard.word.getTranslation(targetLang);
+        
+        // Find examples that contain the target word
+        const targetExamples = this.currentCard.word.getExamples(targetLang);
+        const sourceExamples = this.currentCard.word.getExamples(sourceLang);
+        
+        // Filter examples that contain the target word (case insensitive)
+        const validExamples = [];
+        targetExamples.forEach((example, index) => {
+            if (example.toLowerCase().includes(targetWord.toLowerCase())) {
+                validExamples.push({
+                    target: example,
+                    source: sourceExamples[index] || sourceExamples[0] || `"${this.currentCard.word.getTranslation(sourceLang)}"`,
+                    index: index
+                });
+            }
+        });
+        
+        if (validExamples.length === 0) {
+            // Fallback: create a simple phrase
+            await this.createSimpleWordOrder();
+            return;
+        }
+
+        // Pick a random valid example
+        const selectedExample = validExamples[Math.floor(Math.random() * validExamples.length)];
+
+        // Show source hint
+        const hintElement = document.getElementById('target-phrase-hint');
+        hintElement.textContent = selectedExample.source;
+
+        // Split target sentence into words and shuffle
+        this.targetSentence = selectedExample.target;
+        // Split into words and punctuation, keeping track of original structure
+        const allTokens = selectedExample.target.split(/(\s+|[.,!?;])/).filter(part => part.length > 0);
+        // Only show non-space tokens to user
+        const wordTokens = allTokens.filter(token => !token.match(/^\s+$/));
+        const shuffledWords = [...wordTokens].sort(() => Math.random() - 0.5);
+        
+        // Store the word structure for reconstruction
+        this.wordStructure = allTokens;
+
+        // Display shuffled words
+        const wordBank = document.getElementById('word-bank');
+        wordBank.innerHTML = '';
+        
+        shuffledWords.forEach((word, index) => {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
+            wordElement.textContent = word;
+            wordElement.draggable = true;
+            wordElement.dataset.word = word;
+            wordElement.onclick = () => this.moveWordToDropZone(wordElement);
+            
+            // Add drag start event
+            wordElement.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', '');
+                wordElement.classList.add('opacity-50');
+                this.draggedElement = wordElement;
+            });
+            
+            wordElement.addEventListener('dragend', (e) => {
+                wordElement.classList.remove('opacity-50');
+                this.draggedElement = null;
+            });
+            
+            wordBank.appendChild(wordElement);
+        });
+
+        // Initialize drop zone
+        this.initializeDropZone();
+    }
+
+    /**
+     * Create simple word ordering when no examples available
+     */
+    async createSimpleWordOrder() {
+        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
+        const sourceWord = this.currentCard.word.getTranslation(sourceLang);
+        const targetWord = this.currentCard.word.getTranslation(targetLang);
+        
+        // Create simple sentences
+        const templates = [
+            `The ${targetWord} is here.`,
+            `I see the ${targetWord}.`,
+            `This ${targetWord} is good.`
+        ];
+        
+        this.targetSentence = templates[Math.floor(Math.random() * templates.length)];
+        
+        const hintElement = document.getElementById('target-phrase-hint');
+        hintElement.textContent = `"${sourceWord}"`;
+
+        // Continue with word shuffling
+        // Split into words and punctuation, keeping track of original structure
+        const allTokens = this.targetSentence.split(/(\s+|[.,!?;])/).filter(part => part.length > 0);
+        // Only show non-space tokens to user
+        const wordTokens = allTokens.filter(token => !token.match(/^\s+$/));
+        const shuffledWords = [...wordTokens].sort(() => Math.random() - 0.5);
+        
+        // Store the word structure for reconstruction
+        this.wordStructure = allTokens;
+
+        const wordBank = document.getElementById('word-bank');
+        wordBank.innerHTML = '';
+        
+        shuffledWords.forEach((word) => {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
+            wordElement.textContent = word;
+            wordElement.draggable = true;
+            wordElement.dataset.word = word;
+            wordElement.onclick = () => this.moveWordToDropZone(wordElement);
+            
+            // Add drag start event
+            wordElement.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', '');
+                wordElement.classList.add('opacity-50');
+                this.draggedElement = wordElement;
+            });
+            
+            wordElement.addEventListener('dragend', (e) => {
+                wordElement.classList.remove('opacity-50');
+                this.draggedElement = null;
+            });
+            
+            wordBank.appendChild(wordElement);
+        });
+
+        this.initializeDropZone();
+    }
+
+    /**
+     * Initialize the drop zone for word ordering
+     */
+    initializeDropZone() {
+        const dropZone = document.getElementById('word-drop-zone');
+        this.droppedWords = [];
+        this.draggedElement = null;
+        
+        // Clear drop zone
+        dropZone.innerHTML = '<span class="text-gray-400 text-sm" id="drop-zone-hint">Drop words here</span>';
+        
+        // Add drag and drop events to drop zone for reordering
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-400', 'bg-blue-50');
+        });
+        
+        dropZone.addEventListener('dragleave', (e) => {
+            // Only remove highlight if leaving the drop zone entirely
+            if (!dropZone.contains(e.relatedTarget)) {
+                dropZone.classList.remove('border-blue-400', 'bg-blue-50');
+            }
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-blue-400', 'bg-blue-50');
+            
+            if (this.draggedElement) {
+                const wordBank = document.getElementById('word-bank');
+                
+                if (wordBank.contains(this.draggedElement)) {
+                    // Moving from word bank to drop zone
+                    this.moveWordToDropZone(this.draggedElement);
+                } else if (dropZone.contains(this.draggedElement)) {
+                    // Handle reordering within drop zone
+                    const dropTarget = e.target.closest('.word-token');
+                    if (dropTarget && dropTarget !== this.draggedElement) {
+                        // Insert before the target
+                        dropZone.insertBefore(this.draggedElement, dropTarget);
+                        this.updateDroppedWordsOrder();
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Update the dropped words order based on DOM order
+     */
+    updateDroppedWordsOrder() {
+        const dropZone = document.getElementById('word-drop-zone');
+        const wordElements = dropZone.querySelectorAll('.word-token');
+        this.droppedWords = Array.from(wordElements).map(el => el.dataset.word);
+    }
+
+    /**
+     * Move word to drop zone
+     */
+    moveWordToDropZone(wordElement) {
+        const dropZone = document.getElementById('word-drop-zone');
+        const hint = document.getElementById('drop-zone-hint');
+        
+        // Hide hint if this is the first word
+        if (hint && this.droppedWords.length === 0) {
+            hint.style.display = 'none';
+        }
+        
+        // Create word in drop zone
+        const droppedWord = document.createElement('div');
+        droppedWord.className = 'word-token bg-green-100 border border-green-300 rounded px-3 py-2 cursor-pointer hover:bg-green-200 transition-colors';
+        droppedWord.textContent = wordElement.textContent;
+        droppedWord.dataset.word = wordElement.dataset.word;
+        droppedWord.draggable = true;
+        droppedWord.onclick = () => this.removeWordFromDropZone(droppedWord);
+        
+        // Add drag events for reordering within drop zone
+        droppedWord.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', '');
+            droppedWord.classList.add('opacity-50');
+            this.draggedElement = droppedWord;
+        });
+        
+        droppedWord.addEventListener('dragend', (e) => {
+            droppedWord.classList.remove('opacity-50');
+            this.draggedElement = null;
+        });
+        
+        dropZone.appendChild(droppedWord);
+        this.droppedWords.push(wordElement.dataset.word);
+        
+        // Remove from word bank
+        wordElement.remove();
+        
+        // Check if complete
+        this.checkWordOrderComplete();
+    }
+
+    /**
+     * Remove word from drop zone back to word bank
+     */
+    removeWordFromDropZone(droppedWordElement) {
+        const wordBank = document.getElementById('word-bank');
+        const dropZone = document.getElementById('word-drop-zone');
+        
+        // Remove from dropped words array
+        const wordIndex = this.droppedWords.indexOf(droppedWordElement.dataset.word);
+        if (wordIndex > -1) {
+            this.droppedWords.splice(wordIndex, 1);
+        }
+        
+        // Create new word element in word bank
+        const wordElement = document.createElement('div');
+        wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
+        wordElement.textContent = droppedWordElement.textContent;
+        wordElement.dataset.word = droppedWordElement.dataset.word;
+        wordElement.draggable = true;
+        wordElement.onclick = () => this.moveWordToDropZone(wordElement);
+        wordBank.appendChild(wordElement);
+        
+        // Remove from drop zone
+        droppedWordElement.remove();
+        
+        // Show hint if drop zone is empty
+        if (this.droppedWords.length === 0) {
+            const hint = document.getElementById('drop-zone-hint');
+            if (hint) {
+                hint.style.display = 'inline';
+            }
+        }
+    }
+
+    /**
+     * Reconstruct sentence with proper spaces from word order
+     */
+    reconstructSentenceWithSpaces(droppedWords) {
+        if (!this.wordStructure) {
+            // Fallback: just join with spaces
+            return droppedWords.join(' ');
+        }
+        
+        let result = '';
+        let wordIndex = 0;
+        
+        for (let token of this.wordStructure) {
+            if (token.match(/^\s+$/)) {
+                // This is a space - add it as is
+                result += token;
+            } else {
+                // This is a word/punctuation - use from droppedWords
+                if (wordIndex < droppedWords.length) {
+                    result += droppedWords[wordIndex];
+                    wordIndex++;
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Check if word ordering is complete and correct
+     */
+    checkWordOrderComplete() {
+        const wordBank = document.getElementById('word-bank');
+        const nextButton = document.getElementById('word-order-next');
+        
+        // Check if all words are used
+        if (wordBank.children.length === 0) {
+            // Reconstruct sentence with proper spacing
+            const constructedSentence = this.reconstructSentenceWithSpaces(this.droppedWords);
+            const targetSentence = this.targetSentence;
+            
+            // Simple comparison since we're reconstructing with proper spacing
+            const isCorrect = constructedSentence.trim() === targetSentence.trim();
+            
+            this.currentPhraseResult = isCorrect;
+            
+            // Show visual feedback
+            const dropZone = document.getElementById('word-drop-zone');
+            const words = dropZone.querySelectorAll('.word-token');
+            
+            words.forEach(word => {
+                // Remove existing colors first
+                word.classList.remove('bg-green-100', 'border-green-300', 'bg-red-200', 'border-red-400');
+                
+                if (isCorrect) {
+                    // Correct answer - show green
+                    word.classList.add('bg-green-200', 'border-green-400');
+                } else {
+                    // Incorrect answer - show red
+                    word.classList.add('bg-red-200', 'border-red-400');
+                }
+                
+                // Disable interaction
+                word.onclick = null;
+                word.draggable = false;
+            });
+            
+            // If incorrect, show the correct answer
+            if (!isCorrect) {
+                const hintElement = document.getElementById('target-phrase-hint');
+                if (hintElement) {
+                    const originalText = hintElement.textContent;
+                    hintElement.innerHTML = `
+                        <div class="mb-2">${originalText}</div>
+                        <div class="text-sm text-green-600 font-medium">Correct answer: "${this.targetSentence}"</div>
+                    `;
+                }
+            }
+            
+            // Show next button
+            if (nextButton) {
+                nextButton.style.display = 'flex';
+            }
+        }
+    }
+
+    /**
+     * Handle fill blank next button
+     */
+    handleFillBlankNext() {
+        // Ensure cardRevealed is true for phrase construction
+        this.cardRevealed = true;
+        
+        if (this.currentPhraseResult !== null) {
+            this.handleCardResponse(this.currentPhraseResult);
+        }
+    }
+
+    /**
+     * Handle word order next button
+     */
+    handleWordOrderNext() {
+        // Ensure cardRevealed is true for phrase construction
+        this.cardRevealed = true;
+        
+        if (this.currentPhraseResult !== null) {
+            this.handleCardResponse(this.currentPhraseResult);
+        }
+    }
+
+    /**
      * Toggle between front and back of the card
      */
     toggleCard() {
         if (!this.currentCard) return;
+        
+        // Don't allow manual toggle in phrase construction mode
+        if (this.settings.display.phraseConstruction) {
+            return;
+        }
         
         const cardFront = document.getElementById('card-front');
         const cardBack = document.getElementById('card-back');
@@ -837,13 +1492,20 @@ export class App {
             // Show front
             if (cardFront) cardFront.style.display = 'block';
             if (cardBack) cardBack.style.display = 'none';
-            if (actionButtons) actionButtons.style.display = 'flex';
+            if (actionButtons) actionButtons.style.display = 'none';
             this.cardRevealed = false;
         } else {
             // Show back
             if (cardFront) cardFront.style.display = 'none';
             if (cardBack) cardBack.style.display = 'block';
-            if (actionButtons) actionButtons.style.display = 'flex';
+            if (actionButtons) {
+                // In phrase construction mode, hide action buttons
+                if (this.settings.display.phraseConstruction) {
+                    actionButtons.style.display = 'none';
+                } else {
+                    actionButtons.style.display = 'flex';
+                }
+            }
             this.cardRevealed = true;
         }
         
@@ -1016,11 +1678,16 @@ export class App {
      * Handle user response to a card
      */
     async handleCardResponse(wasCorrect) {
-        if (!this.cardRevealed || !this.currentCard) return;
+        if (!this.cardRevealed || !this.currentCard) {
+            return;
+        }
         
         try {
             // Show panda reaction if not in multiple choice mode (already shown there)
-            if (!this.settings.display.multipleChoice) {
+            if (!this.settings.display.multipleChoice && !this.settings.display.phraseConstruction) {
+                this.showPandaReaction(wasCorrect);
+            } else if (this.settings.display.phraseConstruction) {
+                // Show panda reaction for phrase construction
                 this.showPandaReaction(wasCorrect);
             }
             
@@ -1051,9 +1718,10 @@ export class App {
                     await this.completeSession();
                 } else {
                     // Wait a moment for panda reaction before loading next card
+                    const delay = (this.settings.display.multipleChoice || this.settings.display.phraseConstruction) ? 0 : 1500;
                     setTimeout(async () => {
                         await this.loadNextCard();
-                    }, this.settings.display.multipleChoice ? 0 : 1500);
+                    }, delay);
                 }
             } else {
                 this.showError('Failed to save progress. Please try again.');
