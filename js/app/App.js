@@ -318,16 +318,10 @@ export class App {
             wordOrderNextBtn.addEventListener('click', this.handleWordOrderNext.bind(this));
         }
         
-        // Color picker
-        const colorPicker = document.getElementById('color-picker');
-        if (colorPicker) {
-            colorPicker.addEventListener('change', this.handleColorChange.bind(this));
-        }
-        
-        // White theme button
-        const whiteThemeBtn = document.getElementById('white-theme-btn');
-        if (whiteThemeBtn) {
-            whiteThemeBtn.addEventListener('click', this.toggleWhiteTheme.bind(this));
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', this.toggleTheme.bind(this));
         }
         
         // Settings
@@ -2142,161 +2136,35 @@ export class App {
     }
     
     /**
-     * Convert hex color to HSL
+     * Toggle between pink and white themes
      */
-    hexToHsl(hex) {
-        const r = parseInt(hex.slice(1, 3), 16) / 255;
-        const g = parseInt(hex.slice(3, 5), 16) / 255;
-        const b = parseInt(hex.slice(5, 7), 16) / 255;
-
-        const max = Math.max(r, g, b);
-        const min = Math.min(r, g, b);
-        let h, s, l = (max + min) / 2;
-
-        if (max === min) {
-            h = s = 0;
-        } else {
-            const d = max - min;
-            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-            switch (max) {
-                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                case g: h = (b - r) / d + 2; break;
-                case b: h = (r - g) / d + 4; break;
-            }
-            h /= 6;
-        }
-
-        return [h * 360, s * 100, l * 100];
-    }
-
-    /**
-     * Convert HSL to hex
-     */
-    hslToHex(h, s, l) {
-        h /= 360;
-        s /= 100;
-        l /= 100;
-
-        const hue2rgb = (p, q, t) => {
-            if (t < 0) t += 1;
-            if (t > 1) t -= 1;
-            if (t < 1/6) return p + (q - p) * 6 * t;
-            if (t < 1/2) return q;
-            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-            return p;
-        };
-
-        let r, g, b;
-        if (s === 0) {
-            r = g = b = l;
-        } else {
-            const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-            const p = 2 * l - q;
-            r = hue2rgb(p, q, h + 1/3);
-            g = hue2rgb(p, q, h);
-            b = hue2rgb(p, q, h - 1/3);
-        }
-
-        const toHex = (c) => {
-            const hex = Math.round(c * 255).toString(16);
-            return hex.length === 1 ? '0' + hex : hex;
-        };
-
-        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-    }
-
-    /**
-     * Generate color palette from base color
-     */
-    generateColorPalette(baseColor) {
-        const [h, s, l] = this.hexToHsl(baseColor);
-        
-        return {
-            primary: baseColor,
-            primaryHover: this.hslToHex(h, Math.min(s + 10, 100), Math.max(l - 15, 10)),
-            bgPrimary: baseColor,
-            bgSecondary: this.hslToHex(h, Math.max(s - 20, 20), Math.min(l + 25, 90)),
-            bgCard: this.hslToHex(h, Math.max(s - 30, 15), Math.min(l + 35, 95)),
-            headerBg: this.hslToHex(h, Math.max(s - 5, 30), Math.max(l - 5, 15)),
-            borderColor: this.hslToHex(h, Math.max(s - 15, 25), Math.min(l + 15, 80)),
-            textPrimary: l > 50 ? '#2D1B2E' : '#F8F9FA',
-            textSecondary: l > 50 ? '#5A4A5B' : '#E9ECEF'
-        };
-    }
-
-    /**
-     * Apply color theme
-     */
-    applyColorTheme(colors) {
-        const root = document.documentElement;
-        
-        root.style.setProperty('--bg-primary', colors.bgPrimary);
-        root.style.setProperty('--bg-secondary', colors.bgSecondary);
-        root.style.setProperty('--bg-card', colors.bgCard);
-        root.style.setProperty('--header-bg', colors.headerBg);
-        root.style.setProperty('--border-color', colors.borderColor);
-        root.style.setProperty('--text-primary', colors.textPrimary);
-        root.style.setProperty('--text-secondary', colors.textSecondary);
-        root.style.setProperty('--primary-color', colors.primary);
-        root.style.setProperty('--primary-hover', colors.primaryHover);
-        
-        // Ensure body background updates
-        document.body.style.backgroundColor = colors.bgPrimary;
-    }
-
-    /**
-     * Handle color picker change
-     */
-    handleColorChange(event) {
-        const selectedColor = event.target.value;
-        const colors = this.generateColorPalette(selectedColor);
-        
-        // Remove white theme
-        document.body.classList.remove('white-theme');
-        
-        // Apply new color theme
-        this.applyColorTheme(colors);
-        
-        // Save color preference
-        this.storage.setItem('theme_color', selectedColor);
-        this.storage.setItem('theme_preference', 'color');
-        
-        console.log('Applied color theme:', selectedColor);
-    }
-
-    /**
-     * Toggle white theme
-     */
-    toggleWhiteTheme() {
+    toggleTheme() {
         const body = document.body;
         const isWhiteTheme = body.classList.contains('white-theme');
         
-        if (!isWhiteTheme) {
+        if (isWhiteTheme) {
+            body.classList.remove('white-theme');
+            console.log('Switched to pink theme');
+        } else {
             body.classList.add('white-theme');
-            this.storage.setItem('theme_preference', 'white');
             console.log('Switched to white theme');
         }
+        
+        // Save theme preference
+        this.storage.setItem('theme_preference', isWhiteTheme ? 'pink' : 'white');
     }
     
     /**
      * Load saved theme preference
      */
     loadThemePreference() {
-        const savedTheme = this.storage.getItem('theme_preference', 'color');
-        const savedColor = this.storage.getItem('theme_color', '#FF8DA1');
+        const savedTheme = this.storage.getItem('theme_preference', 'pink');
         const body = document.body;
-        const colorPicker = document.getElementById('color-picker');
         
         if (savedTheme === 'white') {
             body.classList.add('white-theme');
         } else {
             body.classList.remove('white-theme');
-            const colors = this.generateColorPalette(savedColor);
-            this.applyColorTheme(colors);
-            
-            if (colorPicker) {
-                colorPicker.value = savedColor;
-            }
         }
     }
 }
