@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/custom.css">
 </head>
-<body class="font-sans" style="background-color: var(--bg-primary);">
+<body class="bg-gray-50 font-sans">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div class="text-center">
@@ -30,12 +30,6 @@
                         <div id="progress-indicator" class="hidden">
                             <span class="text-xs text-gray-600">Progress: <span id="session-progress">0/50</span></span>
                         </div>
-                        
-                        <button id="theme-toggle" class="p-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100" aria-label="Toggle Theme" title="Switch between pink and white theme">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5H9a2 2 0 00-2 2v12a4 4 0 004 4h10a2 2 0 002-2V7a2 2 0 00-2-2z"></path>
-                            </svg>
-                        </button>
                         
                         <button id="settings-btn" class="p-1.5 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100" aria-label="Settings">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
