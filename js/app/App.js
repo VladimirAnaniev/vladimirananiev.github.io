@@ -30,6 +30,7 @@ export class App {
         this.cardRevealed = false;
         this.sessionStartTime = null;
         this.pandaReactionTimeout = null;
+        this.currentStreak = 0; // Track consecutive correct answers
         
         // Bind methods
         this.handleCardResponse = this.handleCardResponse.bind(this);
@@ -484,6 +485,9 @@ export class App {
             }
             
             this.currentSession = sessionData;
+            
+            // Reset streak counter for new session
+            this.currentStreak = 0;
             
             // Start progress tracking
             this.progressTracker.startSession(
@@ -1072,6 +1076,9 @@ export class App {
         // Store result
         this.currentPhraseResult = isCorrect;
         
+        // Show panda reaction immediately when phrase is completed
+        this.showPandaReaction(isCorrect);
+        
         // Disable all choices and show results
         const choices = document.querySelectorAll('.blank-choice');
         choices.forEach(choice => {
@@ -1409,6 +1416,9 @@ export class App {
             
             this.currentPhraseResult = isCorrect;
             
+            // Show panda reaction immediately when word order is completed
+            this.showPandaReaction(isCorrect);
+            
             // Show visual feedback
             const dropZone = document.getElementById('word-drop-zone');
             const words = dropZone.querySelectorAll('.word-token');
@@ -1687,8 +1697,8 @@ export class App {
             if (!this.settings.display.multipleChoice && !this.settings.display.phraseConstruction) {
                 this.showPandaReaction(wasCorrect);
             } else if (this.settings.display.phraseConstruction) {
-                // Show panda reaction for phrase construction
-                this.showPandaReaction(wasCorrect);
+                // Panda reaction already shown immediately when phrase completed
+                console.log('PHRASE MODE: Panda reaction already shown, skipping duplicate');
             }
             
             // End timing for this card
@@ -1993,11 +2003,12 @@ export class App {
     }
 
     /**
-     * Show panda reaction based on answer correctness
+     * Show panda reaction based on answer correctness with streak tracking
      * @param {boolean} isCorrect - Whether the answer was correct
      */
     showPandaReaction(isCorrect) {
         const pandaMascot = document.getElementById('panda-mascot');
+        const celebrationEmoji = document.getElementById('celebration-emoji');
         if (!pandaMascot) return;
         
         // Clear any existing reaction timeout
@@ -2005,20 +2016,87 @@ export class App {
             clearTimeout(this.pandaReactionTimeout);
         }
         
-        // Remove all existing state classes
-        pandaMascot.classList.remove('panda-neutral', 'panda-happy', 'panda-sad');
+        // Store previous streak for logic
+        const previousStreak = this.currentStreak;
         
-        // Add appropriate reaction class
+        // Update streak counter
         if (isCorrect) {
-            pandaMascot.classList.add('panda-happy');
+            this.currentStreak++;
         } else {
+            this.currentStreak = 0;
+        }
+        
+        // Remove all existing state classes
+        pandaMascot.classList.remove(
+            'panda-neutral', 'panda-happy', 'panda-sad', 
+            'panda-streak', 'panda-super-streak'
+        );
+        
+        // Only hide celebration emoji if we're breaking a streak or not in celebration mode
+        if (celebrationEmoji) {
+            // Hide if we're not in celebration territory or if this is an incorrect answer
+            if (this.currentStreak < 3 || !isCorrect) {
+                celebrationEmoji.classList.add('hidden');
+                console.log('Hiding celebration emoji');
+            } else {
+                console.log('Keeping celebration emoji visible, streak:', this.currentStreak);
+            }
+        } else {
+            console.log('ERROR: celebration emoji element not found!');
+        }
+        
+        // Add appropriate reaction class based on correctness and streak
+        if (isCorrect) {
+            if (this.currentStreak >= 5) {
+                // Super streak celebration for 5+ correct answers
+                console.log('Adding panda-super-streak class, streak:', this.currentStreak);
+                pandaMascot.classList.add('panda-super-streak');
+                if (celebrationEmoji) {
+                    celebrationEmoji.textContent = '🌟 INCREDIBLE! 🌟';
+                    celebrationEmoji.style.color = 'magenta';
+                    celebrationEmoji.style.fontSize = '2.2rem';
+                    celebrationEmoji.style.fontWeight = 'bold';
+                    celebrationEmoji.style.textShadow = '3px 3px 6px rgba(0,0,0,0.7)';
+                    celebrationEmoji.style.animation = 'bounce 0.5s infinite';
+                    celebrationEmoji.style.background = 'none';
+                    celebrationEmoji.style.padding = '0';
+                    celebrationEmoji.style.borderRadius = '0';
+                    celebrationEmoji.classList.remove('hidden');
+                    console.log('SHOWING SUPER CELEBRATION');
+                }
+            } else if (this.currentStreak >= 3) {
+                // Streak celebration for 3-4 correct answers
+                console.log('Adding panda-streak class, streak:', this.currentStreak);
+                pandaMascot.classList.add('panda-streak');
+                if (celebrationEmoji) {
+                    celebrationEmoji.textContent = '🎉 AMAZING! 🎉';
+                    celebrationEmoji.style.color = 'gold';
+                    celebrationEmoji.style.fontSize = '2rem';
+                    celebrationEmoji.style.fontWeight = 'bold';
+                    celebrationEmoji.style.textShadow = '2px 2px 4px rgba(0,0,0,0.5)';
+                    celebrationEmoji.style.animation = 'bounce 1s infinite';
+                    celebrationEmoji.style.background = 'none';
+                    celebrationEmoji.style.padding = '0';
+                    celebrationEmoji.style.borderRadius = '0';
+                    celebrationEmoji.classList.remove('hidden');
+                    console.log('SHOWING STREAK CELEBRATION');
+                }
+            } else {
+                // Normal happy reaction for 1-2 correct answers
+                console.log('Adding panda-happy class, streak:', this.currentStreak);
+                pandaMascot.classList.add('panda-happy');
+            }
+        } else {
+            console.log('Adding panda-sad class, resetting streak');
             pandaMascot.classList.add('panda-sad');
         }
         
         // Reset to neutral after reaction completes
+        const resetDelay = 2000;
+        
         this.pandaReactionTimeout = setTimeout(() => {
             this.resetPandaState();
-        }, 2000);
+        }, resetDelay);
     }
     
     /**
@@ -2026,6 +2104,7 @@ export class App {
      */
     resetPandaState() {
         const pandaMascot = document.getElementById('panda-mascot');
+        const celebrationEmoji = document.getElementById('celebration-emoji');
         if (!pandaMascot) return;
         
         // Clear any pending timeout
@@ -2034,8 +2113,16 @@ export class App {
             this.pandaReactionTimeout = null;
         }
         
+        // Hide celebration emoji
+        if (celebrationEmoji) {
+            celebrationEmoji.classList.add('hidden');
+            celebrationEmoji.style.animation = '';
+        }
+        
         // Remove all state classes and set to neutral
-        pandaMascot.classList.remove('panda-happy', 'panda-sad');
+        pandaMascot.classList.remove(
+            'panda-happy', 'panda-sad', 'panda-streak', 'panda-super-streak'
+        );
         pandaMascot.classList.add('panda-neutral');
     }
 }

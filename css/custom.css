@@ -227,16 +227,33 @@ input:focus {
 .panda-container {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 10;
     transition: all 0.3s ease;
 }
 
 .panda-emoji {
-    font-size: 2.5rem;
+    font-size: 4rem;
     display: inline-block;
+    position: relative;
     transition: all 0.3s ease;
     transform-origin: center;
+}
+
+.celebration-emoji {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0.5rem;
+    font-size: 3rem;
+    z-index: 999;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.celebration-emoji.hidden {
+    display: none;
 }
 
 /* Panda States */
@@ -254,6 +271,44 @@ input:focus {
     position: absolute;
     margin-left: 0.2rem;
     animation: sparkle 0.8s ease-out;
+}
+
+.panda-streak .panda-emoji {
+    animation: pandaStreakBounce 1s ease-out;
+}
+
+.panda-streak .panda-emoji::after {
+    content: "🎉";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0.5rem;
+    font-size: 3rem;
+    z-index: 999;
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    animation: celebration 2.5s ease-out;
+}
+
+.panda-super-streak .panda-emoji {
+    animation: pandaSuperBounce 1.5s ease-out;
+}
+
+.panda-super-streak .panda-emoji::after {
+    content: "🌟";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0.5rem;
+    font-size: 3.5rem;
+    z-index: 999;
+    display: block;
+    width: 3.5rem;
+    height: 3.5rem;
+    animation: superCelebration 3s ease-out;
 }
 
 .panda-sad .panda-emoji {
@@ -275,6 +330,26 @@ input:focus {
     50% { transform: scale(1.1) translateY(-4px); }
     70% { transform: scale(1.15) translateY(-6px); }
     100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes pandaStreakBounce {
+    0% { transform: scale(1) translateY(0) rotate(0deg); }
+    20% { transform: scale(1.3) translateY(-12px) rotate(-5deg); }
+    40% { transform: scale(1.2) translateY(-8px) rotate(5deg); }
+    60% { transform: scale(1.25) translateY(-10px) rotate(-3deg); }
+    80% { transform: scale(1.15) translateY(-6px) rotate(2deg); }
+    100% { transform: scale(1) translateY(0) rotate(0deg); }
+}
+
+@keyframes pandaSuperBounce {
+    0% { transform: scale(1) translateY(0) rotate(0deg); }
+    15% { transform: scale(1.4) translateY(-15px) rotate(-8deg); }
+    30% { transform: scale(1.3) translateY(-12px) rotate(8deg); }
+    45% { transform: scale(1.35) translateY(-14px) rotate(-5deg); }
+    60% { transform: scale(1.25) translateY(-10px) rotate(5deg); }
+    75% { transform: scale(1.2) translateY(-8px) rotate(-3deg); }
+    90% { transform: scale(1.1) translateY(-4px) rotate(2deg); }
+    100% { transform: scale(1) translateY(0) rotate(0deg); }
 }
 
 @keyframes pandaWiggle {
@@ -316,10 +391,105 @@ input:focus {
     }
 }
 
-/* Responsive Design - Hide panda on small screens */
+@keyframes celebration {
+    0% { 
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    15% { 
+        opacity: 1;
+        transform: scale(1.3) rotate(45deg);
+    }
+    30% { 
+        opacity: 1;
+        transform: scale(1.1) rotate(90deg);
+    }
+    45% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(135deg);
+    }
+    60% { 
+        opacity: 1;
+        transform: scale(1.1) rotate(180deg);
+    }
+    75% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(270deg);
+    }
+    90% { 
+        opacity: 1;
+        transform: scale(1.0) rotate(315deg);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(0.8) rotate(360deg);
+    }
+}
+
+@keyframes superCelebration {
+    0% { 
+        opacity: 0;
+        transform: scale(0) rotate(0deg) translateY(0);
+    }
+    10% { 
+        opacity: 1;
+        transform: scale(1.5) rotate(30deg) translateY(-5px);
+    }
+    20% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(60deg) translateY(-8px);
+    }
+    30% { 
+        opacity: 1;
+        transform: scale(1.4) rotate(90deg) translateY(-10px);
+    }
+    40% { 
+        opacity: 1;
+        transform: scale(1.1) rotate(120deg) translateY(-8px);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.3) rotate(180deg) translateY(-10px);
+    }
+    60% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(210deg) translateY(-8px);
+    }
+    70% { 
+        opacity: 1;
+        transform: scale(1.4) rotate(240deg) translateY(-10px);
+    }
+    80% { 
+        opacity: 1;
+        transform: scale(1.1) rotate(300deg) translateY(-5px);
+    }
+    90% { 
+        opacity: 1;
+        transform: scale(1.2) rotate(330deg) translateY(-3px);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(0.8) rotate(360deg) translateY(0);
+    }
+}
+
+/* Responsive Design - Keep panda visible on all screens */
 @media (max-width: 640px) {
     .panda-container {
-        display: none;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 50;
+    }
+    
+    .panda-emoji {
+        font-size: 3rem;
+    }
+    
+    /* Adjust celebration emoji for mobile */
+    .celebration-emoji {
+        font-size: 2rem;
+        margin-left: 0.3rem;
     }
 }
 
