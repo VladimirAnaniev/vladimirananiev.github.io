@@ -334,11 +334,25 @@
                         <div id="fill-blank-mode" class="hidden">
                             <h4 class="text-center text-sm font-medium text-gray-600 mb-4">Complete the phrase:</h4>
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                                <div id="fill-blank-hint" class="text-lg text-gray-700 text-center mb-3 font-medium hidden">
-                                    <!-- Source phrase hint will appear here -->
+                                <div id="fill-blank-hint" class="flex items-center justify-center text-lg text-gray-700 mb-3 font-medium hidden">
+                                    <div id="fill-blank-hint-text" class="text-center">
+                                        <!-- Source phrase hint will appear here -->
+                                    </div>
+                                    <button id="fill-blank-hint-speaker" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors hidden" title="Play hint pronunciation">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <div id="phrase-with-blanks" class="text-lg text-center font-medium text-gray-800">
-                                    <!-- Phrase with blanks will appear here -->
+                                <div id="phrase-with-blanks" class="flex items-center justify-center text-lg font-medium text-gray-800">
+                                    <div id="phrase-with-blanks-text" class="text-center">
+                                        <!-- Phrase with blanks will appear here -->
+                                    </div>
+                                    <button id="phrase-with-blanks-speaker" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors hidden" title="Play phrase pronunciation">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-3 max-w-md mx-auto" id="blank-choices">
@@ -355,11 +369,23 @@
                         <div id="word-order-mode" class="hidden">
                             <h4 class="text-center text-sm font-medium text-gray-600 mb-4">Put the words in the correct order:</h4>
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                                <div id="target-phrase-hint" class="text-lg text-gray-700 text-center mb-2 font-medium">
-                                    <!-- Source phrase hint will appear here -->
+                                <div id="target-phrase-hint" class="flex items-center justify-center text-lg text-gray-700 mb-2 font-medium">
+                                    <div id="target-phrase-hint-text" class="text-center">
+                                        <!-- Source phrase hint will appear here -->
+                                    </div>
+                                    <button id="target-phrase-hint-speaker" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors hidden" title="Play hint pronunciation">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
                                 </div>
                                 <div id="word-drop-zone" class="min-h-[60px] border-2 border-dashed border-gray-300 rounded-lg p-3 flex flex-wrap gap-2 items-center justify-center">
                                     <span class="text-gray-400 text-sm" id="drop-zone-hint">Drop words here</span>
+                                    <button id="word-drop-zone-speaker" class="ml-3 p-2 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors hidden" title="Play constructed phrase pronunciation">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             <div class="bg-white border border-gray-200 rounded-lg p-4">

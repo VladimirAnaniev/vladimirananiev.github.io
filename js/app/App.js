@@ -983,17 +983,30 @@ export class App {
 
         // Show source reference above the blank with transliteration if applicable
         const hintElement = document.getElementById('fill-blank-hint');
-        if (hintElement) {
+        const hintTextElement = document.getElementById('fill-blank-hint-text');
+        const hintSpeakerElement = document.getElementById('fill-blank-hint-speaker');
+        
+        if (hintElement && hintTextElement) {
             const sourceTransliteration = sourceLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg')[selectedExample.index] : '';
             
             if (sourceTransliteration && this.settings.display.showTransliterations) {
-                hintElement.innerHTML = `
+                hintTextElement.innerHTML = `
                     <div>${selectedExample.source}</div>
                     <div class="text-sm text-gray-500 mt-1 transliteration-text">${sourceTransliteration}</div>
                 `;
             } else {
-                hintElement.textContent = selectedExample.source;
+                hintTextElement.textContent = selectedExample.source;
             }
+            
+            // Setup hint speaker button
+            if (hintSpeakerElement) {
+                hintSpeakerElement.classList.remove('hidden');
+                hintSpeakerElement.onclick = (e) => {
+                    e.stopPropagation();
+                    this.speakText(selectedExample.source, sourceLang);
+                };
+            }
+            
             hintElement.classList.remove('hidden');
         }
 
@@ -1002,17 +1015,32 @@ export class App {
         
         // Display the phrase with blanks and transliteration if applicable
         const phraseElement = document.getElementById('phrase-with-blanks');
+        const phraseTextElement = document.getElementById('phrase-with-blanks-text');
+        const phraseSpeakerElement = document.getElementById('phrase-with-blanks-speaker');
         const targetTransliterations = targetLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg') : [];
         const selectedExampleTransliteration = targetTransliterations[selectedExample.index] || '';
         
-        if (targetLang === 'bg' && selectedExampleTransliteration && this.settings.display.showTransliterations) {
-            const transliterationWithBlanks = selectedExampleTransliteration.replace(new RegExp(this.currentCard.word.getTransliteration(targetLang), 'gi'), '____');
-            phraseElement.innerHTML = `
-                <div>${phraseWithBlanks}</div>
-                <div class="text-sm text-gray-500 mt-2 transliteration-text">${transliterationWithBlanks}</div>
-            `;
-        } else {
-            phraseElement.textContent = phraseWithBlanks;
+        if (phraseTextElement) {
+            if (targetLang === 'bg' && selectedExampleTransliteration && this.settings.display.showTransliterations) {
+                const transliterationWithBlanks = selectedExampleTransliteration.replace(new RegExp(this.currentCard.word.getTransliteration(targetLang), 'gi'), '____');
+                phraseTextElement.innerHTML = `
+                    <div>${phraseWithBlanks}</div>
+                    <div class="text-sm text-gray-500 mt-2 transliteration-text">${transliterationWithBlanks}</div>
+                `;
+            } else {
+                phraseTextElement.textContent = phraseWithBlanks;
+            }
+            
+            // Setup phrase speaker button
+            if (phraseSpeakerElement) {
+                phraseSpeakerElement.classList.remove('hidden');
+                phraseSpeakerElement.onclick = (e) => {
+                    e.stopPropagation();
+                    // Speak the phrase but skip the target word (replace with pause)
+                    const phraseToSpeak = selectedExample.target.replace(new RegExp(targetWord, 'gi'), '...');
+                    this.speakText(phraseToSpeak, targetLang);
+                };
+            }
         }
 
         // Generate multiple choice options for the blank (target language choices)
@@ -1043,7 +1071,11 @@ export class App {
 
         choices.forEach((choice, index) => {
             const button = document.createElement('button');
-            button.className = 'blank-choice bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors';
+            button.className = 'blank-choice bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors flex items-center justify-between';
+            
+            // Create content container
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'flex-1 text-left';
             
             // Show transliteration for Bulgarian target choices if enabled
             if (targetLang === 'bg' && this.settings.display.showTransliterations) {
@@ -1052,18 +1084,40 @@ export class App {
                 const choiceTransliteration = choiceWord.getTransliteration(targetLang);
                 
                 if (choiceTransliteration && choiceTransliteration !== choice) {
-                    button.innerHTML = `
+                    contentDiv.innerHTML = `
                         <div>${choice}</div>
                         <div class="text-xs text-gray-500 mt-1 transliteration-text">${choiceTransliteration}</div>
                     `;
                 } else {
-                    button.textContent = choice;
+                    contentDiv.textContent = choice;
                 }
             } else {
-                button.textContent = choice;
+                contentDiv.textContent = choice;
             }
             
-            button.onclick = () => this.handleBlankChoice(choice, correctAnswer, button);
+            // Add speaker button
+            const speakerButton = document.createElement('button');
+            speakerButton.className = 'choice-speaker-btn ml-2 p-1 text-gray-500 hover:text-blue-600 rounded transition-colors flex-shrink-0';
+            speakerButton.innerHTML = `
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                </svg>
+            `;
+            speakerButton.onclick = (e) => {
+                e.stopPropagation();
+                this.speakText(choice, targetLang);
+            };
+            
+            button.appendChild(contentDiv);
+            button.appendChild(speakerButton);
+            
+            button.onclick = (e) => {
+                // Only handle choice selection if not clicking the speaker button
+                if (!e.target.closest('.choice-speaker-btn')) {
+                    this.handleBlankChoice(choice, correctAnswer, button);
+                }
+            };
+            
             choicesContainer.appendChild(button);
         });
     }
@@ -1153,15 +1207,28 @@ export class App {
 
         // Show source hint with transliteration if applicable
         const hintElement = document.getElementById('target-phrase-hint');
+        const hintTextElement = document.getElementById('target-phrase-hint-text');
+        const hintSpeakerElement = document.getElementById('target-phrase-hint-speaker');
         const sourceTransliteration = sourceLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg')[selectedExample.index] : '';
         
-        if (sourceTransliteration && this.settings.display.showTransliterations) {
-            hintElement.innerHTML = `
-                <div>${selectedExample.source}</div>
-                <div class="text-sm text-gray-500 mt-1 transliteration-text">${sourceTransliteration}</div>
-            `;
-        } else {
-            hintElement.textContent = selectedExample.source;
+        if (hintTextElement) {
+            if (sourceTransliteration && this.settings.display.showTransliterations) {
+                hintTextElement.innerHTML = `
+                    <div>${selectedExample.source}</div>
+                    <div class="text-sm text-gray-500 mt-1 transliteration-text">${sourceTransliteration}</div>
+                `;
+            } else {
+                hintTextElement.textContent = selectedExample.source;
+            }
+            
+            // Setup hint speaker button
+            if (hintSpeakerElement) {
+                hintSpeakerElement.classList.remove('hidden');
+                hintSpeakerElement.onclick = (e) => {
+                    e.stopPropagation();
+                    this.speakText(selectedExample.source, sourceLang);
+                };
+            }
         }
 
         // Split TARGET sentence into words and shuffle (they reconstruct the target sentence)
@@ -1185,7 +1252,11 @@ export class App {
         
         shuffledWords.forEach((word, index) => {
             const wordElement = document.createElement('div');
-            wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
+            wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors flex items-center justify-between';
+            
+            // Create content container
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'flex-1';
             
             // Show transliteration for Bulgarian target words if enabled
             if (targetLang === 'bg' && selectedExampleTransliteration && this.settings.display.showTransliterations) {
@@ -1198,15 +1269,34 @@ export class App {
                     transliterationTokens[wordIndexInTarget] : '';
                 
                 if (wordTransliteration && wordTransliteration !== word) {
-                    wordElement.innerHTML = `
+                    contentDiv.innerHTML = `
                         <div>${word}</div>
                         <div class="text-xs text-gray-600 transliteration-text">${wordTransliteration}</div>
                     `;
                 } else {
-                    wordElement.textContent = word;
+                    contentDiv.textContent = word;
                 }
             } else {
-                wordElement.textContent = word;
+                contentDiv.textContent = word;
+            }
+            
+            // Add speaker button for non-punctuation words
+            const speakerButton = document.createElement('button');
+            speakerButton.className = 'word-speaker-btn ml-2 p-1 text-gray-500 hover:text-blue-600 rounded transition-colors flex-shrink-0';
+            speakerButton.innerHTML = `
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                </svg>
+            `;
+            speakerButton.onclick = (e) => {
+                e.stopPropagation();
+                this.speakText(word, targetLang);
+            };
+            
+            wordElement.appendChild(contentDiv);
+            // Only add speaker for actual words, not punctuation
+            if (word.match(/[a-zA-Zа-яА-Я]/)) {
+                wordElement.appendChild(speakerButton);
             }
             
             wordElement.draggable = true;
@@ -1303,11 +1393,21 @@ export class App {
         
         // Create word in drop zone
         const droppedWord = document.createElement('div');
-        droppedWord.className = 'word-token bg-green-100 border border-green-300 rounded px-3 py-2 cursor-pointer hover:bg-green-200 transition-colors';
-        droppedWord.innerHTML = wordElement.innerHTML; // Preserve transliteration HTML
+        droppedWord.className = 'word-token bg-green-100 border border-green-300 rounded px-3 py-2 cursor-pointer hover:bg-green-200 transition-colors flex items-center justify-between';
+        droppedWord.innerHTML = wordElement.innerHTML; // Preserve transliteration and speaker button HTML
         droppedWord.dataset.word = wordElement.dataset.word;
         droppedWord.draggable = true;
         droppedWord.onclick = () => this.removeWordFromDropZone(droppedWord);
+        
+        // Re-attach speaker button functionality
+        const speakerBtn = droppedWord.querySelector('.word-speaker-btn');
+        if (speakerBtn) {
+            speakerBtn.onclick = (e) => {
+                e.stopPropagation();
+                const [, targetLang] = this.settings.learningPath.split('-');
+                this.speakText(wordElement.dataset.word, targetLang);
+            };
+        }
         
         // Add drag events for reordering within drop zone
         droppedWord.addEventListener('dragstart', (e) => {
@@ -1327,7 +1427,7 @@ export class App {
         // Remove from word bank
         wordElement.remove();
         
-        // Check if complete
+        // Check if complete and update speaker button
         this.checkWordOrderComplete();
     }
 
@@ -1346,11 +1446,22 @@ export class App {
         
         // Create new word element in word bank
         const wordElement = document.createElement('div');
-        wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
-        wordElement.innerHTML = droppedWordElement.innerHTML; // Preserve transliteration HTML
+        wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors flex items-center justify-between';
+        wordElement.innerHTML = droppedWordElement.innerHTML; // Preserve transliteration and speaker button HTML
         wordElement.dataset.word = droppedWordElement.dataset.word;
         wordElement.draggable = true;
         wordElement.onclick = () => this.moveWordToDropZone(wordElement);
+        
+        // Re-attach speaker button functionality
+        const speakerBtn = wordElement.querySelector('.word-speaker-btn');
+        if (speakerBtn) {
+            speakerBtn.onclick = (e) => {
+                e.stopPropagation();
+                const [, targetLang] = this.settings.learningPath.split('-');
+                this.speakText(droppedWordElement.dataset.word, targetLang);
+            };
+        }
+        
         wordBank.appendChild(wordElement);
         
         // Remove from drop zone
@@ -1363,6 +1474,9 @@ export class App {
                 hint.style.display = 'inline';
             }
         }
+        
+        // Update speaker button state
+        this.checkWordOrderComplete();
     }
 
     /**
@@ -1399,6 +1513,23 @@ export class App {
     checkWordOrderComplete() {
         const wordBank = document.getElementById('word-bank');
         const nextButton = document.getElementById('word-order-next');
+        const dropZoneSpeaker = document.getElementById('word-drop-zone-speaker');
+        
+        // Update drop zone speaker button based on whether there are words in the drop zone
+        if (dropZoneSpeaker) {
+            const droppedWords = document.getElementById('word-drop-zone').querySelectorAll('.word-token');
+            if (droppedWords.length > 0) {
+                dropZoneSpeaker.classList.remove('hidden');
+                dropZoneSpeaker.onclick = (e) => {
+                    e.stopPropagation();
+                    const constructedSentence = this.reconstructSentenceWithSpaces(this.droppedWords);
+                    const [, targetLang] = this.settings.learningPath.split('-');
+                    this.speakText(constructedSentence, targetLang);
+                };
+            } else {
+                dropZoneSpeaker.classList.add('hidden');
+            }
+        }
         
         // Check if all words are used
         if (wordBank.children.length === 0) {
