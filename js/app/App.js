@@ -968,19 +968,39 @@ export class App {
         // Pick a random valid example
         const selectedExample = validExamples[Math.floor(Math.random() * validExamples.length)];
 
-        // Show source reference above the blank
+        // Show source reference above the blank with transliteration if applicable
         const hintElement = document.getElementById('fill-blank-hint');
         if (hintElement) {
-            hintElement.textContent = selectedExample.source;
+            const sourceTransliteration = sourceLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg')[selectedExample.index] : '';
+            
+            if (sourceTransliteration && this.settings.display.showTransliterations) {
+                hintElement.innerHTML = `
+                    <div>${selectedExample.source}</div>
+                    <div class="text-sm text-gray-500 mt-1 transliteration-text">${sourceTransliteration}</div>
+                `;
+            } else {
+                hintElement.textContent = selectedExample.source;
+            }
             hintElement.classList.remove('hidden');
         }
 
         // Create a fill-in-the-blank from the TARGET example (testing source -> target knowledge)
         const phraseWithBlanks = selectedExample.target.replace(new RegExp(targetWord, 'gi'), '____');
         
-        // Display the phrase with blanks
+        // Display the phrase with blanks and transliteration if applicable
         const phraseElement = document.getElementById('phrase-with-blanks');
-        phraseElement.textContent = phraseWithBlanks;
+        const targetTransliterations = targetLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg') : [];
+        const selectedExampleTransliteration = targetTransliterations[selectedExample.index] || '';
+        
+        if (targetLang === 'bg' && selectedExampleTransliteration && this.settings.display.showTransliterations) {
+            const transliterationWithBlanks = selectedExampleTransliteration.replace(new RegExp(this.currentCard.word.getTransliteration(targetLang), 'gi'), '____');
+            phraseElement.innerHTML = `
+                <div>${phraseWithBlanks}</div>
+                <div class="text-sm text-gray-500 mt-2 transliteration-text">${transliterationWithBlanks}</div>
+            `;
+        } else {
+            phraseElement.textContent = phraseWithBlanks;
+        }
 
         // Generate multiple choice options for the blank (target language choices)
         await this.generateBlankChoices(targetWord);
@@ -1011,7 +1031,25 @@ export class App {
         choices.forEach((choice, index) => {
             const button = document.createElement('button');
             button.className = 'blank-choice bg-white border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-3 text-sm font-medium transition-colors';
-            button.textContent = choice;
+            
+            // Show transliteration for Bulgarian target choices if enabled
+            if (targetLang === 'bg' && this.settings.display.showTransliterations) {
+                // Find the word object for this choice to get its transliteration
+                const choiceWord = allWords.find(word => word.getTranslation(targetLang) === choice) || this.currentCard.word;
+                const choiceTransliteration = choiceWord.getTransliteration(targetLang);
+                
+                if (choiceTransliteration && choiceTransliteration !== choice) {
+                    button.innerHTML = `
+                        <div>${choice}</div>
+                        <div class="text-xs text-gray-500 mt-1 transliteration-text">${choiceTransliteration}</div>
+                    `;
+                } else {
+                    button.textContent = choice;
+                }
+            } else {
+                button.textContent = choice;
+            }
+            
             button.onclick = () => this.handleBlankChoice(choice, correctAnswer, button);
             choicesContainer.appendChild(button);
         });
@@ -1100,9 +1138,18 @@ export class App {
         // Pick a random valid example
         const selectedExample = validExamples[Math.floor(Math.random() * validExamples.length)];
 
-        // Show source hint
+        // Show source hint with transliteration if applicable
         const hintElement = document.getElementById('target-phrase-hint');
-        hintElement.textContent = selectedExample.source;
+        const sourceTransliteration = sourceLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg')[selectedExample.index] : '';
+        
+        if (sourceTransliteration && this.settings.display.showTransliterations) {
+            hintElement.innerHTML = `
+                <div>${selectedExample.source}</div>
+                <div class="text-sm text-gray-500 mt-1 transliteration-text">${sourceTransliteration}</div>
+            `;
+        } else {
+            hintElement.textContent = selectedExample.source;
+        }
 
         // Split TARGET sentence into words and shuffle (they reconstruct the target sentence)
         this.targetSentence = selectedExample.target;
@@ -1119,10 +1166,36 @@ export class App {
         const wordBank = document.getElementById('word-bank');
         wordBank.innerHTML = '';
         
+        // Get transliterations for target language if Bulgarian
+        const targetTransliterations = targetLang === 'bg' ? this.currentCard.word.getExampleTransliterations('bg') : [];
+        const selectedExampleTransliteration = targetTransliterations[selectedExample.index] || '';
+        
         shuffledWords.forEach((word, index) => {
             const wordElement = document.createElement('div');
             wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
-            wordElement.textContent = word;
+            
+            // Show transliteration for Bulgarian target words if enabled
+            if (targetLang === 'bg' && selectedExampleTransliteration && this.settings.display.showTransliterations) {
+                // Find the transliteration for this specific word token
+                const targetTokens = selectedExample.target.split(/(\s+|[.,!?;])/).filter(part => part.length > 0 && !part.match(/^\s+$/));
+                const transliterationTokens = selectedExampleTransliteration.split(/(\s+|[.,!?;])/).filter(part => part.length > 0 && !part.match(/^\s+$/));
+                
+                const wordIndexInTarget = targetTokens.indexOf(word);
+                const wordTransliteration = wordIndexInTarget >= 0 && wordIndexInTarget < transliterationTokens.length ? 
+                    transliterationTokens[wordIndexInTarget] : '';
+                
+                if (wordTransliteration && wordTransliteration !== word) {
+                    wordElement.innerHTML = `
+                        <div>${word}</div>
+                        <div class="text-xs text-gray-600 transliteration-text">${wordTransliteration}</div>
+                    `;
+                } else {
+                    wordElement.textContent = word;
+                }
+            } else {
+                wordElement.textContent = word;
+            }
+            
             wordElement.draggable = true;
             wordElement.dataset.word = word;
             wordElement.onclick = () => this.moveWordToDropZone(wordElement);
@@ -1218,7 +1291,7 @@ export class App {
         // Create word in drop zone
         const droppedWord = document.createElement('div');
         droppedWord.className = 'word-token bg-green-100 border border-green-300 rounded px-3 py-2 cursor-pointer hover:bg-green-200 transition-colors';
-        droppedWord.textContent = wordElement.textContent;
+        droppedWord.innerHTML = wordElement.innerHTML; // Preserve transliteration HTML
         droppedWord.dataset.word = wordElement.dataset.word;
         droppedWord.draggable = true;
         droppedWord.onclick = () => this.removeWordFromDropZone(droppedWord);
@@ -1261,7 +1334,7 @@ export class App {
         // Create new word element in word bank
         const wordElement = document.createElement('div');
         wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
-        wordElement.textContent = droppedWordElement.textContent;
+        wordElement.innerHTML = droppedWordElement.innerHTML; // Preserve transliteration HTML
         wordElement.dataset.word = droppedWordElement.dataset.word;
         wordElement.draggable = true;
         wordElement.onclick = () => this.moveWordToDropZone(wordElement);
