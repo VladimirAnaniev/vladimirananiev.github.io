@@ -133,6 +133,28 @@ export class App {
     }
 
     /**
+     * Set learning mode based on selected value
+     * @param {string} mode - The selected learning mode
+     */
+    setLearningMode(mode) {
+        // Reset all modes first
+        this.settings.display.multipleChoice = false;
+        this.settings.display.phraseConstruction = false;
+        
+        // Set the selected mode
+        if (mode === 'multiple-choice') {
+            this.settings.display.multipleChoice = true;
+        } else if (mode === 'fill-blank') {
+            this.settings.display.phraseConstruction = true;
+            this.settings.display.phraseMode = 'fillBlank';
+        } else if (mode === 'word-order') {
+            this.settings.display.phraseConstruction = true;
+            this.settings.display.phraseMode = 'wordOrder';
+        }
+        // flashcards mode: both multipleChoice and phraseConstruction stay false
+    }
+
+    /**
      * Setup all event listeners
      */
     setupEventListeners() {
@@ -177,25 +199,16 @@ export class App {
 
         // Learning mode selection
         const learningModeInputs = document.querySelectorAll('input[name="learning-mode"]');
+        
+        // Set initial mode based on what's checked in HTML
+        const checkedMode = document.querySelector('input[name="learning-mode"]:checked');
+        if (checkedMode) {
+            this.setLearningMode(checkedMode.value);
+        }
+        
         learningModeInputs.forEach(input => {
             input.addEventListener('change', (e) => {
-                const mode = e.target.value;
-                
-                // Reset all modes first
-                this.settings.display.multipleChoice = false;
-                this.settings.display.phraseConstruction = false;
-                
-                // Set the selected mode
-                if (mode === 'multiple-choice') {
-                    this.settings.display.multipleChoice = true;
-                } else if (mode === 'fill-blank') {
-                    this.settings.display.phraseConstruction = true;
-                    this.settings.display.phraseMode = 'fillBlank';
-                } else if (mode === 'word-order') {
-                    this.settings.display.phraseConstruction = true;
-                    this.settings.display.phraseMode = 'wordOrder';
-                }
-                // flashcards mode: both multipleChoice and phraseConstruction stay false
+                this.setLearningMode(e.target.value);
             });
         });
 
