@@ -104,67 +104,8 @@ export class App {
      * Apply settings to UI elements
      */
     applySettingsToUI() {
-        // Update language selector
-        const languageSelector = document.getElementById('language-selector');
-        if (languageSelector && this.settings.learningPath) {
-            languageSelector.value = this.settings.learningPath;
-        }
-        
-        const settingsLanguageSelector = document.getElementById('settings-language-selector');
-        if (settingsLanguageSelector && this.settings.learningPath) {
-            settingsLanguageSelector.value = this.settings.learningPath;
-        }
-        
-        // Update couples mode
-        const couplesModeToggle = document.getElementById('couples-mode-toggle');
-        if (couplesModeToggle) {
-            couplesModeToggle.checked = this.settings.couplesMode;
-        }
-        
-        // Update phonetics toggle
-        const phoneticsToggle = document.getElementById('show-phonetics-toggle');
-        if (phoneticsToggle) {
-            phoneticsToggle.checked = this.settings.display.showPhonetics;
-        }
-        
-        // Update transliterations toggle
-        const transliterationsToggle = document.getElementById('show-transliterations-toggle');
-        if (transliterationsToggle) {
-            transliterationsToggle.checked = this.settings.display.showTransliterations;
-        }
-        
-        // Update multiple choice toggle
-        const multipleChoiceToggle = document.getElementById('multiple-choice-toggle');
-        if (multipleChoiceToggle) {
-            multipleChoiceToggle.checked = this.settings.display.multipleChoice;
-        }
-        
-        // Update phrase construction toggle
-        const phraseConstructionToggle = document.getElementById('phrase-construction-toggle');
-        if (phraseConstructionToggle) {
-            phraseConstructionToggle.checked = this.settings.display.phraseConstruction;
-        }
-        
-        // Update phrase mode selector
-        const phraseModeSelect = document.getElementById('phrase-mode-select');
-        if (phraseModeSelect) {
-            phraseModeSelect.value = this.settings.display.phraseMode;
-        }
-        
-        // Show/hide phrase mode selector
-        const phraseSelector = document.getElementById('phrase-mode-selector');
-        if (phraseSelector) {
-            phraseSelector.style.display = this.settings.display.phraseConstruction ? 'block' : 'none';
-        }
-        
         // Apply CSS classes to body based on settings
         this.applyDisplaySettings();
-        
-        // Update daily cards count
-        const dailyCardsInput = document.getElementById('daily-cards-input');
-        if (dailyCardsInput) {
-            dailyCardsInput.value = this.settings.dailyCardCount;
-        }
         
         // Show/hide couples mode indicator
         this.updateCouplesModeDisplay();
@@ -239,9 +180,22 @@ export class App {
         learningModeInputs.forEach(input => {
             input.addEventListener('change', (e) => {
                 const mode = e.target.value;
-                this.settings.display.multipleChoice = (mode === 'multiple-choice');
-                this.settings.display.phraseConstruction = (mode === 'fill-blank' || mode === 'word-order');
-                this.settings.display.phraseMode = (mode === 'fill-blank') ? 'fillBlank' : 'wordOrder';
+                
+                // Reset all modes first
+                this.settings.display.multipleChoice = false;
+                this.settings.display.phraseConstruction = false;
+                
+                // Set the selected mode
+                if (mode === 'multiple-choice') {
+                    this.settings.display.multipleChoice = true;
+                } else if (mode === 'fill-blank') {
+                    this.settings.display.phraseConstruction = true;
+                    this.settings.display.phraseMode = 'fillBlank';
+                } else if (mode === 'word-order') {
+                    this.settings.display.phraseConstruction = true;
+                    this.settings.display.phraseMode = 'wordOrder';
+                }
+                // flashcards mode: both multipleChoice and phraseConstruction stay false
             });
         });
 
@@ -395,122 +349,12 @@ export class App {
             wordOrderNextBtn.addEventListener('click', this.handleWordOrderNext.bind(this));
         }
         
-        // Settings
-        const settingsBtn = document.getElementById('settings-btn');
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', this.showSettings.bind(this));
-        }
-        
-        const closeSettingsBtn = document.getElementById('close-settings-btn');
-        if (closeSettingsBtn) {
-            closeSettingsBtn.addEventListener('click', this.hideSettings.bind(this));
-        }
-        
-        const settingsOverlay = document.getElementById('settings-overlay');
-        if (settingsOverlay) {
-            settingsOverlay.addEventListener('click', this.hideSettings.bind(this));
-        }
-        
-        // Settings form elements
-        this.setupSettingsEventListeners();
+        // Settings panel functionality removed - now handled in homepage setup
         
         // Keyboard shortcuts
         document.addEventListener('keydown', this.handleKeyboard.bind(this));
     }
 
-    /**
-     * Setup settings-specific event listeners
-     */
-    setupSettingsEventListeners() {
-        const settingsLanguageSelector = document.getElementById('settings-language-selector');
-        if (settingsLanguageSelector) {
-            settingsLanguageSelector.addEventListener('change', (e) => {
-                this.settings.setLearningPath(e.target.value);
-                this.saveSettings();
-            });
-        }
-        
-        const couplesModeToggle = document.getElementById('couples-mode-toggle');
-        if (couplesModeToggle) {
-            couplesModeToggle.addEventListener('change', (e) => {
-                this.settings.setCouplesMode(e.target.checked);
-                this.saveSettings();
-            });
-        }
-        
-        const phoneticsToggle = document.getElementById('show-phonetics-toggle');
-        if (phoneticsToggle) {
-            phoneticsToggle.addEventListener('change', (e) => {
-                this.settings.setShowPhonetics(e.target.checked);
-                this.saveSettings();
-            });
-        }
-        
-        const transliterationsToggle = document.getElementById('show-transliterations-toggle');
-        if (transliterationsToggle) {
-            transliterationsToggle.addEventListener('change', (e) => {
-                this.settings.setShowTransliterations(e.target.checked);
-                this.saveSettings();
-            });
-        }
-        
-        const multipleChoiceToggle = document.getElementById('multiple-choice-toggle');
-        if (multipleChoiceToggle) {
-            multipleChoiceToggle.addEventListener('change', (e) => {
-                this.settings.setMultipleChoice(e.target.checked);
-                this.saveSettings();
-            });
-        }
-        
-        const phraseConstructionToggle = document.getElementById('phrase-construction-toggle');
-        if (phraseConstructionToggle) {
-            phraseConstructionToggle.addEventListener('change', (e) => {
-                this.settings.setPhraseConstruction(e.target.checked);
-                this.saveSettings();
-                
-                // Show/hide phrase mode selector
-                const phraseSelector = document.getElementById('phrase-mode-selector');
-                if (phraseSelector) {
-                    phraseSelector.style.display = e.target.checked ? 'block' : 'none';
-                }
-            });
-        }
-        
-        const phraseModeSelect = document.getElementById('phrase-mode-select');
-        if (phraseModeSelect) {
-            phraseModeSelect.addEventListener('change', (e) => {
-                this.settings.setPhraseMode(e.target.value);
-                this.saveSettings();
-            });
-        }
-        
-        const dailyCardsInput = document.getElementById('daily-cards-input');
-        if (dailyCardsInput) {
-            dailyCardsInput.addEventListener('change', (e) => {
-                const count = parseInt(e.target.value);
-                if (this.settings.setDailyCardCount(count)) {
-                    this.saveSettings();
-                }
-            });
-        }
-        
-        const exportBtn = document.getElementById('export-data-btn');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', this.exportData.bind(this));
-        }
-        
-        const importBtn = document.getElementById('import-data-btn');
-        if (importBtn) {
-            importBtn.addEventListener('click', () => {
-                document.getElementById('import-file-input')?.click();
-            });
-        }
-        
-        const importFileInput = document.getElementById('import-file-input');
-        if (importFileInput) {
-            importFileInput.addEventListener('change', this.importData.bind(this));
-        }
-    }
 
     /**
      * Handle keyboard shortcuts
@@ -596,7 +440,15 @@ export class App {
     /**
      * Load the next card in the session
      */
-    async loadNextCard() {
+    async loadNextCard(skipCount = 0) {
+        const MAX_SKIP_COUNT = 50; // Prevent infinite loops
+        
+        if (skipCount > MAX_SKIP_COUNT) {
+            console.error('Too many cards skipped in a row, completing session');
+            await this.completeSession();
+            return;
+        }
+        
         const nextProgress = this.scheduleManager.getNextCard();
         
         if (!nextProgress) {
@@ -608,7 +460,7 @@ export class App {
         const word = await this.database.getWordById(nextProgress.wordId);
         if (!word) {
             console.error('Word not found:', nextProgress.wordId);
-            await this.loadNextCard(); // Skip this card
+            await this.loadNextCard(skipCount + 1); // Skip this card
             return;
         }
         
@@ -622,6 +474,15 @@ export class App {
             learningData: learningData,
             startTime: Date.now()
         };
+        
+        // Check if this card should be skipped for the current mode
+        if (this.shouldSkipCardForCurrentMode()) {
+            console.log(`Skipping card "${word.word}" (${word.id}) - no suitable examples for current mode`);
+            // Mark this card as completed to move past it
+            await this.scheduleManager.completeCard(word.id, true, 0, this.settings.learningPath);
+            await this.loadNextCard(skipCount + 1); // Recursively try next card with incremented counter
+            return;
+        }
         
         // Reset results from previous modes
         this.currentMultipleChoiceResult = null;
@@ -637,6 +498,44 @@ export class App {
         
         await this.displayCard();
         this.cardRevealed = false;
+    }
+
+    /**
+     * Check if the current card should be skipped for the current learning mode
+     */
+    shouldSkipCardForCurrentMode() {
+        if (!this.currentCard || !this.currentCard.word) return false;
+        
+        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
+        const targetWord = this.currentCard.word.getTranslation(targetLang);
+        
+        // For phrase construction modes, check if we have suitable examples
+        if (this.settings.display.phraseConstruction) {
+            const targetExamples = this.currentCard.word.getExamples(targetLang);
+            
+            if (this.settings.display.phraseMode === 'fillBlank') {
+                // Fill-blank needs examples that contain the target word
+                const hasValidExample = targetExamples.some(example => 
+                    example.toLowerCase().includes(targetWord.toLowerCase())
+                );
+                if (!hasValidExample) {
+                    console.log(`Fill-blank mode: No examples contain "${targetWord}"`);
+                    return true;
+                }
+            } else if (this.settings.display.phraseMode === 'wordOrder') {
+                // Word order needs examples that contain the target word (preferred) or any examples
+                const hasValidExample = targetExamples.some(example => 
+                    example.toLowerCase().includes(targetWord.toLowerCase())
+                );
+                if (!hasValidExample && targetExamples.length === 0) {
+                    console.log(`Word order mode: No examples available for "${targetWord}"`);
+                    return true;
+                }
+            }
+        }
+        
+        // Other modes (flashcards, multiple choice) don't need special example requirements
+        return false;
     }
 
     /**
@@ -803,12 +702,12 @@ export class App {
             if (actionButtons) actionButtons.style.display = 'none';
             this.cardRevealed = true;
         } else if (this.settings.display.multipleChoice) {
-            // Show back of card for multiple choice mode
+            // Show front of card for multiple choice mode (source language)
             if (flashcard) flashcard.style.display = 'block';
-            if (cardFront) cardFront.style.display = 'none';
-            if (cardBack) cardBack.style.display = 'block';
+            if (cardFront) cardFront.style.display = 'block';
+            if (cardBack) cardBack.style.display = 'none';
             if (actionButtons) actionButtons.style.display = 'none';
-            this.cardRevealed = true;
+            this.cardRevealed = false;
         } else {
             // Normal flashcard mode
             if (flashcard) flashcard.style.display = 'block';
@@ -1060,9 +959,9 @@ export class App {
             }
         });
         
+        // This should not happen since we check at loadNextCard level
         if (validExamples.length === 0) {
-            // Fallback: create a simple phrase using the word
-            await this.createSimpleFillBlank();
+            console.error(`Unexpected: No valid examples in fill-blank mode for "${targetWord}"`);
             return;
         }
 
@@ -1076,46 +975,17 @@ export class App {
             hintElement.classList.remove('hidden');
         }
 
-        // Create a fill-in-the-blank from the example
+        // Create a fill-in-the-blank from the TARGET example (testing source -> target knowledge)
         const phraseWithBlanks = selectedExample.target.replace(new RegExp(targetWord, 'gi'), '____');
         
         // Display the phrase with blanks
         const phraseElement = document.getElementById('phrase-with-blanks');
         phraseElement.textContent = phraseWithBlanks;
 
-        // Generate multiple choice options for the blank
+        // Generate multiple choice options for the blank (target language choices)
         await this.generateBlankChoices(targetWord);
     }
 
-    /**
-     * Create a simple fill-in-the-blank when no examples are available
-     */
-    async createSimpleFillBlank() {
-        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
-        const sourceWord = this.currentCard.word.getTranslation(sourceLang);
-        const targetWord = this.currentCard.word.getTranslation(targetLang);
-        
-        // Show source reference
-        const hintElement = document.getElementById('fill-blank-hint');
-        if (hintElement) {
-            hintElement.textContent = `"${sourceWord}"`;
-            hintElement.classList.remove('hidden');
-        }
-        
-        // Create simple templates based on word type
-        const templates = [
-            `This is a ____.`,
-            `I see a ____.`,
-            `The ____ is here.`,
-            `Where is the ____?`
-        ];
-        
-        const template = templates[Math.floor(Math.random() * templates.length)];
-        const phraseElement = document.getElementById('phrase-with-blanks');
-        phraseElement.textContent = template;
-
-        await this.generateBlankChoices(targetWord);
-    }
 
     /**
      * Generate choices for fill-in-the-blank
@@ -1124,7 +994,7 @@ export class App {
         const [, targetLang] = this.settings.learningPath.split('-');
         const allWords = await this.database.loadWords();
         
-        // Get other words for wrong answers
+        // Get other words for wrong answers (in TARGET language)
         const otherWords = allWords
             .filter(word => word.id !== this.currentCard.word.id && word.hasTranslation(targetLang))
             .sort(() => Math.random() - 0.5)
@@ -1204,9 +1074,26 @@ export class App {
             }
         });
         
+        // For word ordering, we should also prefer examples that contain the target word
+        // but can be more flexible since we're not creating blanks
         if (validExamples.length === 0) {
-            // Fallback: create a simple phrase
-            await this.createSimpleWordOrder();
+            console.log(`No target examples contain "${targetWord}", using any available examples for word ordering`);
+            
+            // Use any available target example for word ordering
+            if (targetExamples.length > 0) {
+                targetExamples.forEach((example, index) => {
+                    validExamples.push({
+                        target: example,
+                        source: sourceExamples[index] || sourceExamples[0] || `"${this.currentCard.word.getTranslation(sourceLang)}"`,
+                        index: index
+                    });
+                });
+            }
+        }
+        
+        // This should not happen since we check at loadNextCard level  
+        if (validExamples.length === 0) {
+            console.error(`Unexpected: No valid examples in word-order mode for "${targetWord}"`);
             return;
         }
 
@@ -1217,7 +1104,7 @@ export class App {
         const hintElement = document.getElementById('target-phrase-hint');
         hintElement.textContent = selectedExample.source;
 
-        // Split target sentence into words and shuffle
+        // Split TARGET sentence into words and shuffle (they reconstruct the target sentence)
         this.targetSentence = selectedExample.target;
         // Split into words and punctuation, keeping track of original structure
         const allTokens = selectedExample.target.split(/(\s+|[.,!?;])/).filter(part => part.length > 0);
@@ -1259,64 +1146,6 @@ export class App {
         this.initializeDropZone();
     }
 
-    /**
-     * Create simple word ordering when no examples available
-     */
-    async createSimpleWordOrder() {
-        const [sourceLang, targetLang] = this.settings.learningPath.split('-');
-        const sourceWord = this.currentCard.word.getTranslation(sourceLang);
-        const targetWord = this.currentCard.word.getTranslation(targetLang);
-        
-        // Create simple sentences
-        const templates = [
-            `The ${targetWord} is here.`,
-            `I see the ${targetWord}.`,
-            `This ${targetWord} is good.`
-        ];
-        
-        this.targetSentence = templates[Math.floor(Math.random() * templates.length)];
-        
-        const hintElement = document.getElementById('target-phrase-hint');
-        hintElement.textContent = `"${sourceWord}"`;
-
-        // Continue with word shuffling
-        // Split into words and punctuation, keeping track of original structure
-        const allTokens = this.targetSentence.split(/(\s+|[.,!?;])/).filter(part => part.length > 0);
-        // Only show non-space tokens to user
-        const wordTokens = allTokens.filter(token => !token.match(/^\s+$/));
-        const shuffledWords = [...wordTokens].sort(() => Math.random() - 0.5);
-        
-        // Store the word structure for reconstruction
-        this.wordStructure = allTokens;
-
-        const wordBank = document.getElementById('word-bank');
-        wordBank.innerHTML = '';
-        
-        shuffledWords.forEach((word) => {
-            const wordElement = document.createElement('div');
-            wordElement.className = 'word-token bg-blue-100 border border-blue-300 rounded px-3 py-2 cursor-pointer hover:bg-blue-200 transition-colors';
-            wordElement.textContent = word;
-            wordElement.draggable = true;
-            wordElement.dataset.word = word;
-            wordElement.onclick = () => this.moveWordToDropZone(wordElement);
-            
-            // Add drag start event
-            wordElement.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', '');
-                wordElement.classList.add('opacity-50');
-                this.draggedElement = wordElement;
-            });
-            
-            wordElement.addEventListener('dragend', (e) => {
-                wordElement.classList.remove('opacity-50');
-                this.draggedElement = null;
-            });
-            
-            wordBank.appendChild(wordElement);
-        });
-
-        this.initializeDropZone();
-    }
 
     /**
      * Initialize the drop zone for word ordering
@@ -1946,36 +1775,6 @@ export class App {
         this.currentCard = null;
     }
 
-    /**
-     * Show settings panel
-     */
-    showSettings() {
-        const settingsPanel = document.getElementById('settings-panel');
-        const settingsOverlay = document.getElementById('settings-overlay');
-        
-        if (settingsPanel) {
-            settingsPanel.classList.add('open');
-            settingsPanel.style.transform = 'translateX(0)';
-        }
-        if (settingsOverlay) settingsOverlay.style.display = 'block';
-        
-        // Update settings form with current values
-        this.applySettingsToUI();
-    }
-
-    /**
-     * Hide settings panel
-     */
-    hideSettings() {
-        const settingsPanel = document.getElementById('settings-panel');
-        const settingsOverlay = document.getElementById('settings-overlay');
-        
-        if (settingsPanel) {
-            settingsPanel.classList.remove('open');
-            settingsPanel.style.transform = 'translateX(100%)';
-        }
-        if (settingsOverlay) settingsOverlay.style.display = 'none';
-    }
 
     /**
      * Hide all screens

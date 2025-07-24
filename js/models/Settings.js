@@ -39,8 +39,8 @@ export class Settings {
             showProgress: true,
             autoAdvance: false,
             cardAnimationSpeed: 'normal', // slow, normal, fast
-            showPhonetics: true,
-            showTransliterations: true,
+            showPhonetics: false,
+            showTransliterations: true, // Default to transliteration on
             multipleChoice: false,
             phraseConstruction: false,
             phraseMode: 'fillBlank', // 'fillBlank' or 'wordOrder'
