@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Vocabulary Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .session-info {
+            background: #34495e;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-content {
+            padding: 30px;
+            min-height: 400px;
+        }
+
+        .language-selector {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .language-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 0 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .language-btn:hover {
+            background: #2980b9;
+        }
+
+        .language-btn.selected {
+            background: #27ae60;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ecf0f1;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .word-display {
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .word-main {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .word-transliteration {
+            font-size: 20px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .word-translation {
+            font-size: 24px;
+            color: #34495e;
+        }
+
+        .examples-section {
+            background: #f0f8ff;
+        }
+
+        .example {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+        }
+
+        .example:last-child {
+            margin-bottom: 0;
+        }
+
+        .example-original {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .example-transliteration {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .example-translation {
+            font-size: 16px;
+            color: #34495e;
+        }
+
+        .grammar-section {
+            background: #f0fff0;
+        }
+
+        .grammar-content {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .grammar-type {
+            font-size: 16px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+            text-transform: capitalize;
+        }
+
+        .conjugation-table {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .conjugation-label {
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .conjugation-value {
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .conjugation-original {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .conjugation-transliteration {
+            color: #7f8c8d;
+            font-style: italic;
+            margin: 0 5px;
+        }
+
+        .conjugation-translation {
+            color: #34495e;
+        }
+
+        .tense-section {
+            margin-bottom: 20px;
+        }
+
+        .tense-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        .grammar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .grammar-table th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .grammar-table td {
+            padding: 12px;
+            border: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+
+        .grammar-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .form-item {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .transliteration {
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .translation {
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        .exercises-section {
+            background: #fff5f5;
+        }
+
+        .exercise {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ecf0f1;
+        }
+
+        .exercise-type {
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .exercise-question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .question-original {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .question-transliteration {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .question-translation {
+            color: #34495e;
+        }
+
+        .exercise-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .exercise-option {
+            background: #ecf0f1;
+            border: 2px solid transparent;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .exercise-option:hover {
+            background: #d5dbdb;
+        }
+
+        .exercise-option.selected {
+            border-color: #3498db;
+            background: #ebf3fd;
+        }
+
+        .exercise-option.correct {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+
+        .exercise-option.incorrect {
+            border-color: #e74c3c;
+            background: #fadbd8;
+        }
+
+        .option-original {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .option-transliteration {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 3px;
+        }
+
+        .option-translation {
+            font-size: 14px;
+            color: #34495e;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .rating-section {
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .rating-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .rating-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .rating-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .rating-btn.easy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .rating-btn.medium {
+            background: #f39c12;
+            color: white;
+        }
+
+        .rating-btn.hard {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .error {
+            background: #fadbd8;
+            border: 1px solid #e74c3c;
+            color: #c0392b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Word Order Exercise Styles */
+        .word-order-container {
+            margin-top: 15px;
+        }
+
+        .question-instruction {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .target-sentence {
+            background: #fff5f0;
+            border: 2px solid #f39c12;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .target-sentence-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 8px;
+        }
+
+        .target-sentence-content {
+            text-align: center;
+        }
+
+        .target-english {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-style: italic;
+        }
+
+        .word-bank {
+            background: #f8f9fa;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .word-bank-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .word-bank-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+            align-items: flex-start;
+        }
+
+        .word-item {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: grab;
+            transition: all 0.3s;
+            user-select: none;
+            border: 2px solid transparent;
+            font-weight: 500;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .word-item:hover:not(.used) {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .word-item.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .word-item:active {
+            cursor: grabbing;
+        }
+
+        .word-original {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .word-transliteration {
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.2;
+        }
+
+        .sentence-construction {
+            margin-bottom: 20px;
+        }
+
+        .sentence-construction-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone {
+            background: #f0f8ff;
+            border: 3px dashed #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            transition: all 0.3s;
+            line-height: 1.6;
+        }
+
+        .drop-zone.drag-over {
+            background: #e8f5e8;
+            border-color: #27ae60;
+            border-style: solid;
+        }
+
+        .drop-zone-placeholder {
+            color: #7f8c8d;
+            font-style: italic;
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .placed-word {
+            background: #27ae60;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-weight: 500;
+            font-size: 16px;
+            margin: 2px;
+            text-align: center;
+        }
+
+        .placed-word:hover {
+            background: #229954;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .placed-word-original {
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+
+        .placed-word-transliteration {
+            font-size: 11px;
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.1;
+        }
+
+        .word-order-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .reset-btn {
+            background: #e74c3c;
+        }
+
+        .reset-btn:hover {
+            background: #c0392b;
+        }
+
+        .submit-btn {
+            background: #27ae60;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #229954;
+        }
+
+        .exercise-feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .exercise-feedback.correct {
+            background: #d5f4e6;
+            border: 2px solid #27ae60;
+            color: #155724;
+        }
+
+        .exercise-feedback.incorrect {
+            background: #fadbd8;
+            border: 2px solid #e74c3c;
+            color: #721c24;
+        }
+
+        .feedback-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feedback-answer {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Adaptive Vocabulary Learning</h1>
+            <p>Master Bulgarian & Hungarian with AI-powered exercises</p>
+        </div>
+        
+        <div class="session-info">
+            <div>Session Progress: <span id="progress">0/10</span></div>
+            <div>Language: <span id="current-language">None</span></div>
+        </div>
+
+        <div class="main-content">
+            <div id="language-selection" class="language-selector">
+                <h2>Choose your language</h2>
+                <br>
+                <button class="language-btn" data-language="bulgarian">Bulgarian</button>
+                <button class="language-btn" data-language="hungarian">Hungarian</button>
+            </div>
+
+            <div id="word-content" class="hidden">
+                <!-- Word Display Section -->
+                <div class="section word-display">
+                    <div class="word-main" id="word-main"></div>
+                    <div class="word-transliteration" id="word-transliteration"></div>
+                    <div class="word-translation" id="word-translation"></div>
+                </div>
+
+                <!-- Examples Section -->
+                <div class="section examples-section">
+                    <div class="section-title">Examples</div>
+                    <div id="examples-container"></div>
+                </div>
+
+                <!-- Grammar Section -->
+                <div class="section grammar-section">
+                    <div class="section-title">Grammar</div>
+                    <div class="grammar-content">
+                        <div class="grammar-type" id="grammar-type"></div>
+                        <div id="grammar-details"></div>
+                    </div>
+                </div>
+
+                <!-- Exercises Section -->
+                <div class="section exercises-section">
+                    <div class="section-title">Exercises</div>
+                    <div id="exercises-container"></div>
+                </div>
+
+                <!-- Rating Section -->
+                <div id="rating-section" class="section rating-section hidden">
+                    <div class="section-title">Rate Difficulty</div>
+                    <p>How difficult was this word for you?</p>
+                    <div class="rating-buttons">
+                        <button class="rating-btn easy" data-rating="easy">Easy</button>
+                        <button class="rating-btn medium" data-rating="medium">Medium</button>
+                        <button class="rating-btn hard" data-rating="hard">Hard</button>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="next-word-btn" class="btn hidden">Next Word</button>
+                </div>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <p>Generating content...</p>
+            </div>
+
+            <div id="error-container"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

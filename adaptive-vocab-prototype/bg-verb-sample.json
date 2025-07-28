@@ -1,0 +1,318 @@
+{
+  "wordId": "bg_001",
+  "word": "съм",
+  "translation": "to be",
+  "transliteration": "sam",
+  "examples": [
+    {
+      "original": "Аз съм учител",
+      "transliteration": "Az sam uchitel",
+      "translation": "I am a teacher"
+    },
+    {
+      "original": "Те са приятели",
+      "transliteration": "Te sa priyateli", 
+      "translation": "They are friends"
+    },
+    {
+      "original": "Ние бяхме у дома",
+      "transliteration": "Nie byahme u doma",
+      "translation": "We were at home"
+    }
+  ],
+  "grammar": {
+    "wordType": "verb",
+    "details": {
+      "conjugations": {
+        "present": {
+          "I": {
+            "original": "аз съм",
+            "transliteration": "az sam",
+            "translation": "I am"
+          },
+          "you": {
+            "original": "ти си",
+            "transliteration": "ti si",
+            "translation": "you are (singular)"
+          },
+          "he": {
+            "original": "той е",
+            "transliteration": "toy e",
+            "translation": "he is"
+          },
+          "she": {
+            "original": "тя е",
+            "transliteration": "tya e",
+            "translation": "she is"
+          },
+          "it": {
+            "original": "то е",
+            "transliteration": "to e",
+            "translation": "it is"
+          },
+          "we": {
+            "original": "ние сме",
+            "transliteration": "nie sme",
+            "translation": "we are"
+          },
+          "they": {
+            "original": "те са",
+            "transliteration": "te sa",
+            "translation": "they are"
+          },
+          "you_plural": {
+            "original": "вие сте",
+            "transliteration": "vie ste",
+            "translation": "you are (plural)"
+          }
+        },
+        "past": {
+          "I": {
+            "original": "аз бях",
+            "transliteration": "az byah",
+            "translation": "I was"
+          },
+          "you": {
+            "original": "ти беше",
+            "transliteration": "ti beshe",
+            "translation": "you were (singular)"
+          },
+          "he": {
+            "original": "той беше",
+            "transliteration": "toy beshe",
+            "translation": "he was"
+          },
+          "she": {
+            "original": "тя беше",
+            "transliteration": "tya beshe",
+            "translation": "she was"
+          },
+          "it": {
+            "original": "то беше",
+            "transliteration": "to beshe",
+            "translation": "it was"
+          },
+          "we": {
+            "original": "ние бяхме",
+            "transliteration": "nie byahme",
+            "translation": "we were"
+          },
+          "they": {
+            "original": "те бяха",
+            "transliteration": "te byaha",
+            "translation": "they were"
+          },
+          "you_plural": {
+            "original": "вие бяхте",
+            "transliteration": "vie byahte",
+            "translation": "you were (plural)"
+          }
+        },
+        "future": {
+          "I": {
+            "original": "аз ще съм",
+            "transliteration": "az shte sam",
+            "translation": "I will be"
+          },
+          "you": {
+            "original": "ти ще си",
+            "transliteration": "ti shte si",
+            "translation": "you will be (singular)"
+          },
+          "he": {
+            "original": "той ще е",
+            "transliteration": "toy shte e",
+            "translation": "he will be"
+          },
+          "she": {
+            "original": "тя ще е",
+            "transliteration": "tya shte e",
+            "translation": "she will be"
+          },
+          "it": {
+            "original": "то ще е",
+            "transliteration": "to shte e",
+            "translation": "it will be"
+          },
+          "we": {
+            "original": "ние ще сме",
+            "transliteration": "nie shte sme",
+            "translation": "we will be"
+          },
+          "they": {
+            "original": "те ще са",
+            "transliteration": "te shte sa",
+            "translation": "they will be"
+          },
+          "you_plural": {
+            "original": "вие ще сте",
+            "transliteration": "vie shte ste",
+            "translation": "you will be (plural)"
+          }
+        }
+      }
+    }
+  },
+  "exercises": [
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Аз _____ от България",
+        "transliteration": "Az _____ ot Balgariya",
+        "translation": "I _____ from Bulgaria"
+      },
+      "options": [
+        {
+          "original": "съм",
+          "transliteration": "sam",
+          "translation": "am"
+        },
+        {
+          "original": "си",
+          "transliteration": "si",
+          "translation": "are (you)"
+        },
+        {
+          "original": "е",
+          "transliteration": "e",
+          "translation": "is"
+        },
+        {
+          "original": "са",
+          "transliteration": "sa",
+          "translation": "are (they)"
+        }
+      ],
+      "correctAnswer": "съм"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Тя _____ студентка в университета",
+        "transliteration": "Tya _____ studentka v universiteta",
+        "translation": "She _____ a student at the university"
+      },
+      "options": [
+        {
+          "original": "съм",
+          "transliteration": "sam",
+          "translation": "am"
+        },
+        {
+          "original": "е",
+          "transliteration": "e",
+          "translation": "is"
+        },
+        {
+          "original": "са",
+          "transliteration": "sa",
+          "translation": "are (they)"
+        },
+        {
+          "original": "сме",
+          "transliteration": "sme",
+          "translation": "are (we)"
+        }
+      ],
+      "correctAnswer": "е"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Вчера ние _____ в театъра",
+        "transliteration": "Vchera nie _____ v teatara",
+        "translation": "Yesterday we _____ at the theater"
+      },
+      "options": [
+        {
+          "original": "съм",
+          "transliteration": "sam",
+          "translation": "am"
+        },
+        {
+          "original": "бяхме",
+          "transliteration": "byahme",
+          "translation": "were"
+        },
+        {
+          "original": "ще сме",
+          "transliteration": "shte sme",
+          "translation": "will be"
+        },
+        {
+          "original": "сме",
+          "transliteration": "sme",
+          "translation": "are"
+        }
+      ],
+      "correctAnswer": "бяхме"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Как да кажем 'We are very happy' на български?",
+        "transliteration": "Kak da kazhem 'We are very happy' na bulgarski?",
+        "translation": "We are very happy"
+      },
+      "options": [
+        {
+          "original": "ние",
+          "transliteration": "nie",
+          "translation": "we"
+        },
+        {
+          "original": "сме",
+          "transliteration": "sme",
+          "translation": "are"
+        },
+        {
+          "original": "щастливи",
+          "transliteration": "shtastlivi",
+          "translation": "happy"
+        },
+        {
+          "original": "много",
+          "transliteration": "mnogo",
+          "translation": "very"
+        }
+      ],
+      "correctAnswer": "ние сме много щастливи"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Как да кажем 'Tomorrow they will be here' на български?",
+        "transliteration": "Kak da kazhem 'Tomorrow they will be here' na bulgarski?",
+        "translation": "Tomorrow they will be here"
+      },
+      "options": [
+        {
+          "original": "утре",
+          "transliteration": "utre",
+          "translation": "tomorrow"
+        },
+        {
+          "original": "ще",
+          "transliteration": "shte",
+          "translation": "will"
+        },
+        {
+          "original": "те",
+          "transliteration": "te",
+          "translation": "they"
+        },
+        {
+          "original": "са",
+          "transliteration": "sa",
+          "translation": "are"
+        },
+        {
+          "original": "тук",
+          "transliteration": "tuk",
+          "translation": "here"
+        }
+      ],
+      "correctAnswer": "утре те ще са тук"
+    }
+  ]
+}
