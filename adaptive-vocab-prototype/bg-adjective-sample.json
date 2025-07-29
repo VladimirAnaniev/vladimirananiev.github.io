@@ -1,0 +1,234 @@
+{
+  "wordId": "bg_073",
+  "word": "красив",
+  "translation": "beautiful",
+  "transliteration": "krasiv",
+  "examples": [
+    {
+      "original": "Красив мъж",
+      "transliteration": "Krasiv mazh",
+      "translation": "Beautiful man"
+    },
+    {
+      "original": "Красива жена",
+      "transliteration": "Krasiva zhena",
+      "translation": "Beautiful woman"
+    },
+    {
+      "original": "Красиво дете",
+      "transliteration": "Krasivo dete",
+      "translation": "Beautiful child"
+    }
+  ],
+  "grammar": {
+    "wordType": "adjective",
+    "details": {
+      "genderForms": {
+        "masculine": {
+          "original": "красив",
+          "transliteration": "krasiv",
+          "translation": "beautiful (masculine)"
+        },
+        "feminine": {
+          "original": "красива",
+          "transliteration": "krasiva",
+          "translation": "beautiful (feminine)"
+        },
+        "neuter": {
+          "original": "красиво",
+          "transliteration": "krasivo",
+          "translation": "beautiful (neuter)"
+        },
+        "plural": {
+          "original": "красиви",
+          "transliteration": "krasivi",
+          "translation": "beautiful (plural)"
+        }
+      },
+      "definiteForms": {
+        "masculine": {
+          "original": "красивият",
+          "transliteration": "krasiviyat",
+          "translation": "the beautiful one (masculine)"
+        },
+        "feminine": {
+          "original": "красивата",
+          "transliteration": "krasivata",
+          "translation": "the beautiful one (feminine)"
+        },
+        "neuter": {
+          "original": "красивото",
+          "transliteration": "krasivoto",
+          "translation": "the beautiful one (neuter)"
+        },
+        "plural": {
+          "original": "красивите",
+          "transliteration": "krasivite",
+          "translation": "the beautiful ones (plural)"
+        }
+      }
+    }
+  },
+  "exercises": [
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Това е _____ къща",
+        "transliteration": "Tova e _____ kashta",
+        "translation": "This is a _____ house"
+      },
+      "options": [
+        {
+          "original": "красив",
+          "transliteration": "krasiv",
+          "translation": "beautiful (masculine)"
+        },
+        {
+          "original": "красива",
+          "transliteration": "krasiva",
+          "translation": "beautiful (feminine)"
+        },
+        {
+          "original": "красиво",
+          "transliteration": "krasivo",
+          "translation": "beautiful (neuter)"
+        },
+        {
+          "original": "красиви",
+          "transliteration": "krasivi",
+          "translation": "beautiful (plural)"
+        }
+      ],
+      "correctAnswer": "красива"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Тя има _____ момче",
+        "transliteration": "Tya ima _____ momche",
+        "translation": "She has a _____ boy"
+      },
+      "options": [
+        {
+          "original": "красив",
+          "transliteration": "krasiv",
+          "translation": "beautiful (masculine)"
+        },
+        {
+          "original": "красива",
+          "transliteration": "krasiva",
+          "translation": "beautiful (feminine)"
+        },
+        {
+          "original": "красиво",
+          "transliteration": "krasivo",
+          "translation": "beautiful (neuter)"
+        },
+        {
+          "original": "красиви",
+          "transliteration": "krasivi",
+          "translation": "beautiful (plural)"
+        }
+      ],
+      "correctAnswer": "красиво"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Децата са _____",
+        "transliteration": "Detsata sa _____",
+        "translation": "The children are _____"
+      },
+      "options": [
+        {
+          "original": "красив",
+          "transliteration": "krasiv",
+          "translation": "beautiful (masculine)"
+        },
+        {
+          "original": "красива",
+          "transliteration": "krasiva",
+          "translation": "beautiful (feminine)"
+        },
+        {
+          "original": "красиво",
+          "transliteration": "krasivo",
+          "translation": "beautiful (neuter)"
+        },
+        {
+          "original": "красиви",
+          "transliteration": "krasivi",
+          "translation": "beautiful (plural)"
+        }
+      ],
+      "correctAnswer": "красиви"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "много",
+          "transliteration": "mnogo",
+          "translation": "very"
+        },
+        {
+          "original": "красив",
+          "transliteration": "krasiv",
+          "translation": "beautiful"
+        },
+        {
+          "original": "мъж",
+          "transliteration": "mazh",
+          "translation": "man"
+        },
+        {
+          "original": "е",
+          "transliteration": "e",
+          "translation": "is"
+        },
+        {
+          "original": "този",
+          "transliteration": "tozi",
+          "translation": "this"
+        }
+      ],
+      "correctAnswer": "този мъж е много красив"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "градината",
+          "transliteration": "gradinata",
+          "translation": "the garden"
+        },
+        {
+          "original": "е",
+          "transliteration": "e",
+          "translation": "is"
+        },
+        {
+          "original": "много",
+          "transliteration": "mnogo",
+          "translation": "very"
+        },
+        {
+          "original": "красива",
+          "transliteration": "krasiva",
+          "translation": "beautiful"
+        }
+      ],
+      "correctAnswer": "градината е много красива"
+    }
+  ]
+}

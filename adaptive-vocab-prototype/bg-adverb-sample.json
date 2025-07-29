@@ -1,0 +1,205 @@
+{
+  "wordId": "bg_091",
+  "word": "бързо",
+  "translation": "quickly",
+  "transliteration": "barzo",
+  "examples": [
+    {
+      "original": "Той тича бързо",
+      "transliteration": "Toy ticha barzo",
+      "translation": "He runs quickly"
+    },
+    {
+      "original": "Говори по-бързо",
+      "transliteration": "Govori po-barzo",
+      "translation": "Speak more quickly"
+    },
+    {
+      "original": "Най-бързо от всички",
+      "transliteration": "Nay-barzo ot vsichki",
+      "translation": "Fastest of all"
+    }
+  ],
+  "grammar": {
+    "wordType": "adverb",
+    "details": {
+      "usage": {
+        "original": "Модифицира глаголи, прилагателни или други наречия",
+        "transliteration": "Modifitcira glagoli, prilagatelnI ili drugi narechiya",
+        "translation": "Modifies verbs, adjectives or other adverbs"
+      },
+      "comparative": {
+        "original": "по-бързо",
+        "transliteration": "po-barzo",
+        "translation": "more quickly"
+      },
+      "superlative": {
+        "original": "най-бързо",
+        "transliteration": "nay-barzo",
+        "translation": "most quickly"
+      }
+    }
+  },
+  "exercises": [
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Той работи _____ от мен",
+        "transliteration": "Toy raboti _____ ot men",
+        "translation": "He works _____ than me"
+      },
+      "options": [
+        {
+          "original": "бързо",
+          "transliteration": "barzo",
+          "translation": "quickly"
+        },
+        {
+          "original": "по-бързо",
+          "transliteration": "po-barzo",
+          "translation": "more quickly"
+        },
+        {
+          "original": "най-бързо",
+          "transliteration": "nay-barzo",
+          "translation": "most quickly"
+        },
+        {
+          "original": "много бързо",
+          "transliteration": "mnogo barzo",
+          "translation": "very quickly"
+        }
+      ],
+      "correctAnswer": "по-бързо"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Моля, говорете _____",
+        "transliteration": "Molya, goverete _____",
+        "translation": "Please speak _____"
+      },
+      "options": [
+        {
+          "original": "бързо",
+          "transliteration": "barzo",
+          "translation": "quickly"
+        },
+        {
+          "original": "по-бързо",
+          "transliteration": "po-barzo",
+          "translation": "more quickly"
+        },
+        {
+          "original": "най-бързо",
+          "transliteration": "nay-barzo",
+          "translation": "most quickly"
+        },
+        {
+          "original": "бавно",
+          "transliteration": "bavno",
+          "translation": "slowly"
+        }
+      ],
+      "correctAnswer": "бавно"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "От всички ученици, тя чете _____",
+        "transliteration": "Ot vsichki uchenitsi, tya chete _____",
+        "translation": "Of all students, she reads _____"
+      },
+      "options": [
+        {
+          "original": "бързо",
+          "transliteration": "barzo",
+          "translation": "quickly"
+        },
+        {
+          "original": "по-бързо",
+          "transliteration": "po-barzo",
+          "translation": "more quickly"
+        },
+        {
+          "original": "най-бързо",
+          "transliteration": "nay-barzo",
+          "translation": "most quickly"
+        },
+        {
+          "original": "бавно",
+          "transliteration": "bavno",
+          "translation": "slowly"
+        }
+      ],
+      "correctAnswer": "най-бързо"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "той",
+          "transliteration": "toy",
+          "translation": "he"
+        },
+        {
+          "original": "пише",
+          "transliteration": "pishe",
+          "translation": "writes"
+        },
+        {
+          "original": "много",
+          "transliteration": "mnogo",
+          "translation": "very"
+        },
+        {
+          "original": "бързо",
+          "transliteration": "barzo",
+          "translation": "quickly"
+        }
+      ],
+      "correctAnswer": "той пише много бързо"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "ходи",
+          "transliteration": "hodi",
+          "translation": "walks"
+        },
+        {
+          "original": "тя",
+          "transliteration": "tya",
+          "translation": "she"
+        },
+        {
+          "original": "по-бавно",
+          "transliteration": "po-bavno",
+          "translation": "more slowly"
+        },
+        {
+          "original": "от",
+          "transliteration": "ot",
+          "translation": "than"
+        },
+        {
+          "original": "мен",
+          "transliteration": "men",
+          "translation": "me"
+        }
+      ],
+      "correctAnswer": "тя ходи по-бавно от мен"
+    }
+  ]
+}

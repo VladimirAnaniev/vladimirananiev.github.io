@@ -1,0 +1,213 @@
+{
+  "wordId": "bg_036",
+  "word": "къща",
+  "translation": "house",
+  "transliteration": "kashta",
+  "examples": [
+    {
+      "original": "Това е моята къща",
+      "transliteration": "Tova e moyata kashta",
+      "translation": "This is my house"
+    },
+    {
+      "original": "Къщите са красиви",
+      "transliteration": "Kashtite sa krasivi",
+      "translation": "The houses are beautiful"
+    },
+    {
+      "original": "Купувам една къща",
+      "transliteration": "Kupuvam edna kashta",
+      "translation": "I am buying a house"
+    }
+  ],
+  "grammar": {
+    "wordType": "noun",
+    "details": {
+      "gender": "feminine",
+      "articles": {
+        "definite": {
+          "original": "къщата",
+          "transliteration": "kashtata",
+          "translation": "the house"
+        },
+        "indefinite": {
+          "original": "една къща",
+          "transliteration": "edna kashta",
+          "translation": "a house"
+        }
+      },
+      "plural": {
+        "original": "къщи",
+        "transliteration": "kashti",
+        "translation": "houses"
+      },
+      "definite_plural": {
+        "original": "къщите",
+        "transliteration": "kashtite",
+        "translation": "the houses"
+      }
+    }
+  },
+  "exercises": [
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Виждам _____ там",
+        "transliteration": "Vizhdam _____ tam",
+        "translation": "I see _____ there"
+      },
+      "options": [
+        {
+          "original": "къщата",
+          "transliteration": "kashtata",
+          "translation": "the house"
+        },
+        {
+          "original": "една къща",
+          "transliteration": "edna kashta",
+          "translation": "a house"
+        },
+        {
+          "original": "къщи",
+          "transliteration": "kashti",
+          "translation": "houses"
+        },
+        {
+          "original": "къщите",
+          "transliteration": "kashtite",
+          "translation": "the houses"
+        }
+      ],
+      "correctAnswer": "къщата"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "Вчера купих _____",
+        "transliteration": "Vchera kupih _____",
+        "translation": "Yesterday I bought _____"
+      },
+      "options": [
+        {
+          "original": "къщата",
+          "transliteration": "kashtata",
+          "translation": "the house"
+        },
+        {
+          "original": "една къща",
+          "transliteration": "edna kashta",
+          "translation": "a house"
+        },
+        {
+          "original": "къщи",
+          "transliteration": "kashti",
+          "translation": "houses"
+        },
+        {
+          "original": "къщите",
+          "transliteration": "kashtite",
+          "translation": "the houses"
+        }
+      ],
+      "correctAnswer": "една къща"
+    },
+    {
+      "type": "fill_gap",
+      "question": {
+        "original": "_____ в този квартал са скъпи",
+        "transliteration": "_____ v tozi kvartal sa skapi",
+        "translation": "_____ in this neighborhood are expensive"
+      },
+      "options": [
+        {
+          "original": "къщата",
+          "transliteration": "kashtata",
+          "translation": "the house"
+        },
+        {
+          "original": "една къща",
+          "transliteration": "edna kashta",
+          "translation": "a house"
+        },
+        {
+          "original": "къщи",
+          "transliteration": "kashti",
+          "translation": "houses"
+        },
+        {
+          "original": "къщите",
+          "transliteration": "kashtite",
+          "translation": "the houses"
+        }
+      ],
+      "correctAnswer": "къщите"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "новата",
+          "transliteration": "novata",
+          "translation": "the new"
+        },
+        {
+          "original": "къща",
+          "transliteration": "kashta",
+          "translation": "house"
+        },
+        {
+          "original": "много",
+          "transliteration": "mnogo",
+          "translation": "very"
+        },
+        {
+          "original": "е",
+          "transliteration": "e",
+          "translation": "is"
+        },
+        {
+          "original": "голяма",
+          "transliteration": "golyama",
+          "translation": "big"
+        }
+      ],
+      "correctAnswer": "новата къща е много голяма"
+    },
+    {
+      "type": "sentence_order",
+      "question": {
+        "original": "Подредете думите в правилен ред:",
+        "transliteration": "Podredete dumite v pravilen red:",
+        "translation": "Arrange the words in correct order:"
+      },
+      "options": [
+        {
+          "original": "до",
+          "transliteration": "do",
+          "translation": "next to"
+        },
+        {
+          "original": "къщата",
+          "transliteration": "kashtata",
+          "translation": "the house"
+        },
+        {
+          "original": "паркирам",
+          "transliteration": "parkiram",
+          "translation": "I park"
+        },
+        {
+          "original": "колата",
+          "transliteration": "kolata",
+          "translation": "the car"
+        }
+      ],
+      "correctAnswer": "паркирам колата до къщата"
+    }
+  ]
+}
